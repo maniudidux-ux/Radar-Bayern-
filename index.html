@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Eventy Bayern – Aichach i okolice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
-<!-- Dodane biblioteki Leaflet do mapy z pinezkami -->
+<!-- Biblioteki Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
@@ -95,9 +95,12 @@ h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}
 #gmfail{padding:30px 18px;text-align:center}
 .open{position:absolute;left:12px;top:12px;display:inline-flex;gap:6px;align-items:center;padding:8px 13px;border-radius:13px;background:var(--dock);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);text-decoration:none;font-size:.78rem;font-weight:700}
 
-/* Style dla nowej mapy kafelkowej */
+/* Style dla mapy kafelkowej */
 #mapwrap{position:relative;height:60vh;min-height:360px;overflow:hidden;margin-bottom:10px;border-radius:24px;z-index:1}
 #leaflet{width:100%;height:100%;border-radius:24px;z-index:1;background:#e5e7eb}
+/* Filtr dla trybu ciemnego, aby mapa nie raziła w oczy */
+:root[data-theme="dark"] .leaflet-tile-pane { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
+
 .leaflet-popup-content-wrapper{background:var(--glass2);color:var(--text);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow)}
 .leaflet-popup-tip{background:var(--glass2);border:1px solid var(--line)}
 .leaflet-container a.leaflet-popup-close-button{color:var(--muted)}
@@ -163,7 +166,7 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
       <div id="gmfail" class="mu" hidden>Podgląd Google Maps jest tu zablokowany. Użyj przycisku „Otwórz w Google Maps” albo zakładki „Mapa z pinezkami”.</div>
       <a class="open" id="gmo" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Aichach">Otwórz w Google Maps</a></div>
     
-    <!-- Nowa, prawdziwa mapa z pinezkami -->
+    <!-- Mapa z pinezkami -->
     <div id="mapwrap" class="glass" hidden>
       <div id="leaflet"></div>
     </div>
@@ -428,14 +431,15 @@ const refresh=()=>{render();if(VIEW==="map" && GMODE==="pins"){drawLeaflet()}};
 
 let VIEW="list",DR=null,GMODE="gm",gmq="";
 
-// --- NOWA SEKCJA MAPY (LEAFLET) ---
+// --- MAPA Z PINEZKAMI (LEAFLET) ---
 let lmap = null, clusterGroup = null;
 
 function initLeaflet() {
   if(lmap) return;
   lmap = L.map('leaflet', { zoomControl: true, attributionControl: false }).setView([48.458, 11.134], 10);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO'
+  // Używamy OpenStreetMap, który jest darmowy i nie wymaga klucza API
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
   }).addTo(lmap);
   clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40 });
   lmap.addLayer(clusterGroup);
@@ -452,7 +456,6 @@ function drawLeaflet() {
     const coords = TOWNS[town] || EXTRA[town];
     if (coords) {
       const marker = L.marker(coords);
-      // Ładny dymek z informacjami o wydarzeniu po kliknięciu pinezki
       marker.bindPopup(`
         <div style="font-family: inherit; font-size: 0.9rem; line-height: 1.4; min-width: 180px;">
           <strong style="font-size: 1rem; color: #0f2740; display:block; margin-bottom: 4px;">${e.title}</strong>
@@ -484,7 +487,6 @@ function gmode(m){
     setGM("Aichach");
   } else {
     initLeaflet();
-    // Krótkie opóźnienie, aby kontener zdążył się wyrenderować po zmianie widoku
     setTimeout(() => {
       lmap.invalidateSize();
       drawLeaflet();
