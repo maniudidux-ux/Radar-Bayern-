@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Eventy Bayern – Aichach i okolice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
+<!-- Dodane biblioteki Leaflet do mapy z pinezkami -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
 <style>
 :root{--sky1:#4fa9ee;--sky2:#d6ecfc;--cloud:1;--glass:rgba(255,255,255,.5);--glass2:rgba(255,255,255,.78);--line:rgba(255,255,255,.75);--text:#0f2740;--muted:#3d5a78;--acc:#d96a00;--acc2:#1688d8;--on:#12304f;--ont:#fff;--dock:rgba(255,255,255,.5);--shadow:0 12px 34px rgba(25,80,140,.25);--halo:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
 :root[data-theme="dark"]{--sky1:#0b1320;--sky2:#1c2b44;--cloud:.16;--glass:rgba(255,255,255,.08);--glass2:rgba(255,255,255,.14);--line:rgba(255,255,255,.16);--text:#eef1f5;--muted:#9fb0c2;--acc:#ffb454;--acc2:#5fd3e6;--on:#eef1f5;--ont:#10141a;--dock:rgba(20,28,40,.55);--shadow:0 14px 40px rgba(0,0,0,.55);--halo:#10141a;color-scheme:dark}
@@ -87,27 +94,14 @@ h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}
 #gmf{width:100%;height:56vh;min-height:340px;border:0;display:block}
 #gmfail{padding:30px 18px;text-align:center}
 .open{position:absolute;left:12px;top:12px;display:inline-flex;gap:6px;align-items:center;padding:8px 13px;border-radius:13px;background:var(--dock);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);text-decoration:none;font-size:.78rem;font-weight:700}
-#mapwrap{position:relative;height:60vh;min-height:360px;overflow:hidden;margin-bottom:10px;border-radius:24px}
-#map{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
-.bd{fill:var(--glass2);stroke:var(--muted);stroke-width:1px;vector-effect:non-scaling-stroke}
-.hc{fill:none;stroke:var(--acc);stroke-width:1.6px;stroke-dasharray:5 5;vector-effect:non-scaling-stroke}
-.gd{fill:var(--muted);opacity:.75}
-.mk{fill:var(--on);stroke:var(--ont);stroke-width:2px}
-.hm{fill:var(--acc)}
-.mt2,.mt{pointer-events:none}
-text.mt{fill:var(--ont);text-anchor:middle;font-weight:800}
-.hm+text.mt{fill:#1a1300}
-.lb{fill:var(--text);paint-order:stroke;stroke:var(--halo);stroke-linejoin:round;pointer-events:none;font-weight:600}
-.zb{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
-.zb button{width:40px;height:40px;border-radius:13px;border:1px solid var(--line);background:var(--dock);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;place-items:center}
-.sheet{padding:14px 16px;border-radius:22px;font-size:.88rem}
-.sheet h2{display:flex;gap:8px;align-items:center;margin:0 0 6px;font-size:1rem}
-.sheet a.ev{display:block;padding:9px 0 4px;border-top:1px solid var(--line);color:var(--text);text-decoration:none}
-.sheet a.ev b{display:inline-block;min-width:82px;color:var(--muted)}
-.sheet a.ev small{display:block;color:var(--muted);margin-left:82px}
-.sheet a.pin{display:inline-flex;gap:6px;align-items:center;color:var(--acc);text-decoration:none}
-.sheet .pl{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;border:0}
-.sheet .pl a{font-size:.74rem;padding:5px 11px;border-radius:11px;border:1px solid var(--line);background:var(--glass);color:var(--text);text-decoration:none}
+
+/* Style dla nowej mapy kafelkowej */
+#mapwrap{position:relative;height:60vh;min-height:360px;overflow:hidden;margin-bottom:10px;border-radius:24px;z-index:1}
+#leaflet{width:100%;height:100%;border-radius:24px;z-index:1;background:#e5e7eb}
+.leaflet-popup-content-wrapper{background:var(--glass2);color:var(--text);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.leaflet-popup-tip{background:var(--glass2);border:1px solid var(--line)}
+.leaflet-container a.leaflet-popup-close-button{color:var(--muted)}
+
 :root{--acc:#a9741a;--pane:rgba(255,255,255,.76)}
 :root[data-theme="dark"]{--acc:#e6bd72;--pane:rgba(18,26,38,.82)}
 body{font-family:"Inter","Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
@@ -161,17 +155,18 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
     <div class="cnt" id="count"></div>
     <div id="list"></div>
     <div class="find" id="find"></div>
-    <p class="note">Dane z sieci, stan na 11 listopada 2026. Sprawdź daty i godziny na stronie organizatora (przycisk „Strona”). Zdjęcia na kartach to przykładowe fotografie z Wikipedii i Wikimedia Commons dobrane tematycznie. Przycisk „Zdjęcia” otwiera zdjęcia konkretnego wydarzenia w Google.</p>
+    <p class="note">Dane z sieci, stan na 11 listopada 2026. Sprawdź daty i godziny na stronie organizatora. Zdjęcia na kartach to przykładowe fotografie z Wikipedii i Wikimedia Commons dobrane tematycznie.</p>
   </div>
   <div id="mapview" hidden>
-    <div class="seg glass" id="seg"><button data-g="gm">Google Maps</button><button data-g="pins">Pinezki wydarzeń</button></div>
+    <div class="seg glass" id="seg"><button data-g="gm">Google Maps (Podgląd)</button><button data-g="pins">Mapa z pinezkami</button></div>
     <div class="gm glass" id="gmwrap"><iframe id="gmf" title="Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-      <div id="gmfail" class="mu" hidden>Podgląd Google Maps jest tu zablokowany. Użyj przycisku „Otwórz w Google Maps” albo zakładki „Pinezki wydarzeń”.</div>
+      <div id="gmfail" class="mu" hidden>Podgląd Google Maps jest tu zablokowany. Użyj przycisku „Otwórz w Google Maps” albo zakładki „Mapa z pinezkami”.</div>
       <a class="open" id="gmo" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Aichach">Otwórz w Google Maps</a></div>
-    <div id="mapwrap" class="glass" hidden><svg id="map" xmlns="http://www.w3.org/2000/svg"><g id="layer"></g></svg>
-      <div class="zb"><button id="zi" aria-label="Przybliż"></button><button id="zo" aria-label="Oddal"></button><button id="zh" aria-label="Moja okolica"></button><button id="za" aria-label="Cała Bawaria"></button></div></div>
-    <div class="mu" id="mapinfo" style="margin:0 4px 10px" hidden></div>
-    <section class="sheet glass" id="sheet"></section>
+    
+    <!-- Nowa, prawdziwa mapa z pinezkami -->
+    <div id="mapwrap" class="glass" hidden>
+      <div id="leaflet"></div>
+    </div>
   </div>
 </main>
 <div class="drawer" id="drawer" hidden></div>
@@ -219,41 +214,23 @@ const ic=(n,s=20)=>`<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24
 const REGIONS=[["all","Wszystkie"],["afb","Aichach-Friedberg"],["nsh","Neuburg-Schrobenhausen"],["dah","Dachau"],["paf","Pfaffenhofen a.d. Ilm"],["ffb","Fürstenfeldbruck"],["muc","Monachium"],["by","Reszta Bawarii"]];
 const RQ={all:"Aichach Bayern",afb:"Aichach Friedberg",nsh:"Neuburg Schrobenhausen",dah:"Dachau",paf:"Pfaffenhofen Ilm",ffb:"Fürstenfeldbruck",muc:"München",by:"Bayern"};
 const LEVELS=[["all","Wszystkie"],["gmina","Gminne"],["region","Regionalne"],["big","Duże"],["fav","Zapisane"]];
-const LVL={gmina:"Gmina",region:"Region",big:"Duże"};
 const CATS={
-  xmas:["🎄","Jarmarki świąteczne",30,"Weihnachtsmarkt"],
-  flohmarkt:["🛍️","Flohmarkt / targi",200,"Flohmarkt"],
-  kinder:["🧸","Kinderflohmarkt",340,"Kinderflohmarkt"],
-  ski:["⛷️","Ski-Markt",210,"Skibörse"],
-  skoki:["🎿","Skoki narciarskie",220,"Skispringen"],
-  extreme:["🪂","Sporty wyczynowe",190,"Red Bull Monster Energy Event"],
-  mma:["🥊","MMA",0,"MMA"],
-  moto:["🏍️","Motocross",20,"Motocross Supercross"],
-  rajdy:["🏁","Rajdy",10,"Rallye"],
-  esport:["🏆","E-sport",260,"E-Sport Turnier"],
-  gry:["🎮","Gry",280,"Gaming Messe"],
-  drony:["🚁","Drony",180,"Drohnen Messe"],
-  sport:["⚽","Sport / mecze",120,"Sport Heimspiel Tickets"],
-  rolki:["🛼","Rolki / skating",150,"Inline Skating Rollschuh Wettbewerb"],
-  party:["🎉","Imprezy / kultura",300,"Veranstaltung Konzert"],
-  tech:["💡","Technologie",240,"Technik Messe Maker"],
-  jarmark:["🏰","Jarmark średniowieczny",35,"Mittelaltermarkt"],
-  kulinaria:["🍴","Kulinaria",25,"Street Food Festival"]
+  xmas:["🎄","Jarmarki świąteczne",30,"Weihnachtsmarkt"], flohmarkt:["🛍️","Flohmarkt",200,"Flohmarkt"], kinder:["🧸","Kinderflohmarkt",340,"Kinderflohmarkt"], ski:["⛷️","Ski-Markt",210,"Skibörse"], skoki:["🎿","Skoki",220,"Skispringen"], extreme:["🪂","Sporty wyczynowe",190,"Red Bull"], mma:["🥊","MMA",0,"MMA"], moto:["🏍️","Motocross",20,"Motocross"], rajdy:["🏁","Rajdy",10,"Rallye"], esport:["🏆","E-sport",260,"E-Sport"], gry:["🎮","Gry",280,"Gaming"], drony:["🚁","Drony",180,"Drohnen"], sport:["⚽","Sport / mecze",120,"Sport"], rolki:["🛼","Rolki",150,"Inline"], party:["🎉","Imprezy",300,"Konzert"], tech:["💡","Technologie",240,"Technik"], jarmark:["🏰","Jarmark średniowieczny",35,"Mittelaltermarkt"], kulinaria:["🍴","Kulinaria",25,"Street Food"]
 };
 const H="https://de.headtopics.com/news/weihnachtsmarkte-2026-im-landkreis-aichach-friedberg-89545835";
 const F="https://www.festivalsindeutschland.de/festival/";
 const EVENTS=[
  {id:1,title:"Kathreinmarkt Aindling",date:"2026-11-21",end:"2026-11-22",time:"sob 17–20, nd 11–20",place:"Aindling, Marktplatz",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:2,title:"Christkindlmarkt Dachau",date:"2026-11-20",end:"2026-12-23",time:"codziennie",place:"Dachau, Altstadt",region:"dah",cat:"xmas",level:"region",url:F+"dachauer-christkindlmarkt-dachau"},
- {id:3,title:"Münchner Adventsspektakel – jarmark średniowieczny",date:"2026-11-20",end:"2026-12-23",time:"11–21",place:"Monachium, Wittelsbacherplatz",region:"muc",cat:"jarmark",level:"region",url:F+"muenchner-adventsspektakel-mittelaltermarkt"},
+ {id:3,title:"Münchner Adventsspektakel",date:"2026-11-20",end:"2026-12-23",time:"11–21",place:"Monachium, Wittelsbacherplatz",region:"muc",cat:"jarmark",level:"region",url:F+"muenchner-adventsspektakel-mittelaltermarkt"},
  {id:4,title:"Charytatywny Christkindlmarkt Friedberg",date:"2026-11-26",end:"2026-11-29",time:"czw–pt 16–20, sob 13–20, nd 11–20",place:"Friedberg, St. Jakobs-Platz",region:"afb",cat:"xmas",level:"gmina",url:H},
- {id:5,title:"Fürther Weihnachtsmarkt z Mittelaltermarkt",date:"2026-11-26",end:"2026-12-23",time:"10–21",place:"Fürth, Fürther Freiheit",region:"by",cat:"jarmark",level:"region",url:F+"fuerther-weihnachtsmarkt-mittelaltermarkt"},
+ {id:5,title:"Fürther Weihnachtsmarkt",date:"2026-11-26",end:"2026-12-23",time:"10–21",place:"Fürth, Fürther Freiheit",region:"by",cat:"jarmark",level:"region",url:F+"fuerther-weihnachtsmarkt-mittelaltermarkt"},
  {id:6,title:"Nikolausbesuch Schiltberg",date:"2026-11-27",time:"17–22",place:"Schiltberg",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:7,title:"Alternativer Christkindlmarkt Aichach",date:"2026-11-29",time:"13–20",place:"Aichach, Schlossplatz",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:8,title:"Merchinger Adventsmarkt",date:"2026-11-29",end:"2026-12-20",time:"start 29.11 od 16:00",place:"Merching, Schulhof",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:9,title:"Weihnachtsmarkt w Schlosshof Affing",date:"2026-12-05",end:"2026-12-13",time:"5–6 i 11–13 grudnia",place:"Affing, Schlosshof",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:10,title:"Kipferlmarkt Schloss Hofhegnenberg",date:"2026-12-05",end:"2026-12-06",time:"16–20",place:"Hofhegnenberg",region:"afb",cat:"xmas",level:"gmina",url:H},
- {id:11,title:"Christkindlmarkt Gut Walterstieg",date:"2026-12-05",end:"2026-12-13",time:"5, 6, 12, 13 grudnia, 10–17",place:"Eurasburg, Gut Walterstieg",region:"afb",cat:"xmas",level:"gmina",url:H},
+ {id:11,title:"Christkindlmarkt Gut Walterstieg",date:"2026-12-05",end:"2026-12-13",time:"5, 6, 12, 13 grudnia",place:"Eurasburg, Gut Walterstieg",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:12,title:"Adventsmarkt Kühbach",date:"2026-12-06",time:"16–20",place:"Kühbach, Maibaum",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:13,title:"Schrobenhausener Christkindlmarkt",date:"2026-12-11",end:"2026-12-14",time:"godziny wkrótce",place:"Schrobenhausen, Lenbachplatz",region:"nsh",cat:"xmas",level:"gmina",url:F+"christkindlmarkt-schrobenhausen"},
  {id:14,title:"Winterwunderland Hollenbach",date:"2026-12-12",time:"15:30",place:"Hollenbach, Rathaus",region:"afb",cat:"xmas",level:"gmina",url:H},
@@ -274,16 +251,16 @@ const MORE=[
  ["2026-11-15","","Skibasar Ski-Club Auerbach","Wartenberg-Auerbach","by","ski","gmina","https://www.ski-club-auerbach.de","sprzedaż 12:30–15"],
  ["2026-11-21","","Skibasar Skischule Vierkirchen-Kammerberg","Fahrenzhausen / Vierkirchen","dah","ski","gmina","https://www.skiclub-kammerberg.de","sprzedaż 16–18"],
  ["2026-11-21","","Skibasar Skiclub Mühldorf","Mühldorf a. Inn, Mittelschule","by","ski","gmina","https://www.skischulerupertigau.de","sprzedaż 11–13"],
- ["2026-11-13","","Jordan Brodie & Micha Kern – wieczór gitary akustycznej","Aichach","afb","party","gmina",EF,"20:00"],
- ["2026-11-19","","Zwei Gulasch und zwei Seidl Bier – kabaret",OB,"afb","party","gmina",EF,"20:15"],
- ["2026-11-24","2026-12-23","Tollwood Winterfestival – alternatywny festiwal","Monachium, Theresienwiese","muc","xmas","big","https://www.muenchen.de/veranstaltungen/tollwood.html","wstęp na teren wolny"],
+ ["2026-11-13","","Jordan Brodie & Micha Kern – wieczór gitary","Aichach","afb","party","gmina",EF,"20:00"],
+ ["2026-11-19","","Zwei Gulasch und zwei Seidl Bier",OB,"afb","party","gmina",EF,"20:15"],
+ ["2026-11-24","2026-12-23","Tollwood Winterfestival", "Monachium, Theresienwiese","muc","xmas","big","https://www.muenchen.de/veranstaltungen/tollwood.html","wstęp wolny"],
  ["2026-11-26","","Beppo Calzone – CALZINGER Show",OB,"afb","party","gmina",EF,""],
  ["2026-11-28","","The Hubär – koncert",OB,"afb","party","gmina",EF,""],
  ["2026-12-03","","BlankWeinek – czytanie z muzyką",OB,"afb","party","gmina",EF,"20:15"],
  ["2026-12-10","","Stefan Leonhardsberger – Herzklopfen",OB,"afb","party","gmina",EF,"20:15"],
  ["2026-12-12","","Da Meier & Watschnbaam – O'ghängt is!",OB,"afb","party","gmina",EF,"20:15"],
  ["2026-12-13","","Sonntagsflohmarkt Augsburg","Augsburg, METRO","by","flohmarkt","region","https://veranstaltungen.meinestadt.de/augsburg","od 9:00"],
- ["2026-12-18","","Escape Dinner – kolacja z zagadkami","Aichach","afb","kulinaria","gmina","https://www.eventim.de/cityd/aichach-3244/freizeit-7/","19:00"],
+ ["2026-12-18","","Escape Dinner", "Aichach","afb","kulinaria","gmina","https://www.eventim.de/cityd/aichach-3244/freizeit-7/","19:00"],
  ["2026-12-27","2026-12-30","Wintermarkt Sankt Englmar","Sankt Englmar","by","xmas","region","http://www.kreisbote.de/bayern","12–18"],
  ["2026-12-28","2026-12-29","Vierschanzentournee – Oberstdorf","Oberstdorf, Audi Arena","by","skoki","big","https://www.festivalsindeutschland.de/festival/vierschanzentournee-oberstdorf","28.12 kwal., 29.12 konkurs"],
  ["2026-12-31","","Tollwood Silvesterparty","Monachium, Theresienwiese","muc","party","big","https://www.muenchen.de/veranstaltungen/tollwood.html","od 19:00"],
@@ -291,9 +268,9 @@ const MORE=[
  ["2026-11-20","","FC Bayern – 1. FC Köln","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
  ["2026-11-20","2026-12-24","Münchner Christkindlmarkt am Marienplatz","Monachium, Marienplatz","muc","xmas","big","https://www.festivalsindeutschland.de/festival/muenchner-christkindlmarkt-marienplatz","codziennie"],
  ["2026-11-22","","FC Augsburg – FSV Mainz","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","15:30"],
- ["2026-11-23","2026-12-24","Augsburger Christkindlesmarkt i Engelesspiel","Augsburg, Rathausplatz","by","xmas","region","https://www.festivalsindeutschland.de/festival/augsburger-christkindlesmarkt-engelesspiel","wstęp wolny"],
+ ["2026-11-23","2026-12-24","Augsburger Christkindlesmarkt","Augsburg, Rathausplatz","by","xmas","region","https://www.festivalsindeutschland.de/festival/augsburger-christkindlesmarkt-engelesspiel","wstęp wolny"],
  ["2026-11-27","2026-12-24","Nürnberger Christkindlesmarkt","Norymberga, Hauptmarkt","by","xmas","big","https://www.festivalsindeutschland.de/festival/nuernberger-christkindlesmarkt","10–21, otwarcie 27.11 o 17:30"],
- ["2026-11-27","2026-12-20","Memminger Christkindlesmarkt","Memmingen, Marktplatz","by","xmas","region","https://www.festivalsindeutschland.de/festival/memminger-christkindlesmarkt","otwarcie 27.11 o 17:30 z pochodniami"],
+ ["2026-11-27","2026-12-20","Memminger Christkindlesmarkt","Memmingen, Marktplatz","by","xmas","region","https://www.festivalsindeutschland.de/festival/memminger-christkindlesmarkt","otwarcie 27.11 o 17:30"],
  ["2026-12-04","","FC Bayern – SC Paderborn","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
  ["2026-12-05","","FC Augsburg – 1. FC Köln","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","15:30"],
  ["2026-12-18","","FC Bayern – Werder Brema","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
@@ -302,28 +279,28 @@ const MORE=[
  ["2027-01-13","","FC Bayern – Bayer Leverkusen","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
  ["2027-01-30","","FC Augsburg – Eintracht Frankfurt","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","11:00"],
  ["2027-01-30","","FC Bayern – Schalke 04","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","11:00"],
- ["2026-12-05","","Paargold: Gitarre – Gesang – Gefühl","Aichach, Grundschule Nord","afb","party","gmina","https://www.aichach.de/Freizeit-Gäste/Kultur-Termine/Veranstaltungen/Paargold-Gitarre-Gesang-Gefühl.php","19:30"],
- ["2026-12-11","","Songs & Stories Live – Wonderful Christmas Time","Aichach-Obermauerbach, Canada","afb","party","gmina","https://www.eventim-light.com/de/a/5612ebb5e4b0eed76004e0d5/e/69b400302a1b6440e5c38596","20:15"],
+ ["2026-12-05","","Paargold: Gitarre – Gesang","Aichach, Grundschule Nord","afb","party","gmina","https://www.aichach.de/Freizeit-Gäste/Kultur-Termine/Veranstaltungen/Paargold-Gitarre-Gesang-Gefühl.php","19:30"],
+ ["2026-12-11","","Songs & Stories Live",OB,"afb","party","gmina","https://www.eventim-light.com/de/a/5612ebb5e4b0eed76004e0d5/e/69b400302a1b6440e5c38596","20:15"],
  ["2026-12-19","","Weihnachtsbastelwerkstatt","Aichach, Stadtmuseum","afb","kinder","gmina","https://www.aichach.de","zapisy do 18.12"],
  ["2026-12-05","","Bratapfelfest mit Handwerkermarkt","Aichach, Mahls Obsthof","afb","kulinaria","gmina","https://www.bayerisch-schwaben.de","11:00–20:00"],
- ["2026-11-27","2026-12-29","Aichacher Christkindlmarkt","Aichach, Stadtplatz","afb","xmas","gmina","https://freizeitmonster.de/aktivitaeten/veranstaltungen/aichacher-christkindlmarkt-2026-325540","codziennie, Nikolaus 17:30"],
+ ["2026-11-27","2026-12-29","Aichacher Christkindlmarkt","Aichach, Stadtplatz","afb","xmas","gmina","https://freizeitmonster.de/aktivitaeten/veranstaltungen/aichacher-christkindlmarkt-2026-325540","codziennie"],
  ["2026-12-10","","Comedy Digga Open Mic","Augsburg, Modehaus Jung","by","party","region","https://www.augsburg-city.de/events/57621-comedy-digga-open-mic/","20:00"],
  ["2026-12-12","","TIMERUNNER – Rockgiganten Live","Augsburg, Bombig Bar & Garage","by","party","region","https://www.augsburg-city.de","20:30"],
  ["2026-12-11","","BLABLA Comedy – Stand-Up","Augsburg, Modehaus Jung","by","party","region","https://www.augsburg-city.de","20:15"],
  ["2026-12-12","","VIVALDI – Die Vier Jahreszeiten","Augsburg, KONGRESS am PARK","by","party","region","https://bz-ticket.de","20:00"],
  ["2026-12-05","","Dikka live","Augsburg, Schwabenhalle","by","party","region","https://www.laut.de","—"],
- ["2026-12-19","","„Des Menschen Engel ist die Zeit” – winterliche Lesung","Augsburg, Botanischer Garten","by","party","region","https://www.augsburg.de/detail-kalender/botanischer-garten/10025-10025-20261219","14:30–16:00"],
+ ["2026-12-19","","Des Menschen Engel ist die Zeit","Augsburg, Botanischer Garten","by","party","region","https://www.augsburg.de/detail-kalender/botanischer-garten/10025-10025-20261219","14:30–16:00"],
  ["2026-12-12","","Old but Gold – Ü30-HipHop-Party","München, Muffatwerk","muc","party","big","https://www.in-muenchen.de","22:00"],
  ["2026-12-20","","Sonderkonzert zum 4. Advent","München, Residenz Hofkapelle","muc","party","big","https://www.in-muenchen.de","17:00"],
  ["2026-12-12","","Shake Some Action – Soul, Ska, Punk","München, Eintritt frei","muc","party","big","https://www.in-muenchen.de","21:00"],
  ["2026-11-28","2026-12-06","Harry-Potter-Weihnachtsmarkt","München, Praterinsel","muc","xmas","big","https://www.wmn.de/travel/muenchen-erster-harry-potter-weihnachtsmarkt-weltweit-einzigartig-attraktion-id864309","godziny wkrótce"],
  ["2026-12-05","2026-12-06","Luciakonzerte des Schwedischen Chors","München","muc","party","big","https://www.swedenabroad.se","05.12 19:30, 06.12 17:00"],
  ["2027-01-23","","ADAC Hallen-Trial Ingolstadt","Ingolstadt, Saturn Arena","by","moto","big","https://presse.adac.de/regionalclubs/suedbayern/vorverkauf-adac-hallen-trial-ingolstadt-2027.html","14:30"],
- ["2026-10-19","","NIGHT of the JUMPs – Freestyle MX","Nürnberg, PSD Bank Arena","by","extreme","big","https://www.ticketmaster.de","19:00"],
- ["2027-04-24","","NIGHT of the JUMPs – Freestyle MX","München","muc","extreme","big","https://www.eventfinder.de","19:00"],
+ ["2026-10-19","","NIGHT of the JUMPs","Nürnberg, PSD Bank Arena","by","extreme","big","https://www.ticketmaster.de","19:00"],
+ ["2027-04-24","","NIGHT of the JUMPs","München","muc","extreme","big","https://www.eventfinder.de","19:00"],
  ["2027-02-12","2027-02-13","MSC Frontier Tech Hub 2027","München, IHK","muc","tech","big","https://www.unternehmertum.de/news/msc-frontier-tech-hub-2027","—"],
- ["2027-04-15","","Automobilwoche Technology Conference 2027","München","muc","tech","big","https://arcxp-prod.automobilwoche.de","—"],
- ["2027-05-14","","Big Techday 27 (TNG)","München, Motorworld","muc","tech","big","https://www.bigtechday.com","—"],
+ ["2027-04-15","","Automobilwoche Technology Conference","München","muc","tech","big","https://arcxp-prod.automobilwoche.de","—"],
+ ["2027-05-14","","Big Techday 27","München, Motorworld","muc","tech","big","https://www.bigtechday.com","—"],
  ["2027-06-15","2027-06-16","chassis.tech plus 2027","München","muc","tech","big","https://www.springerprofessional.de","—"]
 ];
 MORE.forEach((m,i)=>EVENTS.push({id:100+i,date:m[0],end:m[1]||undefined,title:m[2],place:m[3],region:m[4],cat:m[5],level:m[6],url:m[7],time:m[8]||undefined}));
@@ -335,8 +312,14 @@ const PREF={cats:new Set(DEF),radius:50,big:true};
 try{const p=JSON.parse(localStorage.getItem("eb-prefs")||"null");if(p){PREF.cats=new Set(p.cats);PREF.radius=p.radius||50;PREF.big=p.big!==false}}catch(e){}
 const savePrefs=()=>{try{localStorage.setItem("eb-prefs",JSON.stringify({cats:[...PREF.cats],radius:PREF.radius,big:PREF.big}))}catch(e){}};
 const HOME=[48.458,11.134];
+
 const km=(a,b)=>{const r=x=>x*Math.PI/180,dl=r(b[0]-a[0]),dn=r(b[1]-a[1]),h=Math.sin(dl/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dn/2)**2;return 12742*Math.asin(Math.sqrt(h))};
 const townOf=e=>e.place.split(",")[0].trim();
+
+// Koordynaty dla wszystkich miejscowości z bazy
+const TOWNS={"Aichach":[48.458,11.134],"Aichach-Obermauerbach":[48.46,11.08],"Aindling":[48.476,11.062],"Friedberg":[48.356,10.988],"Schiltberg":[48.50,11.22],"Merching":[48.28,10.98],"Affing":[48.39,10.96],"Eurasburg":[48.31,11.02],"Kühbach":[48.48,11.01],"Hollenbach":[48.52,11.10],"Dachau":[48.26,11.434],"Fahrenzhausen / Vierkirchen":[48.34,11.51],"Schrobenhausen":[48.557,11.265],"Pfaffenhofen":[48.53,11.504],"Monachium":[48.135,11.582],"Fürth":[49.477,10.989],"Garmisch-Partenkirchen":[47.492,11.096],"Oberstdorf":[47.409,10.279],"Taufkirchen":[48.049,11.618],"Fuchstal":[47.985,10.85],"Dillingen a.d. Donau":[48.578,10.495],"Dingolfing":[48.635,12.495],"Ampfing":[48.258,12.404],"Neutraubling":[48.988,12.2],"Höchstadt a.d. Aisch":[49.7,10.81],"Furth im Wald":[49.309,12.845],"Wartenberg-Auerbach":[48.4,11.98],"Mühldorf a. Inn":[48.246,12.524],"Augsburg":[48.371,10.898],"Norymberga":[49.452,11.077],"Memmingen":[47.983,10.185],"Sankt Englmar":[48.97,12.8],"Ingolstadt":[48.766,11.425],"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32]};
+const EXTRA={"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32]};
+
 const dist=e=>{const t=TOWNS[townOf(e)]||EXTRA[townOf(e)];return t?km(HOME,t):(e.region==="afb"?0:999)};
 const vis=e=>{
   const inRadius = dist(e) <= PREF.radius;
@@ -441,8 +424,78 @@ function render(){
   $("find").innerHTML=`<details class="glass"><summary>${ic("search",16)} Szukaj dalej w sieci</summary>`+keys.map(k=>{const p=CATS[k][3],t=p.toLowerCase().replace(/[^a-zäöüß0-9]/g,"");
     return `<div class="fr"><span class="fl">${ic(k,15)} ${CATS[k][1]}</span><a target="_blank" rel="noopener noreferrer" href="https://www.google.com/search?q=${enc(p+" "+rq+" 2026 2027")}">Google</a><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/search/events/?q=${enc(p+" "+rq)}">Facebook</a><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/explore/tags/${enc(t)}/">Instagram</a></div>`}).join("")+"</details>";
 }
-const refresh=()=>{render();if(VIEW==="map"){draw();sheet()}};
+const refresh=()=>{render();if(VIEW==="map" && GMODE==="pins"){drawLeaflet()}};
+
 let VIEW="list",DR=null,GMODE="gm",gmq="";
+
+// --- NOWA SEKCJA MAPY (LEAFLET) ---
+let lmap = null, clusterGroup = null;
+
+function initLeaflet() {
+  if(lmap) return;
+  lmap = L.map('leaflet', { zoomControl: true, attributionControl: false }).setView([48.458, 11.134], 10);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO'
+  }).addTo(lmap);
+  clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40 });
+  lmap.addLayer(clusterGroup);
+}
+
+function drawLeaflet() {
+  if (!lmap) return;
+  clusterGroup.clearLayers();
+  const bounds = L.latLngBounds();
+  let count = 0;
+
+  EVENTS.filter(e => vis(e) && live(e)).forEach(e => {
+    const town = townOf(e);
+    const coords = TOWNS[town] || EXTRA[town];
+    if (coords) {
+      const marker = L.marker(coords);
+      // Ładny dymek z informacjami o wydarzeniu po kliknięciu pinezki
+      marker.bindPopup(`
+        <div style="font-family: inherit; font-size: 0.9rem; line-height: 1.4; min-width: 180px;">
+          <strong style="font-size: 1rem; color: #0f2740; display:block; margin-bottom: 4px;">${e.title}</strong>
+          <span style="color: #64748b; display:block; margin-bottom: 4px;">${ds(e)} ${e.time ? '• ' + e.time : ''}</span>
+          <span style="color: #64748b; font-size: 0.8rem; display:block; margin-bottom: 10px;">📍 ${e.place}</span>
+          <a href="${e.url}" target="_blank" style="display:inline-block;background:#12304f;color:#fff;padding:6px 12px;border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:600;">Strona wydarzenia ↗</a>
+        </div>
+      `);
+      clusterGroup.addLayer(marker);
+      bounds.extend(coords);
+      count++;
+    }
+  });
+
+  if (count > 0) {
+    lmap.fitBounds(bounds, { padding: [30, 30], maxZoom: 13 });
+  } else {
+    lmap.setView([48.458, 11.134], 10);
+  }
+}
+
+function gmode(m){
+  GMODE=m;
+  $("gmwrap").hidden=m!=="gm";
+  $("mapwrap").hidden=m!=="pins";
+  document.querySelectorAll("#seg button").forEach(b=>b.classList.toggle("on",b.dataset.g===m));
+  
+  if(m==="gm"){
+    setGM("Aichach");
+  } else {
+    initLeaflet();
+    // Krótkie opóźnienie, aby kontener zdążył się wyrenderować po zmianie widoku
+    setTimeout(() => {
+      lmap.invalidateSize();
+      drawLeaflet();
+    }, 100);
+  }
+}
+
+function setView(v){VIEW=v;$("listview").hidden=v!=="list";$("mapview").hidden=v!=="map";if(v==="map"){gmode(GMODE)}dockMark()}
+document.addEventListener("securitypolicyviolation",e=>{if(/frame|child/.test(e.violatedDirective)){$("gmf").hidden=true;$("gmfail").hidden=false}});
+$("seg").onclick=e=>{const b=e.target.closest("button");if(b)gmode(b.dataset.g)};
+
 function drawerCats(){const cnt={};EVENTS.forEach(e=>{if(live(e))cnt[e.cat]=(cnt[e.cat]||0)+1});
   return `<h2>Kategorie</h2>
   <label class="mrow">Wszystko w promieniu <select id="rad">${[25,50,80,120].map(r=>`<option${r===PREF.radius?" selected":""}>${r}</option>`).join("")}</select> km od Aichach</label>
@@ -461,14 +514,10 @@ function fill(){$("drawer").innerHTML=DR==="cats"?drawerCats():drawerPlaces()}
 function dockMark(){document.querySelectorAll("#dock button").forEach(b=>{const n=b.dataset.n;b.classList.toggle("on",DR?n===DR:n===VIEW)})}
 function openDrawer(n){DR=n;$("drawer").hidden=false;fill();dockMark()}
 function closeDrawer(){DR=null;$("drawer").hidden=true;dockMark()}
+
 const DE={Monachium:"München"};
 function setGM(t){const q=(DE[t]||t.replace(" / "," "))+", Bayern, Deutschland";if(q===gmq)return;gmq=q;$("gmf").src="https://www.google.com/maps?q="+enc(q)+"&hl=pl&z=14&output=embed";$("gmo").href="https://www.google.com/maps/search/?api=1&query="+enc(q)}
-function gmode(m){GMODE=m;$("gmwrap").hidden=m!=="gm";$("mapwrap").hidden=m!=="pins";$("mapinfo").hidden=m!=="pins";
-  document.querySelectorAll("#seg button").forEach(b=>b.classList.toggle("on",b.dataset.g===m));
-  if(m==="gm")setGM(M.sel||"Aichach");else{view(160,48.46,11.12);draw()}}
-function setView(v){VIEW=v;$("listview").hidden=v!=="list";$("mapview").hidden=v!=="map";if(v==="map"){gmode(GMODE);sheet()}dockMark()}
-document.addEventListener("securitypolicyviolation",e=>{if(/frame|child/.test(e.violatedDirective)){$("gmf").hidden=true;$("gmfail").hidden=false}});
-$("seg").onclick=e=>{const b=e.target.closest("button");if(b)gmode(b.dataset.g)};
+
 $("dock").innerHTML=[["list","cal","Wydarzenia"],["cats","grid","Kategorie"],["places","pin","Miejsca"],["map","map","Mapa"]].map(([n,i,l])=>`<button data-n="${n}">${ic(i,22)}<span>${l}</span></button>`).join("");
 $("dock").onclick=e=>{const b=e.target.closest("button");if(!b)return;const n=b.dataset.n;
   if(n==="cats"||n==="places"){DR===n?closeDrawer():openDrawer(n);return}
@@ -484,82 +533,21 @@ $("drawer").onclick=e=>{const b=e.target.closest("button");if(!b)return;
   else if(b.id==="mall")PREF.cats=new Set(Object.keys(CATS));
   else if(b.dataset.r!==undefined){S.region=b.dataset.r;refresh();fill();return}
   else if(b.dataset.t!==undefined){S.town=b.dataset.t||null;closeDrawer();setView("list");render();window.scrollTo(0,0);return}
-  else if(b.dataset.m){M.sel=b.dataset.m;closeDrawer();setView("map");sheet();draw();return}
+  else if(b.dataset.m){M.sel=b.dataset.m;closeDrawer();setView("map");gmode("pins");return}
   else return;
   savePrefs();fill();refresh()};
 $("q").oninput=e=>{S.q=e.target.value;render()};
 
-const P=(la,lo)=>[(lo-8.9)*196.8,(50.6-la)*300];
-const TOWNS={"Aichach":[48.458,11.134],"Aichach-Obermauerbach":[48.46,11.08],"Aindling":[48.476,11.062],"Friedberg":[48.356,10.988],"Schiltberg":[48.50,11.22],"Merching":[48.28,10.98],"Affing":[48.39,10.96],"Eurasburg":[48.31,11.02],"Kühbach":[48.48,11.01],"Hollenbach":[48.52,11.10],"Dachau":[48.26,11.434],"Fahrenzhausen / Vierkirchen":[48.34,11.51],"Schrobenhausen":[48.557,11.265],"Pfaffenhofen":[48.53,11.504],"Monachium":[48.135,11.582],"Fürth":[49.477,10.989],"Garmisch-Partenkirchen":[47.492,11.096],"Oberstdorf":[47.409,10.279],"Taufkirchen":[48.049,11.618],"Fuchstal":[47.985,10.85],"Dillingen a.d. Donau":[48.578,10.495],"Dingolfing":[48.635,12.495],"Ampfing":[48.258,12.404],"Neutraubling":[48.988,12.2],"Höchstadt a.d. Aisch":[49.7,10.81],"Furth im Wald":[49.309,12.845],"Wartenberg-Auerbach":[48.4,11.98],"Mühldorf a. Inn":[48.246,12.524],"Augsburg":[48.371,10.898],"Norymberga":[49.452,11.077],"Memmingen":[47.983,10.185],"Sankt Englmar":[48.97,12.8],"Ingolstadt":[48.766,11.425],"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32]};
-const EXTRA={"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32]};
-const CITIES={"Ingolstadt":[48.766,11.425],"Norymberga":[49.452,11.077],"Ratyzbona":[49.013,12.102],"Würzburg":[49.79,9.953],"Pasawa":[48.567,13.431],"Rosenheim":[47.856,12.128],"Landshut":[48.537,12.152],"Memmingen":[47.983,10.185],"Bamberg":[49.892,10.887],"Bayreuth":[49.943,11.576]};
-const BORDER=[[9.0,49.75],[9.1,50.05],[9.6,50.2],[10.0,50.4],[10.2,50.55],[10.7,50.4],[11.2,50.4],[11.9,50.4],[12.2,50.3],[12.3,49.95],[12.55,49.75],[12.6,49.5],[12.85,49.3],[13.2,49.05],[13.5,48.75],[13.45,48.55],[13.0,48.25],[12.85,48.1],[12.95,47.8],[13.1,47.55],[12.8,47.55],[12.45,47.65],[12.2,47.6],[11.6,47.55],[11.25,47.45],[10.9,47.45],[10.45,47.3],[10.2,47.3],[9.8,47.55],[9.6,47.55],[9.9,47.7],[10.1,47.9],[10.1,48.4],[10.2,48.65],[10.45,48.85],[10.3,49.1],[10.0,49.35],[9.6,49.7]];
-const BP=BORDER.map(([lo,la],i)=>(i?"L":"M")+P(la,lo).map(v=>v.toFixed(0)).join(" ")).join("")+"Z";
-const svg=$("map"),layer=$("layer"),M={x:0,y:0,w:1000,sel:null};
-const geo=()=>{const r=svg.getBoundingClientRect();return{W:r.width||360,A:(r.height||460)/(r.width||360),L:r.left,T:r.top}};
 const ds=e=>{if(!e.date)return"termin ?";const f=d=>new Date(d+"T12:00:00").toLocaleDateString("pl-PL",{day:"numeric",month:"short"});return e.end&&e.end!==e.date?f(e.date)+"–"+f(e.end):f(e.date)};
-function mapEv(){const t=new Date().toISOString().slice(0,10),by={},none=[];
-  EVENTS.forEach(e=>{if(!(S.past||!e.date||(e.end||e.date)>=t)||!vis(e))return;const k=e.place.split(",")[0].trim();if(TOWNS[k])(by[k]=by[k]||[]).push(e);else none.push(e)});
-  return[by,none]}
-function draw(){
-  const{W,A}=geo(),k=M.w/W,[by,none]=mapEv();
-  svg.setAttribute("viewBox",`${M.x} ${M.y} ${M.w} ${M.w*A}`);
-  const[hx,hy]=P(48.458,11.134);
-  const lab=(x,y,s,z)=>`<text class="lb" x="${x}" y="${y}" font-size="${z*k}" style="stroke-width:${3*k}px" text-anchor="middle">${s}</text>`;
-  let h=`<path class="bd" d="${BP}"/><circle class="hc" cx="${hx}" cy="${hy}" r="${PREF.radius*2.7}"/>`;
-  Object.entries(CITIES).forEach(([n,[la,lo]])=>{if(TOWNS[n])return;const[x,y]=P(la,lo);h+=`<circle class="gd" cx="${x}" cy="${y}" r="${2.5*k}"/>`+lab(x,y-6*k,n,10)});
-  Object.entries(EXTRA).forEach(([n,[la,lo]])=>{const[x,y]=P(la,lo);
-    h+=`<g data-t="${n}"><circle class="gd" cx="${x}" cy="${y}" r="${(M.sel===n?7:4)*k}"/><circle cx="${x}" cy="${y}" r="${14*k}" fill="transparent"/></g>`;
-    if(M.w<260)h+=lab(x,y+14*k,n,9)});
-  Object.entries(by).forEach(([n,ev])=>{const[x,y]=P(...TOWNS[n]),hm=ev.some(e=>dist(e)<=PREF.radius);
-    h+=`<g data-t="${n}"><circle class="mk${hm?" hm":""}" cx="${x}" cy="${y}" r="${(M.sel===n?14:10)*k}"/><text class="mt" x="${x}" y="${y+4*k}" font-size="${11*k}">${ev.length}</text></g>`;
-    if(M.w<520)h+=lab(x,y+19*k,n,10)});
-  layer.innerHTML=h;
-  $("mapinfo").textContent=Object.keys(by).length+" miejscowości z wydarzeniami, szare kropki to gminy bez zapisanych wydarzeń"+(none.length?" · bez pinezki: "+[...new Set(none.map(e=>e.place.split(",")[0]))].join(", "):"")+". Pozycje są przybliżone.";
-}
-function sheet(){
-  const t=M.sel,box=$("sheet");if(t)setGM(t);
-  if(!t){box.innerHTML='<p class="muted" style="margin:0">Dotknij pinezki albo szarej kropki, żeby zobaczyć wydarzenia lub wyszukać je w sieci.</p>';return}
-  const ev=mapEv()[0][t]||[],q=enc("Veranstaltungen "+t+" 2026 2027"),tg=t.toLowerCase().replace(/[^a-zäöüß0-9]/g,"");
-  box.innerHTML=`<h2>${ic("pin",18)} ${t}</h2>`+(ev.length?ev.map(e=>`<a class="ev" href="${e.url}" target="_blank" rel="noopener noreferrer"><b>${ds(e)}</b>${e.title}${e.time?`<small>${e.time}</small>`:""}</a><a class="pin" style="display:block;margin:0 0 10px 82px" href="${gm(e)}" target="_blank" rel="noopener noreferrer">${ic("map",14)} Google Maps</a>`).join(""):'<p class="muted">Brak zapisanych wydarzeń w tej miejscowości.</p>')+
-    `<div class="pl"><a target="_blank" rel="noopener noreferrer" href="https://www.google.com/search?q=${q}">Szukaj: Google</a><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/search/events/?q=${enc(t)}">Facebook</a><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/explore/tags/${enc(tg)}/">Instagram</a><a target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=${enc(t+", Bayern")}">Google Maps</a></div>`;
-}
-function zoom(f,cx,cy){const{W,L,T}=geo(),k=M.w/W,mx=M.x+(cx-L)*k,my=M.y+(cy-T)*k,nw=Math.min(1100,Math.max(40,M.w/f)),nk=nw/W;M.x=mx-(cx-L)*nk;M.y=my-(cy-T)*nk;M.w=nw}
-function view(w,la,lo){const{A}=geo(),[x,y]=P(la,lo);M.w=w;M.x=x-w/2;M.y=y-w*A/2;draw()}
-const mid=()=>{const{W,A,L,T}=geo();return[L+W/2,T+W*A/2]};
-$("zi").onclick=()=>{zoom(1.5,...mid());draw()};
-$("zo").onclick=()=>{zoom(1/1.5,...mid());draw()};
-$("zh").onclick=()=>view(160,48.46,11.12);
-$("za").onclick=()=>view(1000,48.95,11.4);
-const pts=new Map();let moved=0,pd=0;
-svg.onpointerdown=e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;pd=0};
-svg.onpointermove=e=>{
-  if(!pts.has(e.pointerId))return;
-  const o=pts.get(e.pointerId),k=M.w/geo().W;pts.set(e.pointerId,[e.clientX,e.clientY]);
-  if(pts.size===1){
-    moved+=Math.abs(e.clientX-o[0])+Math.abs(e.clientY-o[1]);
-    if(moved<=6)return;
-    try{svg.setPointerCapture(e.pointerId)}catch(x){}
-    M.x-=(e.clientX-o[0])*k;M.y-=(e.clientY-o[1])*k;
-  }else if(pts.size===2){
-    moved=99;const[a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);
-    if(pd)zoom(d/pd,(a[0]+b[0])/2,(a[1]+b[1])/2);pd=d;
-  }
-  draw();
-};
-svg.onpointerup=svg.onpointercancel=e=>{pts.delete(e.pointerId);pd=0};
-svg.onclick=e=>{if(moved>6)return;const g=e.target.closest("[data-t]");M.sel=g?g.dataset.t:null;sheet();draw()};
-svg.onwheel=e=>{e.preventDefault();zoom(e.deltaY<0?1.25:.8,e.clientX,e.clientY);draw()};
 
 $("logo").innerHTML=ic("logo",26);$("sri").innerHTML=ic("search",18);
-$("zi").innerHTML=ic("plus",18);$("zo").innerHTML=ic("minus",18);$("zh").innerHTML=ic("target",18);$("za").innerHTML=ic("globe",18);
 (function(){let g="";
  const cl=(x,y,k,o)=>{let h="";[[0,0,60,26],[-46,10,42,20],[48,12,46,22],[-12,-16,40,22],[22,-12,34,18]].forEach(([dx,dy,rx,ry])=>h+=`<ellipse cx="${x+dx*k}" cy="${y+dy*k}" rx="${rx*k}" ry="${ry*k}"/>`);return `<g opacity="${o}">${h}</g>`};
  [[120,160,1.6,.9],[560,90,1.2,.8],[330,360,2,.7],[690,470,1.5,.85],[90,640,1.8,.75],[470,760,1.4,.8],[700,900,1.9,.7],[200,1040,1.5,.8]].forEach(a=>g+=cl(...a));
  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice"><defs><filter id="f" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="16"/></filter></defs><g fill="#fff" filter="url(#f)">${g}</g></svg>`;
  $("sky").style.backgroundImage=`url("data:image/svg+xml;utf8,${enc(svg)}")`})();
-setView("list");render();
 
+setView("list");render();
 </script>
 </body>
 </html>
