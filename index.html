@@ -6,8 +6,8 @@
 <title>Eventy Bayern – Aichach i okolice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
 <style>
-:root{--sky1:#4fa9ee;--sky2:#d6ecfc;--cloud:1;--bg1:#7fc1f3;--bg2:#d6ecfc;--glass:rgba(255,255,255,.5);--glass2:rgba(255,255,255,.78);--line:rgba(255,255,255,.75);--text:#0f2740;--muted:#3d5a78;--acc:#d96a00;--acc2:#1688d8;--on:#12304f;--ont:#fff;--dock:rgba(255,255,255,.5);--shadow:0 12px 34px rgba(25,80,140,.25);--halo:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
-:root[data-theme="dark"]{--sky1:#0b1320;--sky2:#1c2b44;--cloud:.16;--bg1:#0c0f13;--bg2:#1a2029;--glass:rgba(255,255,255,.08);--glass2:rgba(255,255,255,.14);--line:rgba(255,255,255,.16);--text:#eef1f5;--muted:#9fb0c2;--acc:#ffb454;--acc2:#5fd3e6;--on:#eef1f5;--ont:#10141a;--dock:rgba(20,28,40,.55);--shadow:0 14px 40px rgba(0,0,0,.55);--halo:#10141a;color-scheme:dark}
+:root{--sky1:#4fa9ee;--sky2:#d6ecfc;--cloud:1;--glass:rgba(255,255,255,.5);--glass2:rgba(255,255,255,.78);--line:rgba(255,255,255,.75);--text:#0f2740;--muted:#3d5a78;--acc:#d96a00;--acc2:#1688d8;--on:#12304f;--ont:#fff;--dock:rgba(255,255,255,.5);--shadow:0 12px 34px rgba(25,80,140,.25);--halo:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+:root[data-theme="dark"]{--sky1:#0b1320;--sky2:#1c2b44;--cloud:.16;--glass:rgba(255,255,255,.08);--glass2:rgba(255,255,255,.14);--line:rgba(255,255,255,.16);--text:#eef1f5;--muted:#9fb0c2;--acc:#ffb454;--acc2:#5fd3e6;--on:#eef1f5;--ont:#10141a;--dock:rgba(20,28,40,.55);--shadow:0 14px 40px rgba(0,0,0,.55);--halo:#10141a;color-scheme:dark}
 :root[data-theme="dark"] .ic{color:hsl(var(--h),75%,62%)}
 #sky{position:fixed;inset:-6%;z-index:0;pointer-events:none;background-size:cover;background-position:center;opacity:var(--cloud);animation:drift 70s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translateX(-2.5%)}to{transform:translateX(2.5%)}}
@@ -108,7 +108,6 @@ text.mt{fill:var(--ont);text-anchor:middle;font-weight:800}
 .sheet a.pin{display:inline-flex;gap:6px;align-items:center;color:var(--acc);text-decoration:none}
 .sheet .pl{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;border:0}
 .sheet .pl a{font-size:.74rem;padding:5px 11px;border-radius:11px;border:1px solid var(--line);background:var(--glass);color:var(--text);text-decoration:none}
-
 :root{--acc:#a9741a;--pane:rgba(255,255,255,.76)}
 :root[data-theme="dark"]{--acc:#e6bd72;--pane:rgba(18,26,38,.82)}
 body{font-family:"Inter","Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
@@ -148,6 +147,8 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
 .ct input:checked{background:var(--acc);border-color:var(--acc)}
 .ct input:checked::after{content:"";width:9px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
 .pn{border-radius:18px}
+.rcount{margin:4px 0 10px;font-size:.8rem;color:var(--muted)}
+.rcount b{color:var(--acc)}
 </style>
 </head>
 <body>
@@ -160,7 +161,7 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
     <div class="cnt" id="count"></div>
     <div id="list"></div>
     <div class="find" id="find"></div>
-    <p class="note">Dane z sieci, stan na 9 listopada 2026. Sprawdź daty i godziny na stronie organizatora (przycisk „Strona”). Zdjęcia na kartach to przykładowe fotografie z Wikipedii i Wikimedia Commons dobrane tematycznie (nie z danego wydarzenia). Wymagają internetu i zwykłej przeglądarki, a do czasu załadowania lub gdy są zablokowane widać wygenerowaną ilustrację. Przycisk „Zdjęcia” otwiera zdjęcia konkretnego wydarzenia w Google. Facebooka i Instagrama nie da się tu przeszukać automatycznie, stąd przyciski „Social”.</p>
+    <p class="note">Dane z sieci, stan na 11 listopada 2026. Sprawdź daty i godziny na stronie organizatora (przycisk „Strona”). Zdjęcia na kartach to przykładowe fotografie z Wikipedii i Wikimedia Commons dobrane tematycznie. Przycisk „Zdjęcia” otwiera zdjęcia konkretnego wydarzenia w Google.</p>
   </div>
   <div id="mapview" hidden>
     <div class="seg glass" id="seg"><button data-g="gm">Google Maps</button><button data-g="pins">Pinezki wydarzeń</button></div>
@@ -209,8 +210,8 @@ const ICONS={
  minus:'<path d="M5 12h14"/>',
  target:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',
  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
- logo:'<path d="M12 3a6.5 6.5 0 0 1 6.5 6.5c0 4.5-6.5 11-6.5 11S5.5 14 5.5 9.5A6.5 6.5 0 0 1 12 3z"/><path d="M12 7l1.2 2.4 2.6.4-1.9 1.8.5 2.6L12 13l-2.4 1.2.5-2.6-1.9-1.8 2.6-.4z"/>'
- ,sport:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5l3.5 2.5-1.3 4.1H9.8L8.5 10z"/><path d="M12 3.5v4M15.5 10l4-1.3M14.2 14.1l2.5 3.4M9.8 14.1l-2.5 3.4M8.5 10l-4-1.3"/>',
+ logo:'<path d="M12 3a6.5 6.5 0 0 1 6.5 6.5c0 4.5-6.5 11-6.5 11S5.5 14 5.5 9.5A6.5 6.5 0 0 1 12 3z"/><path d="M12 7l1.2 2.4 2.6.4-1.9 1.8.5 2.6L12 13l-2.4 1.2.5-2.6-1.9-1.8 2.6-.4z"/>',
+ sport:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5l3.5 2.5-1.3 4.1H9.8L8.5 10z"/><path d="M12 3.5v4M15.5 10l4-1.3M14.2 14.1l2.5 3.4M9.8 14.1l-2.5 3.4M8.5 10l-4-1.3"/>',
  photo:'<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2"/><path d="M4 18l5-4 4 3 3-2 4 3"/>'
 };
 const ic=(n,s=20)=>`<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
@@ -219,10 +220,10 @@ const REGIONS=[["all","Wszystkie"],["afb","Aichach-Friedberg"],["nsh","Neuburg-S
 const RQ={all:"Aichach Bayern",afb:"Aichach Friedberg",nsh:"Neuburg Schrobenhausen",dah:"Dachau",paf:"Pfaffenhofen Ilm",ffb:"Fürstenfeldbruck",muc:"München",by:"Bayern"};
 const LEVELS=[["all","Wszystkie"],["gmina","Gminne"],["region","Regionalne"],["big","Duże"],["fav","Zapisane"]];
 const LVL={gmina:"Gmina",region:"Region",big:"Duże"};
-const CATS={ // emoji, etykieta, odcień, fraza do wyszukiwania
+const CATS={
   xmas:["🎄","Jarmarki świąteczne",30,"Weihnachtsmarkt"],
   flohmarkt:["🛍️","Flohmarkt / targi",200,"Flohmarkt"],
-  kinder:["🧸","Kinder­flohmarkt",340,"Kinderflohmarkt"],
+  kinder:["🧸","Kinderflohmarkt",340,"Kinderflohmarkt"],
   ski:["⛷️","Ski-Markt",210,"Skibörse"],
   skoki:["🎿","Skoki narciarskie",220,"Skispringen"],
   extreme:["🪂","Sporty wyczynowe",190,"Red Bull Monster Energy Event"],
@@ -241,13 +242,12 @@ const CATS={ // emoji, etykieta, odcień, fraza do wyszukiwania
 };
 const H="https://de.headtopics.com/news/weihnachtsmarkte-2026-im-landkreis-aichach-friedberg-89545835";
 const F="https://www.festivalsindeutschland.de/festival/";
-// date=null → termin do potwierdzenia
 const EVENTS=[
  {id:1,title:"Kathreinmarkt Aindling",date:"2026-11-21",end:"2026-11-22",time:"sob 17–20, nd 11–20",place:"Aindling, Marktplatz",region:"afb",cat:"xmas",level:"gmina",url:H},
- {id:2,title:"Christkindlmarkt Dachau (największy kalendarz adwentowy Bawarii)",date:"2026-11-20",end:"2026-12-23",time:"codziennie, godziny różne",place:"Dachau, Altstadt",region:"dah",cat:"xmas",level:"region",url:F+"dachauer-christkindlmarkt-dachau"},
- {id:3,title:"Münchner Adventsspektakel – średniowieczny jarmark",date:"2026-11-20",end:"2026-12-23",time:"11–21",place:"Monachium, Wittelsbacherplatz",region:"muc",cat:"jarmark",level:"region",url:F+"muenchner-adventsspektakel-mittelaltermarkt"},
+ {id:2,title:"Christkindlmarkt Dachau",date:"2026-11-20",end:"2026-12-23",time:"codziennie",place:"Dachau, Altstadt",region:"dah",cat:"xmas",level:"region",url:F+"dachauer-christkindlmarkt-dachau"},
+ {id:3,title:"Münchner Adventsspektakel – jarmark średniowieczny",date:"2026-11-20",end:"2026-12-23",time:"11–21",place:"Monachium, Wittelsbacherplatz",region:"muc",cat:"jarmark",level:"region",url:F+"muenchner-adventsspektakel-mittelaltermarkt"},
  {id:4,title:"Charytatywny Christkindlmarkt Friedberg",date:"2026-11-26",end:"2026-11-29",time:"czw–pt 16–20, sob 13–20, nd 11–20",place:"Friedberg, St. Jakobs-Platz",region:"afb",cat:"xmas",level:"gmina",url:H},
- {id:5,title:"Fürther Weihnachtsmarkt z Mittelaltermarkt",date:"2026-11-26",end:"2026-12-23",time:"codziennie 10–21",place:"Fürth, Fürther Freiheit",region:"by",cat:"jarmark",level:"region",url:F+"fuerther-weihnachtsmarkt-mittelaltermarkt"},
+ {id:5,title:"Fürther Weihnachtsmarkt z Mittelaltermarkt",date:"2026-11-26",end:"2026-12-23",time:"10–21",place:"Fürth, Fürther Freiheit",region:"by",cat:"jarmark",level:"region",url:F+"fuerther-weihnachtsmarkt-mittelaltermarkt"},
  {id:6,title:"Nikolausbesuch Schiltberg",date:"2026-11-27",time:"17–22",place:"Schiltberg",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:7,title:"Alternativer Christkindlmarkt Aichach",date:"2026-11-29",time:"13–20",place:"Aichach, Schlossplatz",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:8,title:"Merchinger Adventsmarkt",date:"2026-11-29",end:"2026-12-20",time:"start 29.11 od 16:00",place:"Merching, Schulhof",region:"afb",cat:"xmas",level:"gmina",url:H},
@@ -255,14 +255,13 @@ const EVENTS=[
  {id:10,title:"Kipferlmarkt Schloss Hofhegnenberg",date:"2026-12-05",end:"2026-12-06",time:"16–20",place:"Hofhegnenberg",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:11,title:"Christkindlmarkt Gut Walterstieg",date:"2026-12-05",end:"2026-12-13",time:"5, 6, 12, 13 grudnia, 10–17",place:"Eurasburg, Gut Walterstieg",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:12,title:"Adventsmarkt Kühbach",date:"2026-12-06",time:"16–20",place:"Kühbach, Maibaum",region:"afb",cat:"xmas",level:"gmina",url:H},
- {id:13,title:"Schrobenhausener Christkindlmarkt (termin planowany)",date:"2026-12-11",end:"2026-12-14",time:"dokładne godziny wkrótce",place:"Schrobenhausen, Lenbachplatz",region:"nsh",cat:"xmas",level:"gmina",url:F+"christkindlmarkt-schrobenhausen"},
+ {id:13,title:"Schrobenhausener Christkindlmarkt",date:"2026-12-11",end:"2026-12-14",time:"godziny wkrótce",place:"Schrobenhausen, Lenbachplatz",region:"nsh",cat:"xmas",level:"gmina",url:F+"christkindlmarkt-schrobenhausen"},
  {id:14,title:"Winterwunderland Hollenbach",date:"2026-12-12",time:"15:30",place:"Hollenbach, Rathaus",region:"afb",cat:"xmas",level:"gmina",url:H},
- {id:15,title:"Pfaffenhofener Weihnachtsmarkt (daty na stronie)",date:null,place:"Pfaffenhofen, Rathaus",region:"paf",cat:"xmas",level:"gmina",url:"https://microsites.bahn.de/regional-de/regionen/bayern/ausflugstipps/weihnachtsmaerkte-uebersicht/weihnachtsmarkt_pfaffenhofen"},
- {id:16,title:"Neujahrsspringen – Turniej Czterech Skoczni (kobiety i mężczyźni)",date:"2026-12-31",end:"2027-01-01",time:"31.12 kobiety + kwalifikacje, 1.01 konkurs od 14:00",place:"Garmisch-Partenkirchen, Olympiaschanze",region:"by",cat:"skoki",level:"big",url:"https://events.europa.tips/neujahrsskispringen-garmisch-partenkirchen"},
+ {id:15,title:"Pfaffenhofener Weihnachtsmarkt",date:null,place:"Pfaffenhofen, Rathaus",region:"paf",cat:"xmas",level:"gmina",url:"https://microsites.bahn.de/regional-de/regionen/bayern/ausflugstipps/weihnachtsmaerkte-uebersicht/weihnachtsmarkt_pfaffenhofen"},
+ {id:16,title:"Neujahrsspringen – Turniej Czterech Skoczni",date:"2026-12-31",end:"2027-01-01",time:"31.12 kobiety, 1.01 konkurs od 14:00",place:"Garmisch-Partenkirchen, Olympiaschanze",region:"by",cat:"skoki",level:"big",url:"https://events.europa.tips/neujahrsskispringen-garmisch-partenkirchen"},
  {id:17,title:"We Love MMA 93",date:"2027-02-13",time:"19:00",place:"Monachium",region:"muc",cat:"mma",level:"big",url:"https://www.regioactive.de/sport/we-love-mma-termine-tickets-dde28fd027a1"}
 ];
 const EF="https://www.eventfinder.de/veranstaltungen-aichach.php",OB="Aichach-Obermauerbach, Canada (Podium)";
-// [data, koniec, tytuł, miejsce, region, kategoria, poziom, link, godziny]
 const MORE=[
  ["2026-11-13","2026-11-14","Skibasar SV-DJK Taufkirchen","Taufkirchen, Grundschule am Wald","by","ski","gmina","https://www.svdjktaufkirchen.de/skibasar/","sprzedaż sob 9–12"],
  ["2026-11-14","","Skibasar Skiclub Asch","Fuchstal, Fuchstalhalle","by","ski","gmina","https://www.scasch.de/termine/skibasar/","sprzedaż 14–16"],
@@ -272,270 +271,23 @@ const MORE=[
  ["2026-11-14","","Skibasar Skiclub Neutraubling","Neutraubling, Grundschule","by","ski","gmina","https://www.skiclubneutraubling.de/","sprzedaż 12:30–14"],
  ["2026-11-14","","Skibasar Skiclub Höchstadt","Höchstadt a.d. Aisch","by","ski","gmina","https://skiclub-hoechstadt.de/","sprzedaż 9:30–13"],
  ["2026-11-14","","Skibasar Skiclub Furth im Wald","Furth im Wald","by","ski","gmina","https://skiclub-furth.de/","sprzedaż 9–10"],
- ["2026-11-15","","Skibasar Ski-Club Auerbach","Wartenberg-Auerbach","by","ski","gmina","https://www.ski-club-auerbach.de/skischule/skibasar.php","sprzedaż 12:30–15"],
- ["2026-11-21","","Skibasar Skischule Vierkirchen-Kammerberg","Fahrenzhausen / Vierkirchen","dah","ski","gmina","https://www.skiclub-kammerberg.de/skischule/index.php/rund-ums-skifahren/skibasar","sprzedaż 16–18"],
- ["2026-11-21","","Skibasar Skiclub Mühldorf (Skischule Rupertigau)","Mühldorf a. Inn, Mittelschule","by","ski","gmina","https://www.skischulerupertigau.de","sprzedaż 11–13"],
+ ["2026-11-15","","Skibasar Ski-Club Auerbach","Wartenberg-Auerbach","by","ski","gmina","https://www.ski-club-auerbach.de","sprzedaż 12:30–15"],
+ ["2026-11-21","","Skibasar Skischule Vierkirchen-Kammerberg","Fahrenzhausen / Vierkirchen","dah","ski","gmina","https://www.skiclub-kammerberg.de","sprzedaż 16–18"],
+ ["2026-11-21","","Skibasar Skiclub Mühldorf","Mühldorf a. Inn, Mittelschule","by","ski","gmina","https://www.skischulerupertigau.de","sprzedaż 11–13"],
  ["2026-11-13","","Jordan Brodie & Micha Kern – wieczór gitary akustycznej","Aichach","afb","party","gmina",EF,"20:00"],
- ["2026-11-19","","Zwei Gulasch und zwei Seidl Bier – kabaret i muzyka",OB,"afb","party","gmina",EF,"20:15"],
- ["2026-11-24","2026-12-23","Tollwood Winterfestival – alternatywny jarmark i festiwal","Monachium, Theresienwiese","muc","xmas","big","https://www.muenchen.de/veranstaltungen/tollwood.html","wstęp na teren wolny"],
+ ["2026-11-19","","Zwei Gulasch und zwei Seidl Bier – kabaret",OB,"afb","party","gmina",EF,"20:15"],
+ ["2026-11-24","2026-12-23","Tollwood Winterfestival – alternatywny festiwal","Monachium, Theresienwiese","muc","xmas","big","https://www.muenchen.de/veranstaltungen/tollwood.html","wstęp na teren wolny"],
  ["2026-11-26","","Beppo Calzone – CALZINGER Show",OB,"afb","party","gmina",EF,""],
  ["2026-11-28","","The Hubär – koncert",OB,"afb","party","gmina",EF,""],
- ["2026-12-03","","BlankWeinek – czytanie z muzyką „Oh, Du gruselige Weihnachtszeit”",OB,"afb","party","gmina",EF,"20:15"],
+ ["2026-12-03","","BlankWeinek – czytanie z muzyką",OB,"afb","party","gmina",EF,"20:15"],
  ["2026-12-10","","Stefan Leonhardsberger – Herzklopfen",OB,"afb","party","gmina",EF,"20:15"],
- ["2026-12-12","","Da Meier & Watschnbaam – O’ghängt is!",OB,"afb","party","gmina",EF,"20:15"],
- ["2026-12-13","","Sonntagsflohmarkt Augsburg","Augsburg, METRO","by","flohmarkt","region","https://veranstaltungen.meinestadt.de/augsburg/event-detail/42451378/155950563","od 9:00"],
+ ["2026-12-12","","Da Meier & Watschnbaam – O'ghängt is!",OB,"afb","party","gmina",EF,"20:15"],
+ ["2026-12-13","","Sonntagsflohmarkt Augsburg","Augsburg, METRO","by","flohmarkt","region","https://veranstaltungen.meinestadt.de/augsburg","od 9:00"],
  ["2026-12-18","","Escape Dinner – kolacja z zagadkami","Aichach","afb","kulinaria","gmina","https://www.eventim.de/cityd/aichach-3244/freizeit-7/","19:00"],
- ["2026-12-27","2026-12-30","Wintermarkt Sankt Englmar (Waldwipfelweg)","Sankt Englmar","by","xmas","region","http://www.kreisbote.de/bayern/gigantisch-weihnachtsmarkt-in-bayern-mit-besonderem-erlebnis-zr-94578714.html","12–18"],
- ["2026-12-28","2026-12-29","Vierschanzentournee – Oberstdorf (otwarcie 75. edycji)","Oberstdorf, Audi Arena","by","skoki","big","https://www.festivalsindeutschland.de/festival/vierschanzentournee-oberstdorf","28.12 kwalifikacje, 29.12 konkurs"],
- ["2026-12-31","","Tollwood Silvesterparty","Monachium, Theresienwiese","muc","party","big","https://www.muenchen.de/veranstaltungen/tollwood.html","od 19:00, bilety"],
- ["","","DroneArt Show – pokaz dronów z muzyką na żywo","Monachium, Galopprennbahn Riem","muc","drony","big","https://thedroneartshow.com/muenchen/en/","daty po kliknięciu „Wybierz swoje doświadczenie”"],
- ["2026-11-10","2026-11-13","electronica 2026 – targi elektroniki (tylko dla branży)","Monachium, Messe München","muc","tech","big","https://electronica.de/en/trade-fair/","Fachbesuchermesse"],
- ["2026-11-20","","FC Bayern – 1. FC Köln (Bundesliga)","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
- ["2026-11-20","2026-12-24","Münchner Christkindlmarkt am Marienplatz","Monachium, Marienplatz","muc","xmas","big","https://www.festivalsindeutschland.de/festival/muenchner-christkindlmarkt-marienplatz","otwarcie 20.11, drzewo świeci do 6.01"],
- ["2026-11-22","","FC Augsburg – FSV Mainz (Bundesliga)","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","15:30"],
- ["2026-11-23","2026-12-24","Augsburger Christkindlesmarkt i Engelesspiel","Augsburg, Rathausplatz","by","xmas","region","https://www.festivalsindeutschland.de/festival/augsburger-christkindlesmarkt-engelesspiel","wstęp wolny"],
- ["2026-11-27","2026-12-24","Nürnberger Christkindlesmarkt","Norymberga, Hauptmarkt","by","xmas","big","https://www.festivalsindeutschland.de/festival/nuernberger-christkindlesmarkt","10–21, otwarcie 27.11 o 17:30"],
- ["2026-11-27","2026-12-20","Memminger Christkindlesmarkt","Memmingen, Marktplatz","by","xmas","region","https://www.festivalsindeutschland.de/festival/memminger-christkindlesmarkt","otwarcie 27.11 o 17:30 z pochodniami"],
- ["2026-12-04","","FC Bayern – SC Paderborn (Bundesliga)","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
- ["2026-12-05","","FC Augsburg – 1. FC Köln (Bundesliga)","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","15:30"],
- ["2026-12-18","","FC Bayern – Werder Brema (Bundesliga)","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
- ["2026-12-19","","FC Augsburg – SC Paderborn (Bundesliga)","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","15:30"],
- ["2027-01-12","","FC Augsburg – Borussia Mönchengladbach (Bundesliga)","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","20:30"],
- ["2027-01-13","","FC Bayern – Bayer Leverkusen (Bundesliga)","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
- ["2027-01-30","","FC Augsburg – Eintracht Frankfurt (Bundesliga)","Augsburg, WWK Arena","by","sport","region","https://www.fcaugsburg.de","11:00"],
- ["2027-01-30","","FC Bayern – Schalke 04 (Bundesliga)","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","11:00"]
-];
-MORE.forEach((m,i)=>EVENTS.push({id:100+i,date:m[0],end:m[1]||undefined,title:m[2],place:m[3],region:m[4],cat:m[5],level:m[6],url:m[7],time:m[8]||undefined}));
-EVENTS.sort((a,b)=>(a.date||"9").localeCompare(b.date||"9"));
-
-const S={region:"all",level:"all",cats:new Set(),q:"",past:false,favs:new Set(),town:null};
-const DEF=["skoki","extreme","mma","moto","rajdy","esport","gry","drony","tech","jarmark","kulinaria","rolki","sport"];
-const PREF={cats:new Set(DEF),radius:50,big:true};
-try{const p=JSON.parse(localStorage.getItem("eb-prefs")||"null");if(p){PREF.cats=new Set(p.cats);PREF.radius=p.radius||50;PREF.big=p.big!==false}}catch(e){}
-const savePrefs=()=>{try{localStorage.setItem("eb-prefs",JSON.stringify({cats:[...PREF.cats],radius:PREF.radius,big:PREF.big}))}catch(e){}};
-const HOME=[48.458,11.134];
-const km=(a,b)=>{const r=x=>x*Math.PI/180,dl=r(b[0]-a[0]),dn=r(b[1]-a[1]),h=Math.sin(dl/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dn/2)**2;return 12742*Math.asin(Math.sqrt(h))};
-const townOf=e=>e.place.split(",")[0].trim();
-const dist=e=>{const t=TOWNS[townOf(e)];return t?km(HOME,t):(e.region==="afb"?0:999)};
-const vis=e=>dist(e)<=PREF.radius||PREF.cats.has(e.cat)||(PREF.big&&e.level==="big");
-try{JSON.parse(localStorage.getItem("eb-favs")||"[]").forEach(i=>S.favs.add(i))}catch(e){}
-// ---- wygenerowane "zdjęcia" (sceny SVG z bokeh, winietą i ziarnem) ----
-const rnd=s=>()=>(s=(s*9301+49297)%233280)/233280;
-const bk=(c,n,sd,y0=20,y1=190,a=5,b=17)=>{const r=rnd(sd);let h="";for(let i=0;i<n;i++)h+=`<circle cx="${(r()*400)|0}" cy="${(y0+r()*(y1-y0))|0}" r="${(a+r()*(b-a))|0}" fill="${c}" opacity="${(.25+r()*.4).toFixed(2)}"/>`;return `<g filter="url(#b)">${h}</g>`};
-const Pg=(pts,f,o=1)=>`<polygon points="${pts}" fill="${f}" opacity="${o}"/>`;
-const Rc=(x,y,w,h,f,r=0,o=1)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${f}" opacity="${o}"/>`;
-const Ci=(x,y,r,f,o=1)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${f}" opacity="${o}"/>`;
-const Ln=(d,s,w=2,o=1)=>`<path d="${d}" fill="none" stroke="${s}" stroke-width="${w}" stroke-linecap="round" opacity="${o}"/>`;
-const AR=(n,f)=>Array.from({length:n},(_,i)=>f(i)).join("");
-const SC={
- xmas:["#0a1430","#3b4b7a",()=>AR(5,i=>{const x=8+i*78;return Pg(`${x},152 ${x+38},120 ${x+76},152`,"#1b120c")+Rc(x+4,152,68,80,"#241810")+Rc(x+14,164,48,26,"#ffb454",3,.95)+Ln(`M${x} 150Q${x+38} 160 ${x+76} 150`,"#ffd98a",2,.8)})+bk("#ffcf7a",22,7,40,200,4,14)],
- flohmarkt:["#8fc4ec","#f1e3c6",()=>AR(3,i=>{const x=14+i*128;return Pg(`${x},118 ${x+57},78 ${x+114},118`,"#d9534f")+Rc(x,118,114,14,"#f6f1e8")+AR(4,j=>Rc(x+j*28.5,118,14,14,"#d9534f"))+Rc(x+6,150,102,10,"#6b4a2b")+Rc(x+6,160,6,60,"#4a331d")+Rc(x+96,160,6,60,"#4a331d")+Ci(x+30,144,9,"#e8b04b")+Ci(x+55,146,8,"#5aa469")+Ci(x+80,144,9,"#4a7fc1")})+Rc(0,214,400,26,"#a89478")+bk("#fff3d1",8,3,20,120,6,16)],
- kinder:["#bfe6ff","#ffeccd",()=>Rc(0,196,400,44,"#7fbf6a")+AR(7,i=>{const x=30+i*55,y=70+(i%3)*14,c=["#ef5350","#ffca28","#42a5f5","#66bb6a","#ab47bc","#ff7043","#26c6da"][i];return Ln(`M${x} ${y+25}Q${x+8} 160 ${x+(i%2?10:-10)} 200`,"#fff",1.5,.8)+`<ellipse cx="${x}" cy="${y}" rx="20" ry="25" fill="${c}"/>`+Ci(x-7,y-10,5,"#fff",.45)})+bk("#ffffff",10,5,20,150,5,14)],
- ski:["#5fa8e8","#e6f3ff",()=>Pg("0,175 85,72 165,150 255,48 345,152 400,100 400,240 0,240","#f5f9ff")+Pg("255,48 300,118 262,100 238,140 220,100","#c9dcf2",.8)+Pg("85,72 118,118 92,108 70,140","#c9dcf2",.8)+Ln("M52 240L142 132","#1c2a3b",8)+Ln("M88 240L178 142","#2d6cdf",8)+Ln("M250 240L320 160","#1c2a3b",8)+bk("#ffffff",8,9,30,130,6,16)],
- skoki:["#ff9d6c","#22386b",()=>Ci(310,96,34,"#ffe0a8",.55)+Pg("0,240 0,150 170,175 400,238 400,240","#dfe9f7")+Rc(24,36,10,86,"#151c2e")+Ln("M29 44L232 150","#151c2e",6)+Ln("M232 150Q262 160 290 176","#dfe9f7",5)+Ci(262,118,5,"#0f1420")+Ln("M258 124l18-8","#0f1420",5)+Ln("M246 132l46-14","#0f1420",3)+bk("#fff2b8",9,11,20,120,4,12)],
- extreme:["#ff7c47","#3a1c5d",()=>Ci(292,118,44,"#ffd37f",.9)+Pg("0,240 0,150 40,152 90,196 150,230 200,240","#0d0d16")+Pg("400,240 400,170 330,170 280,214 250,240","#0d0d16")+Ci(188,78,5,"#0a0a12")+Ln("M188 84l-6 18M188 90l12 6","#0a0a12",4)+Ln("M168 112l40-12","#0a0a12",4)+bk("#ffb27a",12,13,30,170,5,15)],
- mma:["#050507","#2a1015",()=>AR(3,i=>Pg(`${70+i*130},0 ${10+i*130},240 ${130+i*130},240`,"#ffffff",.07))+`<ellipse cx="200" cy="196" rx="150" ry="26" fill="#7a1414"/>`+`<polygon points="128,140 272,140 312,168 272,196 128,196 88,168" fill="#1b1b22" fill-opacity=".5" stroke="#b4bcc8" stroke-width="2.2"/>`+AR(5,i=>Ln(`M${128+i*36} 140L${128+i*36} 196`,"#b4bcc8",1.4,.6))+bk("#ff4d4d",9,17,60,200,6,18)],
- moto:["#f0a257","#f7dba3",()=>Pg("0,240 0,172 100,150 185,186 280,138 400,176 400,240","#6e4124")+Pg("0,240 0,210 120,196 240,222 400,200 400,240","#4f2d17")+`<circle cx="196" cy="100" r="11" fill="none" stroke="#1a120c" stroke-width="4"/><circle cx="238" cy="94" r="11" fill="none" stroke="#1a120c" stroke-width="4"/>`+Ln("M196 100L214 88L238 94","#1a120c",4)+Ln("M214 88l8-18","#1a120c",5)+Ci(224,64,6,"#1a120c")+bk("#f0d3a0",10,21,150,230,10,24)],
- rajdy:["#7fb3d9","#d8e9c4",()=>AR(9,i=>Pg(`${i*50-10},140 ${i*50+16},70 ${i*50+42},140`,"#1f4a2b",.9))+Pg("178,128 222,128 400,240 0,240","#4b4b4f")+Ln("M200 130L200 240","#f2f2f2",3,.6)+Rc(168,172,64,22,"#c62828",6)+Rc(178,160,44,16,"#8e1c1c",4)+Rc(176,192,12,8,"#111")+Rc(212,192,12,8,"#111")+bk("#e6d3a8",8,23,150,230,12,26)],
- esport:["#100828","#2b1a63",()=>Rc(58,36,284,92,"#0b1230",8)+`<rect x="58" y="36" width="284" height="92" rx="8" fill="none" stroke="#4ee6ff" stroke-width="2.5"/>`+Ln("M80 108L130 70L170 94L220 56L270 84L322 52","#ff4fd8",3)+Pg("200,0 150,36 250,36","#7a5cff",.25)+AR(14,i=>Ci(14+i*28,232-(i%3)*6,17,"#06030f"))+bk("#7a5cff",10,29,20,150,6,18)],
- gry:["#1b0a30","#0e2c4d",()=>AR(10,i=>AR(5,j=>(i*2+j)%4?"":Rc(10+i*40,20+j*34,22,22,["#ff4fd8","#4ee6ff","#ffd84e"][(i+j)%3],4,.2)))+Rc(96,96,208,92,"#080813",46)+Ln("M140 142h36M158 124v36","#4ee6ff",6)+Ci(236,134,8,"#ff4fd8")+Ci(262,150,8,"#ffd84e")+bk("#4ee6ff",8,31,30,200,8,20)],
- drony:["#02030a","#0c1236",()=>AR(70,i=>{const t=i/70*Math.PI*2,r=i%2?95:60;return Ci((200+r*Math.cos(t)*1.1).toFixed(1),(108+r*Math.sin(t)*.55).toFixed(1),2.4,"#a8ecff",.95)})+AR(24,i=>{const t=i/24*Math.PI*2;return Ci((200+28*Math.cos(t)).toFixed(1),(108+14*Math.sin(t)).toFixed(1),2.2,"#ffd37f")})+Pg("0,240 0,200 90,188 180,206 280,192 400,204 400,240","#05070f")+bk("#7fdcff",6,37,30,150,4,10)],
- sport:["#07142b","#1a3556",()=>AR(4,i=>Ci(40+i*107,40,12,"#fff",.9)+Pg(`${40+i*107},40 ${i*107-10},150 ${i*107+90},150`,"#fff",.06))+Pg("0,150 400,150 400,240 0,240","#1d6a36")+AR(6,i=>Rc(0,150+i*15,400,15,i%2?"#1d6a36":"#237a3f"))+Ln("M200 150V240","#fff",2,.7)+`<ellipse cx="200" cy="195" rx="46" ry="22" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>`+Pg("0,150 0,110 400,110 400,150","#0b1220")+bk("#ffd9a0",14,67,100,150,3,7)+bk("#ffffff",6,71,20,80,8,16)],
- rolki:["#7cc9ff","#f7e6b8",()=>Pg("0,240 0,176 400,176 400,240","#585b66")+Rc(0,176,400,4,"#e8e8ee",0,.5)+Pg("116,60 146,60 146,122 196,122 196,166 116,166","#e53935")+Rc(116,152,80,14,"#fff",3)+Ci(128,178,9,"#1d1d24")+Ci(150,178,9,"#1d1d24")+Ci(176,178,9,"#1d1d24")+Ln("M220 110h70M230 130h60M214 150h74","#ffffff",3,.7)+bk("#ffffff",6,41,20,110,6,16)],
- party:["#12061f","#2b1140",()=>Pg("80,0 20,240 150,240","#ff4fd8",.14)+Pg("200,0 150,240 260,240","#4ee6ff",.14)+Pg("320,0 250,240 390,240","#ffd84e",.14)+AR(26,i=>Rc((i*47)%390,(i*83)%190,6,10,["#ff4fd8","#4ee6ff","#ffd84e","#8bff7a"][i%4],1,.9))+bk("#ff4fd8",8,43,30,200,8,22)+bk("#4ee6ff",8,47,30,200,8,22)],
- tech:["#04141c","#0b3a46",()=>AR(8,i=>Ln(`M0 ${24+i*28}H${90+(i%3)*40}l16 16H${230+(i%2)*50}l14-14H400`,"#3ee0d0",1.2,.45))+Rc(150,80,100,80,"#06222b",10)+`<rect x="150" y="80" width="100" height="80" rx="10" fill="none" stroke="#3ee0d0" stroke-width="2.5"/>`+Rc(176,104,48,32,"#3ee0d0",4,.55)+AR(10,i=>Ci(20+i*38,(i*37)%210+10,3,"#8ff5e8",.9))+bk("#3ee0d0",8,53,30,200,6,16)],
- jarmark:["#e9a352","#2c1f3b",()=>Pg("0,240 0,170 40,170 40,140 60,140 60,170 100,170 100,120 112,120 112,100 124,100 124,120 136,120 136,170 180,170 180,150 200,150 200,170 400,170 400,240","#150d1a")+Pg("250,170 250,96 262,96 262,80 274,80 274,96 286,96 286,80 298,80 298,96 310,96 310,170","#150d1a")+Ln("M274 80V56","#150d1a",2)+Pg("274,56 300,64 274,72","#c62828")+Ci(60,200,10,"#ffb347",.9)+Ci(340,204,10,"#ffb347",.9)+bk("#ffb347",12,59,100,220,6,16)+Rc(0,214,400,26,"#1b1120")],
- kulinaria:["#2a1408","#7b3a12",()=>Rc(0,162,400,78,"#3a2312")+`<ellipse cx="120" cy="178" rx="62" ry="13" fill="#f2ede3"/>`+Ci(100,170,12,"#c8553d")+Ci(124,168,11,"#7da854")+Ci(142,172,9,"#e8b04b")+`<ellipse cx="290" cy="184" rx="58" ry="12" fill="#e9e2d4"/>`+Ci(278,176,13,"#d9822b")+Ci(304,178,10,"#8a5a2b")+Ln("M120 150q6-14 0-28M140 152q-6-14 2-26","#ffffff",3,.3)+Ln("M0 36Q200 70 400 30","#fff1c9",1.5,.7)+AR(9,i=>Ci(20+i*46,(44+Math.sin(i)*10).toFixed(1),4,"#ffd98a",.95))+bk("#ffb454",12,61,30,170,6,18)]
-};
-const TAGS={xmas:"christmas,market",flohmarkt:"flea,market",kinder:"children,playground",ski:"ski,skis",skoki:"ski,jumping",extreme:"extreme,sports",mma:"mma,fighter",moto:"motocross",rajdy:"rally,car",esport:"esports,gaming",gry:"videogame,gaming",drony:"drone,lights",rolki:"inline,skates",party:"concert,crowd",tech:"electronics,circuit",jarmark:"medieval,market",kulinaria:"streetfood,food",sport:"football,stadium"};
-const PHC={};
-function photo(k){if(PHC[k])return PHC[k];const[t,b,fn]=SC[k]||SC.party;
- const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t}"/><stop offset="1" stop-color="${b}"/></linearGradient><filter id="b"><feGaussianBlur stdDeviation="3.5"/></filter><filter id="n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><radialGradient id="v" cx=".5" cy=".45" r=".8"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient></defs><rect width="400" height="240" fill="url(#g)"/>${fn()}<rect width="400" height="240" fill="url(#v)"/><rect width="400" height="240" filter="url(#n)" opacity=".32" style="mix-blend-mode:soft-light"/></svg>`;
- return PHC[k]="data:image/svg+xml;utf8,"+encodeURIComponent(svg)}
-
-const $=id=>document.getElementById(id),enc=encodeURIComponent;
-const today=()=>new Date().toISOString().slice(0,10);
-const live=e=>S.past||!e.date||(e.end||e.date)>=today();
-const gm=e=>"https://www.google.com/maps/search/?api=1&query="+enc(e.place+", Bayern, Deutschland");
-const rel=e=>{if(!e.date)return"";const t=new Date(today()),a=new Date(e.date),z=new Date(e.end||e.date),d=Math.round((a-t)/864e5);return z<t?"minęło":d<=0?"trwa teraz":d===1?"jutro":"za "+d+" dni"};
-const social=e=>"https://www.google.com/search?q="+enc(e.title.split("(")[0]+" "+e.place+" (site:facebook.com OR site:instagram.com)");
-function dateChip(e){
-  if(!e.date)return "<b>?</b>termin";
-  const a=new Date(e.date+"T12:00:00"),m=d=>d.toLocaleDateString("pl-PL",{month:"short"});
-  if(!e.end||e.end===e.date)return `<b>${a.getDate()}</b>${m(a)}`;
-  const z=new Date(e.end+"T12:00:00");
-  return a.getMonth()===z.getMonth()?`<b>${a.getDate()}–${z.getDate()}</b>${m(a)}`:`<b>${a.getDate()} ${m(a)}</b>→ ${z.getDate()} ${m(z)}`;
-}
-function toggleTheme(){const r=document.documentElement,dark=matchMedia("(prefers-color-scheme: dark)").matches,cur=r.dataset.theme||"light",nx=cur==="dark"?"light":"dark";r.dataset.theme=nx;try{localStorage.setItem("eb-theme",nx)}catch(e){}}
-try{const t=localStorage.getItem("eb-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}
-function chips(el,items,isOn,onClick){el.innerHTML="";items.forEach(([k,l])=>{const b=document.createElement("button");b.className="chip"+(isOn(k)?" on":"");b.innerHTML=l;b.onclick=()=>{onClick(k);render()};el.appendChild(b)})}
-// ---- prawdziwe zdjęcia: Wikipedia / Wikimedia Commons (REST API), z łańcuchem awaryjnym ----
-const WKC={};
-async function wk(lang,title){const k=lang+":"+title;if(k in WKC)return WKC[k];
-  try{const r=await fetch(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);if(!r.ok)throw 0;const j=await r.json(),t=j.thumbnail&&j.thumbnail.source;if(!t)throw 0;return WKC[k]={t,big:t.replace(/\/\d+px-/,"/800px-")}}catch(x){return WKC[k]=null}}
-const WKE=[[/Nürnberger Christkindlesmarkt/,"de","Nürnberger_Christkindlesmarkt"],[/Augsburger Christkindlesmarkt/,"de","Augsburger_Christkindlesmarkt"],[/Tollwood/,"de","Tollwood"],[/Vierschanzentournee|Neujahrsspringen|Oberstdorf/,"de","Vierschanzentournee"],[/Allianz Arena/,"de","Allianz_Arena"],[/WWK Arena/,"de","WWK_Arena"],[/DroneArt/,"en","Drone_show"],[/electronica/,"de","Electronica_(Messe)"]];
-const WKT={xmas:[["de","Christkindlesmarkt"],["de","Weihnachtsmarkt"],["de","Glühwein"],["de","Weihnachtsbaum"]],flohmarkt:[["en","Flea_market"],["de","Flohmarkt"],["en","Garage_sale"]],kinder:[["en","Toy"],["en","Teddy_bear"],["en","Playground"]],ski:[["en","Alpine_skiing"],["en","Ski"]],skoki:[["en","Ski_jumping"],["de","Skispringen"]],extreme:[["en","Extreme_sport"],["en","Skateboarding"]],mma:[["en","Mixed_martial_arts"],["de","Mixed_Martial_Arts"]],moto:[["en","Motocross"],["en","Supercross"]],rajdy:[["en","Rallying"],["de","Rallye"]],esport:[["en","Esports"]],gry:[["en","Video_game"],["en","Gamepad"]],drony:[["en","Unmanned_aerial_vehicle"],["en","Quadcopter"]],rolki:[["en","Inline_skates"],["en","Roller_skating"]],party:[["en","Concert"],["en","Music_festival"]],tech:[["en","Electronics"],["en","Integrated_circuit"]],jarmark:[["de","Mittelaltermarkt"],["en","Renaissance_fair"]],kulinaria:[["en","Street_food"],["en","Food_truck"]],sport:[["en","Association_football"],["de","Bundesliga"]]};
-function tryImg(urls,done){const next=()=>{const u=urls.shift();if(!u)return;const i=new Image();i.referrerPolicy="no-referrer";i.onload=()=>done(u);i.onerror=next;i.src=u};next()}
-async function realPhoto(im,e){
-  const list=[],ov=WKE.find(x=>x[0].test(e.title+" "+e.place)),pool=WKT[e.cat]||[];
-  if(ov)list.push([ov[1],ov[2]]);
-  if(pool.length)list.push(pool[e.id%pool.length],...pool.filter((_,i)=>i!==e.id%pool.length));
-  const urls=[];
-  for(const [l,t] of list){const d=await wk(l,t);if(d)urls.push(d.big,d.t)}
-  urls.push(`https://loremflickr.com/800/480/${TAGS[e.cat]}?lock=${e.id}`);
-  tryImg(urls,u=>{im.src=u;im.dataset.real="1"})}
-function card(e,lead){
-  const c=CATS[e.cat],near=dist(e)<=PREF.radius,sing=!e.end||e.end===e.date;
-  const when=e.date?(sing?new Date(e.date+"T12:00:00").toLocaleDateString("pl-PL",{weekday:"short"})+", ":"")+ds(e):"termin do potwierdzenia";
-  const a=document.createElement("article");a.className="pc glass"+(lead?" lead":"");
-  a.innerHTML=`<div class="cv" style="--h:${c[2]}"><img src="${photo(e.cat)}" alt="" referrerpolicy="no-referrer"><span class="dtb">${dateChip(e)}</span><span class="cti">${ic(e.cat,16)} ${c[1]}</span><button class="sv${S.favs.has(e.id)?" on":""}" aria-label="Zapisz">${ic("star",19)}</button>${rel(e)?`<span class="rl">${rel(e)}</span>`:""}</div>
-  <div class="cb"><a class="ttl" href="${e.url}" target="_blank" rel="noopener noreferrer">${e.title}</a>
-  <div class="mt">${ic("clock",15)}<span>${when}${e.time?" · "+e.time:""}</span></div>
-  <div class="mt"><a class="pl" href="${gm(e)}" target="_blank" rel="noopener noreferrer">${ic("pin",15)} ${e.place}</a>${TOWNS[townOf(e)]?`<span class="${near?"ds":""}">${Math.round(dist(e))} km od Aichach</span>`:""}</div>
-  <div class="ac"><a href="${gm(e)}" target="_blank" rel="noopener noreferrer">${ic("map",16)} Mapa</a><a href="${social(e)}" target="_blank" rel="noopener noreferrer">${ic("chat",16)} Social</a><a href="https://www.google.com/search?tbm=isch&q=${enc(e.title.split("(")[0]+" "+e.place)}" target="_blank" rel="noopener noreferrer">${ic("photo",16)} Zdjęcia</a><a href="${e.url}" target="_blank" rel="noopener noreferrer">${ic("link",16)} Strona</a></div></div>`;
-  realPhoto(a.querySelector("img"),e);
-  a.querySelector(".sv").onclick=()=>{S.favs.has(e.id)?S.favs.delete(e.id):S.favs.add(e.id);try{localStorage.setItem("eb-favs",JSON.stringify([...S.favs]))}catch(x){}render()};
-  return a}
-function render(){
-  const q=S.q.toLowerCase();
-  const rows=EVENTS.filter(e=>vis(e)&&live(e)&&(S.region==="all"||e.region===S.region)&&(!S.town||townOf(e)===S.town)&&(S.level==="all"||(S.level==="fav"?S.favs.has(e.id):e.level===S.level))&&(!q||(e.title+" "+e.place).toLowerCase().includes(q)));
-  const lv=LEVELS.map(x=>[x[0],x[1]]);
-  if(S.town)lv.unshift(["__t",ic("x",14)+" "+S.town]);
-  if(S.region!=="all")lv.unshift(["__r",ic("x",14)+" "+REGIONS.find(r=>r[0]===S.region)[1]]);
-  chips($("levels"),lv,k=>k==="__t"||k==="__r"||S.level===k,k=>{if(k==="__t")S.town=null;else if(k==="__r")S.region="all";else S.level=k});
-  $("count").textContent=rows.length+" wydarzeń · wszystkie w promieniu "+PREF.radius+" km od Aichach + wybrane kategorie w Bawarii";
-  const list=$("list");list.innerHTML="";
-  if(!rows.length)list.innerHTML='<div class="empty glass">Brak zapisanych wydarzeń dla tych filtrów. Zmień kategorie lub użyj wyszukiwania na dole.</div>';
-  let month="",n=0;
-  rows.forEach(e=>{
-    const m=e.date?new Date(e.date+"T12:00:00").toLocaleDateString("pl-PL",{month:"long",year:"numeric"}):"Termin do potwierdzenia";
-    if(m!==month){month=m;const h=document.createElement("div");h.className="month";h.textContent=m;list.appendChild(h)}
-    list.appendChild(card(e,n++===0));
-  });
-  const rq=RQ[S.region],keys=[...PREF.cats].slice(0,12);
-  $("find").innerHTML=`<details class="glass"><summary>${ic("search",16)} Szukaj dalej w sieci</summary>`+keys.map(k=>{const p=CATS[k][3],t=p.toLowerCase().replace(/[^a-zäöüß0-9]/g,"");
-    return `<div class="fr"><span class="fl">${ic(k,15)} ${CATS[k][1]}</span><a target="_blank" rel="noopener noreferrer" href="https://www.google.com/search?q=${enc(p+" "+rq+" 2026 2027")}">Google</a><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/search/events/?q=${enc(p+" "+rq)}">Facebook</a><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/explore/tags/${enc(t)}/">Instagram</a></div>`}).join("")+"</details>";
-}
-const refresh=()=>{render();if(VIEW==="map"){draw();sheet()}};
-// ---- dolny panel i rozwijane szuflady ----
-let VIEW="list",DR=null,GMODE="gm",gmq="";
-function drawerCats(){const cnt={};EVENTS.forEach(e=>{if(live(e))cnt[e.cat]=(cnt[e.cat]||0)+1});
-  return `<h2>Kategorie</h2>
-  <label class="mrow">Wszystko w promieniu <select id="rad">${[25,50,80,120].map(r=>`<option${r===PREF.radius?" selected":""}>${r}</option>`).join("")}</select> km od Aichach</label>
-  <p class="mu">Poza tym zasięgiem pokazuj w całej Bawarii:</p>
-  <div class="cg">${Object.entries(CATS).map(([k,v])=>`<label class="ct" style="--h:${v[2]}"><span class="ic">${ic(k,18)}</span><span class="cl">${v[1]}<small>${cnt[k]||0} wydarzeń</small></span><input type="checkbox" data-c="${k}"${PREF.cats.has(k)?" checked":""}></label>`).join("")}</div>
-  <label class="mrow"><input type="checkbox" id="bigc"${PREF.big?" checked":""}> Zawsze pokazuj duże wydarzenia</label>
-  <label class="mrow"><input type="checkbox" id="pastc"${S.past?" checked":""}> Pokaż minione</label>
-  <div class="pl2"><button class="chip" id="mdef">Domyślne</button><button class="chip" id="mall">Wszystkie</button><button class="chip" id="mth">${ic("moon",15)} Motyw</button></div>`}
-function placesList(){const by={};EVENTS.forEach(e=>{if(!(vis(e)&&live(e)&&(S.region==="all"||e.region===S.region)))return;const k=townOf(e);(by[k]=by[k]||{n:0,d:dist(e)}).n++});return Object.entries(by).sort((a,b)=>a[1].d-b[1].d)}
-function drawerPlaces(){const pl=placesList();
-  return `<h2>Miejsca wydarzeń</h2><div class="row">${REGIONS.map(([k,l])=>`<button class="chip${S.region===k?" on":""}" data-r="${k}">${l}</button>`).join("")}</div>
-  <div class="pr"><button class="pn" data-t=""><b>Wszystkie miejsca</b><small>${pl.length} miejscowości</small></button></div>`+
-  pl.map(([t,o])=>`<div class="pr"><button class="pn" data-t="${t}"><b>${t}</b><small>${o.n} ${o.n===1?"wydarzenie":"wydarzeń"}${o.d<900?" · "+Math.round(o.d)+" km od Aichach":""}</small></button><button class="pm" data-m="${t}" aria-label="Pokaż na mapie">${ic("map",18)}</button></div>`).join("")}
-function fill(){$("drawer").innerHTML=DR==="cats"?drawerCats():drawerPlaces()}
-function dockMark(){document.querySelectorAll("#dock button").forEach(b=>{const n=b.dataset.n;b.classList.toggle("on",DR?n===DR:n===VIEW)})}
-function openDrawer(n){DR=n;$("drawer").hidden=false;fill();dockMark()}
-function closeDrawer(){DR=null;$("drawer").hidden=true;dockMark()}
-const DE={Monachium:"München"};
-function setGM(t){const q=(DE[t]||t.replace(" / "," "))+", Bayern, Deutschland";if(q===gmq)return;gmq=q;$("gmf").src="https://www.google.com/maps?q="+enc(q)+"&hl=pl&z=14&output=embed";$("gmo").href="https://www.google.com/maps/search/?api=1&query="+enc(q)}
-function gmode(m){GMODE=m;$("gmwrap").hidden=m!=="gm";$("mapwrap").hidden=m!=="pins";$("mapinfo").hidden=m!=="pins";
-  document.querySelectorAll("#seg button").forEach(b=>b.classList.toggle("on",b.dataset.g===m));
-  if(m==="gm")setGM(M.sel||"Aichach");else{view(160,48.46,11.12);draw()}}
-function setView(v){VIEW=v;$("listview").hidden=v!=="list";$("mapview").hidden=v!=="map";if(v==="map"){gmode(GMODE);sheet()}dockMark()}
-document.addEventListener("securitypolicyviolation",e=>{if(/frame|child/.test(e.violatedDirective)){$("gmf").hidden=true;$("gmfail").hidden=false}});
-$("seg").onclick=e=>{const b=e.target.closest("button");if(b)gmode(b.dataset.g)};
-$("dock").innerHTML=[["list","cal","Wydarzenia"],["cats","grid","Kategorie"],["places","pin","Miejsca"],["map","map","Mapa"]].map(([n,i,l])=>`<button data-n="${n}">${ic(i,22)}<span>${l}</span></button>`).join("");
-$("dock").onclick=e=>{const b=e.target.closest("button");if(!b)return;const n=b.dataset.n;
-  if(n==="cats"||n==="places"){DR===n?closeDrawer():openDrawer(n);return}
-  closeDrawer();setView(n);window.scrollTo(0,0)};
-document.addEventListener("click",e=>{if(DR&&!e.composedPath().some(x=>x.id==="drawer"||x.id==="dock"))closeDrawer()});
-$("drawer").onchange=e=>{const t=e.target;
-  if(t.id==="rad")PREF.radius=+t.value;else if(t.id==="bigc")PREF.big=t.checked;else if(t.id==="pastc")S.past=t.checked;
-  else if(t.dataset.c){t.checked?PREF.cats.add(t.dataset.c):PREF.cats.delete(t.dataset.c)}else return;
-  savePrefs();refresh()};
-$("drawer").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-  if(b.id==="mth"){toggleTheme();return}
-  if(b.id==="mdef")PREF.cats=new Set(DEF);
-  else if(b.id==="mall")PREF.cats=new Set(Object.keys(CATS));
-  else if(b.dataset.r!==undefined){S.region=b.dataset.r;refresh();fill();return}
-  else if(b.dataset.t!==undefined){S.town=b.dataset.t||null;closeDrawer();setView("list");render();window.scrollTo(0,0);return}
-  else if(b.dataset.m){M.sel=b.dataset.m;closeDrawer();setView("map");sheet();draw();return}
-  else return;
-  savePrefs();fill();refresh()};
-$("q").oninput=e=>{S.q=e.target.value;render()};
-
-// ---- MAPA (schematyczna, pozycje przybliżone; wszystkie wydarzenia bez podziału na kategorie) ----
-const P=(la,lo)=>[(lo-8.9)*196.8,(50.6-la)*300];
-const TOWNS={"Aichach":[48.458,11.134],"Aichach-Obermauerbach":[48.46,11.08],"Aindling":[48.476,11.062],"Friedberg":[48.356,10.988],"Schiltberg":[48.50,11.22],"Merching":[48.28,10.98],"Affing":[48.39,10.96],"Eurasburg":[48.31,11.02],"Kühbach":[48.48,11.01],"Hollenbach":[48.52,11.10],"Dachau":[48.26,11.434],"Fahrenzhausen / Vierkirchen":[48.34,11.51],"Schrobenhausen":[48.557,11.265],"Pfaffenhofen":[48.53,11.504],"Monachium":[48.135,11.582],"Fürth":[49.477,10.989],"Garmisch-Partenkirchen":[47.492,11.096],"Oberstdorf":[47.409,10.279],"Taufkirchen":[48.049,11.618],"Fuchstal":[47.985,10.85],"Dillingen a.d. Donau":[48.578,10.495],"Dingolfing":[48.635,12.495],"Ampfing":[48.258,12.404],"Neutraubling":[48.988,12.2],"Höchstadt a.d. Aisch":[49.7,10.81],"Furth im Wald":[49.309,12.845],"Wartenberg-Auerbach":[48.4,11.98],"Mühldorf a. Inn":[48.246,12.524],"Augsburg":[48.371,10.898],"Norymberga":[49.452,11.077],"Memmingen":[47.983,10.185],"Sankt Englmar":[48.97,12.8]};
-const EXTRA={"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32]};
-const CITIES={"Ingolstadt":[48.766,11.425],"Norymberga":[49.452,11.077],"Ratyzbona":[49.013,12.102],"Würzburg":[49.79,9.953],"Pasawa":[48.567,13.431],"Rosenheim":[47.856,12.128],"Landshut":[48.537,12.152],"Memmingen":[47.983,10.185],"Bamberg":[49.892,10.887],"Bayreuth":[49.943,11.576]};
-const BORDER=[[9.0,49.75],[9.1,50.05],[9.6,50.2],[10.0,50.4],[10.2,50.55],[10.7,50.4],[11.2,50.4],[11.9,50.4],[12.2,50.3],[12.3,49.95],[12.55,49.75],[12.6,49.5],[12.85,49.3],[13.2,49.05],[13.5,48.75],[13.45,48.55],[13.0,48.25],[12.85,48.1],[12.95,47.8],[13.1,47.55],[12.8,47.55],[12.45,47.65],[12.2,47.6],[11.6,47.55],[11.25,47.45],[10.9,47.45],[10.45,47.3],[10.2,47.3],[9.8,47.55],[9.6,47.55],[9.9,47.7],[10.1,47.9],[10.1,48.4],[10.2,48.65],[10.45,48.85],[10.3,49.1],[10.0,49.35],[9.6,49.7]];
-const BP=BORDER.map(([lo,la],i)=>(i?"L":"M")+P(la,lo).map(v=>v.toFixed(0)).join(" ")).join("")+"Z";
-const svg=$("map"),layer=$("layer"),M={x:0,y:0,w:1000,sel:null};
-const geo=()=>{const r=svg.getBoundingClientRect();return{W:r.width||360,A:(r.height||460)/(r.width||360),L:r.left,T:r.top}};
-const ds=e=>{if(!e.date)return"termin ?";const f=d=>new Date(d+"T12:00:00").toLocaleDateString("pl-PL",{day:"numeric",month:"short"});return e.end&&e.end!==e.date?f(e.date)+"–"+f(e.end):f(e.date)};
-function mapEv(){const t=new Date().toISOString().slice(0,10),by={},none=[];
-  EVENTS.forEach(e=>{if(!(S.past||!e.date||(e.end||e.date)>=t)||!vis(e))return;const k=e.place.split(",")[0].trim();if(TOWNS[k])(by[k]=by[k]||[]).push(e);else none.push(e)});
-  return[by,none]}
-function draw(){
-  const{W,A}=geo(),k=M.w/W,[by,none]=mapEv();
-  svg.setAttribute("viewBox",`${M.x} ${M.y} ${M.w} ${M.w*A}`);
-  const[hx,hy]=P(48.458,11.134);
-  const lab=(x,y,s,z)=>`<text class="lb" x="${x}" y="${y}" font-size="${z*k}" style="stroke-width:${3*k}px" text-anchor="middle">${s}</text>`;
-  let h=`<path class="bd" d="${BP}"/><circle class="hc" cx="${hx}" cy="${hy}" r="${PREF.radius*2.7}"/>`;
-  Object.entries(CITIES).forEach(([n,[la,lo]])=>{if(TOWNS[n])return;const[x,y]=P(la,lo);h+=`<circle class="gd" cx="${x}" cy="${y}" r="${2.5*k}"/>`+lab(x,y-6*k,n,10)});
-  Object.entries(EXTRA).forEach(([n,[la,lo]])=>{const[x,y]=P(la,lo);
-    h+=`<g data-t="${n}"><circle class="gd" cx="${x}" cy="${y}" r="${(M.sel===n?7:4)*k}"/><circle cx="${x}" cy="${y}" r="${14*k}" fill="transparent"/></g>`;
-    if(M.w<260)h+=lab(x,y+14*k,n,9)});
-  Object.entries(by).forEach(([n,ev])=>{const[x,y]=P(...TOWNS[n]),hm=ev.some(e=>dist(e)<=PREF.radius);
-    h+=`<g data-t="${n}"><circle class="mk${hm?" hm":""}" cx="${x}" cy="${y}" r="${(M.sel===n?14:10)*k}"/><text class="mt" x="${x}" y="${y+4*k}" font-size="${11*k}">${ev.length}</text></g>`;
-    if(M.w<520)h+=lab(x,y+19*k,n,10)});
-  layer.innerHTML=h;
-  $("mapinfo").textContent=Object.keys(by).length+" miejscowości z wydarzeniami, szare kropki to gminy bez zapisanych wydarzeń"+(none.length?" · bez pinezki: "+[...new Set(none.map(e=>e.place.split(",")[0]))].join(", "):"")+". Pozycje są przybliżone.";
-}
-function sheet(){
-  const t=M.sel,box=$("sheet");if(t)setGM(t);
-  if(!t){box.innerHTML='<p class="muted" style="margin:0">Dotknij pinezki albo szarej kropki, żeby zobaczyć wydarzenia lub wyszukać je w sieci.</p>';return}
-  const ev=mapEv()[0][t]||[],q=enc("Veranstaltungen "+t+" 2026 2027"),tg=t.toLowerCase().replace(/[^a-zäöüß0-9]/g,"");
-  box.innerHTML=`<h2>${ic("pin",18)} ${t}</h2>`+(ev.length?ev.map(e=>`<a class="ev" href="${e.url}" target="_blank" rel="noopener noreferrer"><b>${ds(e)}</b>${e.title}${e.time?`<small>${e.time}</small>`:""}</a><a class="pin" style="display:block;margin:0 0 10px 82px" href="${gm(e)}" target="_blank" rel="noopener noreferrer">${ic("map",14)} Google Maps</a>`).join(""):'<p class="muted">Brak zapisanych wydarzeń w tej miejscowości.</p>')+
-    `<div class="pl"><a target="_blank" rel="noopener noreferrer" href="https://www.google.com/search?q=${q}">Szukaj: Google</a><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/search/events/?q=${enc(t)}">Facebook</a><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/explore/tags/${enc(tg)}/">Instagram</a><a target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=${enc(t+", Bayern")}">Google Maps</a></div>`;
-}
-function zoom(f,cx,cy){const{W,L,T}=geo(),k=M.w/W,mx=M.x+(cx-L)*k,my=M.y+(cy-T)*k,nw=Math.min(1100,Math.max(40,M.w/f)),nk=nw/W;M.x=mx-(cx-L)*nk;M.y=my-(cy-T)*nk;M.w=nw}
-function view(w,la,lo){const{A}=geo(),[x,y]=P(la,lo);M.w=w;M.x=x-w/2;M.y=y-w*A/2;draw()}
-const mid=()=>{const{W,A,L,T}=geo();return[L+W/2,T+W*A/2]};
-$("zi").onclick=()=>{zoom(1.5,...mid());draw()};
-$("zo").onclick=()=>{zoom(1/1.5,...mid());draw()};
-$("zh").onclick=()=>view(160,48.46,11.12);
-$("za").onclick=()=>view(1000,48.95,11.4);
-const pts=new Map();let moved=0,pd=0;
-svg.onpointerdown=e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;pd=0};
-svg.onpointermove=e=>{
-  if(!pts.has(e.pointerId))return;
-  const o=pts.get(e.pointerId),k=M.w/geo().W;pts.set(e.pointerId,[e.clientX,e.clientY]);
-  if(pts.size===1){
-    moved+=Math.abs(e.clientX-o[0])+Math.abs(e.clientY-o[1]);
-    if(moved<=6)return;
-    try{svg.setPointerCapture(e.pointerId)}catch(x){}
-    M.x-=(e.clientX-o[0])*k;M.y-=(e.clientY-o[1])*k;
-  }else if(pts.size===2){
-    moved=99;const[a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);
-    if(pd)zoom(d/pd,(a[0]+b[0])/2,(a[1]+b[1])/2);pd=d;
-  }
-  draw();
-};
-svg.onpointerup=svg.onpointercancel=e=>{pts.delete(e.pointerId);pd=0};
-svg.onclick=e=>{if(moved>6)return;const g=e.target.closest("[data-t]");M.sel=g?g.dataset.t:null;sheet();draw()};
-svg.onwheel=e=>{e.preventDefault();zoom(e.deltaY<0?1.25:.8,e.clientX,e.clientY);draw()};
-
-$("logo").innerHTML=ic("logo",26);$("sri").innerHTML=ic("search",18);
-$("zi").innerHTML=ic("plus",18);$("zo").innerHTML=ic("minus",18);$("zh").innerHTML=ic("target",18);$("za").innerHTML=ic("globe",18);
-(function(){let g="";
- const cl=(x,y,k,o)=>{let h="";[[0,0,60,26],[-46,10,42,20],[48,12,46,22],[-12,-16,40,22],[22,-12,34,18]].forEach(([dx,dy,rx,ry])=>h+=`<ellipse cx="${x+dx*k}" cy="${y+dy*k}" rx="${rx*k}" ry="${ry*k}"/>`);return `<g opacity="${o}">${h}</g>`};
- [[120,160,1.6,.9],[560,90,1.2,.8],[330,360,2,.7],[690,470,1.5,.85],[90,640,1.8,.75],[470,760,1.4,.8],[700,900,1.9,.7],[200,1040,1.5,.8]].forEach(a=>g+=cl(...a));
- const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice"><defs><filter id="f" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="16"/></filter></defs><g fill="#fff" filter="url(#f)">${g}</g></svg>`;
- $("sky").style.backgroundImage=`url("data:image/svg+xml;utf8,${enc(svg)}")`})();
-setView("list");render();
-
-</script>
-</body>
-</html>
+ ["2026-12-27","2026-12-30","Wintermarkt Sankt Englmar","Sankt Englmar","by","xmas","region","http://www.kreisbote.de/bayern","12–18"],
+ ["2026-12-28","2026-12-29","Vierschanzentournee – Oberstdorf","Oberstdorf, Audi Arena","by","skoki","big","https://www.festivalsindeutschland.de/festival/vierschanzentournee-oberstdorf","28.12 kwal., 29.12 konkurs"],
+ ["2026-12-31","","Tollwood Silvesterparty","Monachium, Theresienwiese","muc","party","big","https://www.muenchen.de/veranstaltungen/tollwood.html","od 19:00"],
+ ["","","DroneArt Show – pokaz dronów","Monachium, Galopprennbahn Riem","muc","drony","big","https://thedroneartshow.com/muenchen/en/","daty na stronie"],
+ ["2026-11-20","","FC Bayern – 1. FC Köln","Monachium, Allianz Arena","muc","sport","big","https://fcbayern.com","20:30"],
+ ["2026-11-20","2026-12-24","Münchner Christkindlmarkt am Marienplatz","Monachium, Marienplatz","muc","xmas","big","https://www.festivalsindeutschland.de/festival/muenchner-christkindlmarkt-marienplatz","codziennie"],
+ ["2026-11-22","","FC Augsburg – FSV Mainz","Augsburg, WWK Arena","by","sport
