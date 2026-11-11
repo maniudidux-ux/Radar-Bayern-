@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Eventy Bayern – Aichach i okolice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
-<!-- Biblioteki Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
@@ -19,38 +18,31 @@
 #sky{position:fixed;inset:-6%;z-index:0;pointer-events:none;background-size:cover;background-position:center;opacity:var(--cloud);animation:drift 70s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translateX(-2.5%)}to{transform:translateX(2.5%)}}
 @media (prefers-reduced-motion:reduce){#sky{animation:none}}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}[hidden]{display:none!important}
 body{margin:0;min-height:100vh;font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;color:var(--text);background:linear-gradient(180deg,var(--sky1),var(--sky2)) fixed;overflow-x:hidden}
 .wrap{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:16px 14px calc(120px + env(safe-area-inset-bottom,0px))}
-.i{flex:none;display:block}
-button{font:inherit;color:inherit;cursor:pointer}
+.i{flex:none;display:block}button{font:inherit;color:inherit;cursor:pointer}
 .glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);box-shadow:var(--shadow)}
 .hd{display:flex;align-items:center;gap:12px;margin:2px 2px 16px}
 .logo{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,var(--acc),var(--acc2));color:#0b1014;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),var(--shadow)}
-h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}
-.sub,.mu{margin:2px 0 0;color:var(--muted);font-size:.8rem}
+h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}.sub,.mu{margin:2px 0 0;color:var(--muted);font-size:.8rem}
 .sr{display:flex;align-items:center;gap:10px;padding:0 16px;height:48px;border-radius:24px;color:var(--muted)}
 .sr input{flex:1;min-width:0;background:none;border:none;outline:none;color:var(--text);font:inherit}
 .sr input::placeholder{color:var(--muted)}
-.row{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
-.row::-webkit-scrollbar{display:none}
+.row{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}.row::-webkit-scrollbar{display:none}
 .chip{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:8px 14px;border-radius:14px;border:1px solid var(--line);background:var(--glass);font-size:.82rem;font-weight:600;box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
 .chip.on{background:var(--on);color:var(--ont);border-color:transparent}
 .cnt{margin:10px 4px 4px;font-size:.76rem;color:var(--muted)}
 .month{margin:20px 4px 10px;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .pc{margin-bottom:16px;border-radius:24px;overflow:hidden}
 .cv{position:relative;height:180px;background:linear-gradient(135deg,hsl(var(--h),40%,34%),hsl(var(--h),38%,15%))}
-.pc.lead .cv{height:236px}
-.cv img{width:100%;height:100%;object-fit:cover;display:block}
+.pc.lead .cv{height:236px}.cv img{width:100%;height:100%;object-fit:cover;display:block}
 .dtb{position:absolute;left:12px;top:12px;padding:6px 11px;border-radius:14px;background:rgba(10,13,18,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;text-align:center;font-size:.66rem;text-transform:uppercase;line-height:1.15}
 .dtb b{display:block;font-size:1.05rem}
 .cti{position:absolute;left:12px;bottom:12px;display:flex;gap:7px;align-items:center;padding:5px 12px 5px 9px;border-radius:999px;background:rgba(10,13,18,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:.74rem;font-weight:600}
 .rl{position:absolute;right:12px;bottom:12px;padding:4px 11px;border-radius:999px;background:var(--acc);color:#15100a;font-size:.72rem;font-weight:800}
 .sv{position:absolute;right:10px;top:10px;width:40px;height:40px;border-radius:14px;border:1px solid rgba(255,255,255,.25);background:rgba(10,13,18,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;display:grid;place-items:center}
-.sv.on{color:var(--acc)}
-.sv.on svg{fill:currentColor}
+.sv.on{color:var(--acc)}.sv.on svg{fill:currentColor}
 .cb{padding:14px 16px 16px}
 .ttl{display:block;color:var(--text);text-decoration:none;font-size:1.06rem;font-weight:700;line-height:1.3;margin-bottom:8px}
 .mt{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-top:5px}
@@ -59,8 +51,7 @@ h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}
 .ac{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
 .ac a{display:inline-flex;gap:6px;align-items:center;padding:8px 13px;border-radius:13px;border:1px solid var(--line);background:var(--glass);color:var(--text);text-decoration:none;font-size:.78rem;font-weight:600;box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
 .empty{text-align:center;padding:34px 16px;color:var(--muted);border-radius:22px}
-.find{margin-top:10px}
-.find details{border-radius:18px;padding:12px 16px;font-size:.84rem}
+.find{margin-top:10px}.find details{border-radius:18px;padding:12px 16px;font-size:.84rem}
 .find summary{cursor:pointer;display:flex;gap:8px;align-items:center;font-weight:600;color:var(--muted)}
 .fr{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
 .fl{display:inline-flex;gap:6px;align-items:center;min-width:150px;color:var(--muted);font-size:.8rem}
@@ -68,24 +59,20 @@ h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}
 .note{margin:18px 4px 0;font-size:.76rem;line-height:1.5;color:var(--muted)}
 .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(calc(100% - 24px),520px);z-index:60;display:flex;gap:4px;padding:6px;border-radius:28px;background:var(--dock);border:1px solid var(--line);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);box-shadow:var(--shadow)}
 .dock button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 2px 8px;border:none;border-radius:22px;background:none;color:var(--muted);font-size:.68rem;font-weight:700}
-.dock button.on{background:var(--glass2);color:var(--text);box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
-.dock button.on .i{color:var(--acc)}
+.dock button.on{background:var(--glass2);color:var(--text);box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}.dock button.on .i{color:var(--acc)}
 .drawer{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));width:min(calc(100% - 24px),520px);max-height:66vh;overflow-y:auto;z-index:55;padding:16px;border-radius:26px;background:var(--dock);border:1px solid var(--line);backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3);box-shadow:var(--shadow)}
-.drawer h2{margin:0 0 10px;font-size:1.02rem}
-.mrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0;font-size:.85rem;cursor:pointer}
+.drawer h2{margin:0 0 10px;font-size:1.02rem}.mrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0;font-size:.85rem;cursor:pointer}
 .mrow select{padding:6px 10px;border-radius:11px;border:1px solid var(--line);background:var(--glass2);color:var(--text);font:inherit}
 .mrow input,.ct input{accent-color:var(--acc)}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .ct{display:flex;gap:9px;align-items:center;padding:8px;border-radius:16px;border:1px solid var(--line);background:var(--glass);cursor:pointer;font-size:.8rem;font-weight:600}
-.ct:has(input:checked){border-color:var(--acc);background:var(--glass2)}
-.ct input{margin-left:auto}
+.ct:has(input:checked){border-color:var(--acc);background:var(--glass2)}.ct input{margin-left:auto}
 .ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;background:hsla(var(--h),60%,52%,.24);color:hsl(var(--h),70%,36%)}
 .cl small{display:block;color:var(--muted);font-weight:500;font-size:.7rem}
 .pl2{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .pr{display:flex;gap:8px;align-items:stretch;margin-top:8px}
 .pn{flex:1;text-align:left;padding:10px 14px;border-radius:16px;border:1px solid var(--line);background:var(--glass)}
-.pn b{display:block;font-size:.9rem}
-.pn small{color:var(--muted);font-size:.74rem}
+.pn b{display:block;font-size:.9rem}.pn small{color:var(--muted);font-size:.74rem}
 .pm{width:48px;border-radius:16px;border:1px solid var(--line);background:var(--glass);display:grid;place-items:center;color:var(--acc)}
 .seg{display:flex;gap:4px;padding:4px;border-radius:18px;margin-bottom:10px}
 .seg button{flex:1;padding:10px;border:none;border-radius:14px;background:none;color:var(--muted);font-weight:700;font-size:.82rem}
@@ -95,7 +82,7 @@ h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}
 #gmfail{padding:30px 18px;text-align:center}
 .open{position:absolute;left:12px;top:12px;display:inline-flex;gap:6px;align-items:center;padding:8px 13px;border-radius:13px;background:var(--dock);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);text-decoration:none;font-size:.78rem;font-weight:700}
 
-/* Style dla mapy kafelkowej */
+/* MAPA */
 #mapwrap{position:relative;height:60vh;min-height:360px;overflow:hidden;margin-bottom:10px;border-radius:24px;z-index:1}
 #leaflet{width:100%;height:100%;border-radius:24px;z-index:1;background:#e5e7eb}
 :root[data-theme="dark"] .leaflet-tile-pane { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
@@ -103,34 +90,23 @@ h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}
 .leaflet-popup-tip{background:var(--glass2);border:1px solid var(--line)}
 .leaflet-container a.leaflet-popup-close-button{color:var(--muted)}
 
-/* --- ANKIETA / KREATOR --- */
-#survey{
-  position:fixed;inset:0;z-index:100;background:rgba(15,39,64,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s;
-}
+/* ANKIETA */
+#survey{position:fixed;inset:0;z-index:100;background:rgba(15,39,64,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s}
 #survey.show{opacity:1;pointer-events:auto}
-.survey-box{
-  width:100%;max-width:500px;max-height:90vh;overflow-y:auto;background:var(--pane);border:1px solid var(--line);
-  border-radius:28px;padding:24px;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:20px;
-  transform:translateY(20px);transition:transform .3s;color:var(--text);
-}
+.survey-box{width:100%;max-width:520px;max-height:92vh;overflow-y:auto;background:var(--pane);border:1px solid var(--line);border-radius:28px;padding:24px;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:20px;transform:translateY(20px);transition:transform .3s;color:var(--text)}
 #survey.show .survey-box{transform:translateY(0)}
 .survey-progress{height:4px;background:rgba(0,0,0,.1);border-radius:4px;overflow:hidden;margin-bottom:8px}
-.survey-bar{height:100%;background:var(--acc);width:20%;transition:width .3s ease}
+.survey-bar{height:100%;background:var(--acc);width:11%;transition:width .3s ease}
 .survey-step{display:none;flex-direction:column;gap:16px;animation:fade .3s}
 .survey-step.active{display:flex}
 @keyframes fade{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
 .survey-step h3{font-family:"Playfair Display",Georgia,serif;font-size:1.4rem;font-weight:600;margin:0;line-height:1.2}
 .survey-step p.mu{font-size:.88rem;margin:0}
-.survey-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.survey-opt{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px 10px;
-  border-radius:16px;border:1px solid var(--line);background:var(--glass);cursor:pointer;text-align:center;
-  font-size:.82rem;font-weight:600;transition:all .2s;user-select:none;line-height:1.2;
-}
+.survey-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.survey-opt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px 8px;border-radius:16px;border:1px solid var(--line);background:var(--glass);cursor:pointer;text-align:center;font-size:.78rem;font-weight:600;transition:all .2s;user-select:none;line-height:1.2}
 .survey-opt:hover{background:var(--glass2)}
 .survey-opt.sel{border-color:var(--acc);background:hsla(var(--a,30),100%,50%,.1);box-shadow:0 0 0 2px var(--acc) inset}
-.survey-opt svg{width:26px;height:26px;color:var(--acc)}
+.survey-opt svg{width:24px;height:24px;color:var(--acc);margin-bottom:2px}
 .survey-range{width:100%;margin:14px 0;accent-color:var(--acc)}
 .survey-nav{display:flex;justify-content:space-between;gap:10px;margin-top:10px;padding-top:16px;border-top:1px solid var(--line)}
 .btn-primary{background:var(--acc);color:#fff;border:none;padding:12px 20px;border-radius:14px;font-weight:600;font-size:.9rem;flex:1;text-align:center;transition:transform .1s}
@@ -160,8 +136,7 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
 .month::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(14,42,71,.35),transparent)}
 :root[data-theme="dark"] .month{color:var(--text)}
 .pc{border-radius:22px;border:1px solid rgba(255,255,255,.8);box-shadow:0 14px 40px rgba(20,70,130,.2)}
-.cv{height:196px}
-.pc.lead .cv{height:250px}
+.cv{height:196px}.pc.lead .cv{height:250px}
 .dtb{background:rgba(255,255,255,.94);color:#0e2a47;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:13px;padding:6px 12px;font-family:"Playfair Display",Georgia,serif;font-weight:600}
 .dtb b{font-size:1.25rem;font-weight:700}
 .cti{border:1px solid rgba(255,255,255,.3);font-weight:500;letter-spacing:.02em}
@@ -211,67 +186,7 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
   <div class="survey-box">
     <button class="btn-close" id="surveyClose">✕</button>
     <div class="survey-progress"><div class="survey-bar" id="surveyBar"></div></div>
-
-    <!-- KROK 1: Muzyka -->
-    <div class="survey-step active" data-step="0">
-      <p class="mu">Krok 1 z 4</p>
-      <h3>Jaka muzyka Cię kręci?</h3>
-      <div class="survey-grid">
-        <label class="survey-opt" data-val="hiphop"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11v2a7 7 0 0 0 14 0v-2M12 20v2M9 22h6"/></svg><span>Hip-Hop / Rap</span></label>
-        <label class="survey-opt" data-val="party"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v5M12 16v5M3 12h5M16 12h5M6 6l3 3M15 15l3 3M18 6l-3 3M9 15l-3 3"/></svg><span>Rock / Metal / Live</span></label>
-        <label class="survey-opt" data-val="esport"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5v2a3 3 0 0 0 3 3M16 6h3v2a3 3 0 0 1-3 3M12 13v4M9 20h6"/></svg><span>Elektronika / E-sport</span></label>
-        <label class="survey-opt" data-val="kultur"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4"/></svg><span>Kultura / Kabaret</span></label>
-      </div>
-    </div>
-
-    <!-- KROK 2: Sport -->
-    <div class="survey-step" data-step="1">
-      <p class="mu">Krok 2 z 4</p>
-      <h3>Sport to Twoja bajka?</h3>
-      <div class="survey-grid">
-        <label class="survey-opt" data-val="sport"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5l3.5 2.5-1.3 4.1H9.8L8.5 10z"/><path d="M12 3.5v4M15.5 10l4-1.3M14.2 14.1l2.5 3.4M9.8 14.1l-2.5 3.4M8.5 10l-4-1.3"/></svg><span>Piłka nożna / Mecze</span></label>
-        <label class="survey-opt" data-val="mma"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="6" y="4" width="12" height="12" rx="5"/><rect x="8" y="16" width="8" height="4" rx="1"/></svg><span>MMA / Sporty walki</span></label>
-        <label class="survey-opt" data-val="ski"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 20L19 5M8 21L21 8"/><path d="M13 13l3 3"/></svg><span>Sporty zimowe</span></label>
-        <label class="survey-opt" data-val="extreme"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg><span>Sporty wyczynowe</span></label>
-      </div>
-    </div>
-
-    <!-- KROK 3: Auto i Technologia -->
-    <div class="survey-step" data-step="2">
-      <p class="mu">Krok 3 z 4</p>
-      <h3>Auto i nowe technologie?</h3>
-      <div class="survey-grid">
-        <label class="survey-opt" data-val="moto"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="6" cy="16" r="3"/><circle cx="18" cy="16" r="3"/><path d="M6 16l4-6h5l3 6M10 10L8 7H5"/></svg><span>Motoryzacja</span></label>
-        <label class="survey-opt" data-val="rajdy"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/><path d="M9 4v8M13 4v8"/></svg><span>Rajdy / Tuning</span></label>
-        <label class="survey-opt" data-val="tech"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></svg><span>Technologia / IT</span></label>
-        <label class="survey-opt" data-val="drony"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9.5" y="10" width="5" height="4" rx="1"/><path d="M9.5 11L6 8M14.5 11L18 8M9.5 13L6 16M14.5 13L18 16"/><circle cx="5" cy="7" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/></svg><span>Drony / Gry</span></label>
-      </div>
-    </div>
-
-    <!-- KROK 4: Kultura i styl życia -->
-    <div class="survey-step" data-step="3">
-      <p class="mu">Krok 4 z 4</p>
-      <h3>Jak lubisz spędzać wolny czas?</h3>
-      <div class="survey-grid">
-        <label class="survey-opt" data-val="xmas"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3l5 6h-3l4 5h-4l3 4H7l3-4H6l4-5H7z"/><path d="M12 18v3"/></svg><span>Jarmarki</span></label>
-        <label class="survey-opt" data-val="kulinaria"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 21V3c-2 1-3.5 3.5-3.5 7H17"/></svg><span>Kulinaria</span></label>
-        <label class="survey-opt" data-val="kinder"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="13.5" r="6"/><circle cx="7.2" cy="7.8" r="2.2"/><circle cx="16.8" cy="7.8" r="2.2"/><path d="M10.5 15.5h3M10 12h.01M14 12h.01"/></svg><span>Dla dzieci</span></label>
-        <label class="survey-opt" data-val="flohmarkt"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Flohmarkt</span></label>
-        <label class="survey-opt" data-val="jarmark"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 21V8h3v3h3V8h4v3h3V8h3v13z"/><path d="M10 21v-5h4v5"/></svg><span>Średniowiecze</span></label>
-        <label class="survey-opt" data-val="rolki"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 4h5v7h7a2 2 0 0 1 2 2v3H6z"/><circle cx="8.5" cy="19" r="1.6"/><circle cx="12.5" cy="19" r="1.6"/><circle cx="16.5" cy="19" r="1.6"/></svg><span>Skating</span></label>
-      </div>
-      <p class="mu" style="margin-top:14px">Jak daleko chcesz szukać wydarzeń?</p>
-      <input type="range" class="survey-range" id="surveyRange" min="10" max="100" value="50" step="5">
-      <div style="text-align:center;font-weight:700;font-size:1.2rem" id="surveyRangeVal">50 km</div>
-    </div>
-
-    <!-- KROK 5: Koniec -->
-    <div class="survey-step" data-step="4" style="text-align:center;justify-content:center;min-height:200px">
-      <div style="font-size:3rem;margin-bottom:10px">🎉</div>
-      <h3>Gotowe!</h3>
-      <p class="mu">Twoje preferencje zostały zapisane. Od teraz aplikacja będzie dopasowywać wydarzenia specjalnie dla Ciebie!</p>
-    </div>
-
+    <div id="surveySteps"></div>
     <div class="survey-nav">
       <button class="btn-secondary" id="surveyPrev" style="visibility:hidden">Wstecz</button>
       <button class="btn-primary" id="surveyNext">Dalej</button>
@@ -317,7 +232,9 @@ const ICONS={
  logo:'<path d="M12 3a6.5 6.5 0 0 1 6.5 6.5c0 4.5-6.5 11-6.5 11S5.5 14 5.5 9.5A6.5 6.5 0 0 1 12 3z"/><path d="M12 7l1.2 2.4 2.6.4-1.9 1.8.5 2.6L12 13l-2.4 1.2.5-2.6-1.9-1.8 2.6-.4z"/>',
  sport:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5l3.5 2.5-1.3 4.1H9.8L8.5 10z"/><path d="M12 3.5v4M15.5 10l4-1.3M14.2 14.1l2.5 3.4M9.8 14.1l-2.5 3.4M8.5 10l-4-1.3"/>',
  photo:'<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2"/><path d="M4 18l5-4 4 3 3-2 4 3"/>',
- magic:'<path d="M15 4V2m0 20v-2M8 9l-2-2m14 14-2-2M4 15H2m20 0h-2M8 15l-2 2m14-14-2 2M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>'
+ magic:'<path d="M15 4V2m0 20v-2M8 9l-2-2m14 14-2-2M4 15H2m20 0h-2M8 15l-2 2m14-14-2 2M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>',
+ volksfest:'<path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/>',
+ natur:'<path d="M12 22s8-4 8-10c0-4-4-8-8-8s-8 4-8 8c0 6 8 10 8 10z"/><path d="M12 22V12"/>'
 };
 const ic=(n,s=20)=>`<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
 
@@ -325,7 +242,7 @@ const REGIONS=[["all","Wszystkie"],["afb","Aichach-Friedberg"],["nsh","Neuburg-S
 const RQ={all:"Aichach Bayern",afb:"Aichach Friedberg",nsh:"Neuburg Schrobenhausen",dah:"Dachau",paf:"Pfaffenhofen Ilm",ffb:"Fürstenfeldbruck",muc:"München",by:"Bayern"};
 const LEVELS=[["all","Wszystkie"],["gmina","Gminne"],["region","Regionalne"],["big","Duże"],["fav","Zapisane"]];
 const CATS={
-  xmas:["🎄","Jarmarki świąteczne",30,"Weihnachtsmarkt"], flohmarkt:["🛍️","Flohmarkt",200,"Flohmarkt"], kinder:["🧸","Kinderflohmarkt",340,"Kinderflohmarkt"], ski:["⛷️","Ski-Markt",210,"Skibörse"], skoki:["🎿","Skoki",220,"Skispringen"], extreme:["🪂","Sporty wyczynowe",190,"Red Bull"], mma:["🥊","MMA",0,"MMA"], moto:["🏍️","Motocross",20,"Motocross"], rajdy:["🏁","Rajdy",10,"Rallye"], esport:["🏆","E-sport",260,"E-Sport"], gry:["🎮","Gry",280,"Gaming"], drony:["🚁","Drony",180,"Drohnen"], sport:["⚽","Sport / mecze",120,"Sport"], rolki:["🛼","Rolki",150,"Inline"], party:["🎉","Imprezy",300,"Konzert"], hiphop:["🎤","Hip-Hop / Rap",290,"Hip-Hop Rap"], tech:["💡","Technologie",240,"Technik"], jarmark:["🏰","Jarmark średniowieczny",35,"Mittelaltermarkt"], kulinaria:["🍴","Kulinaria",25,"Street Food"]
+  xmas:["🎄","Jarmarki świąteczne",30,"Weihnachtsmarkt"], flohmarkt:["🛍️","Flohmarkt",200,"Flohmarkt"], kinder:["🧸","Kinderflohmarkt",340,"Kinderflohmarkt"], ski:["⛷️","Ski-Markt",210,"Skibörse"], skoki:["🎿","Skoki",220,"Skispringen"], extreme:["🪂","Sporty wyczynowe",190,"Red Bull"], mma:["🥊","MMA",0,"MMA"], moto:["🏍️","Motocross",20,"Motocross"], rajdy:["🏁","Rajdy",10,"Rallye"], esport:["🏆","E-sport",260,"E-Sport"], gry:["🎮","Gry",280,"Gaming"], drony:["🚁","Drony",180,"Drohnen"], sport:["⚽","Sport / mecze",120,"Sport"], rolki:["🛼","Rolki",150,"Inline"], party:["🎉","Imprezy",300,"Konzert"], hiphop:["🎤","Hip-Hop / Rap",290,"Hip-Hop Rap"], tech:["💡","Technologie",240,"Technik"], jarmark:["🏰","Jarmark średniowieczny",35,"Mittelaltermarkt"], kulinaria:["🍴","Kulinaria",25,"Street Food"], natur:["🏕️","Natura i Relaks",80,"Wandern Camping"], volksfest:["🍺","Festyny Ludowe",45,"Volksfest Biergarten"]
 };
 const H="https://de.headtopics.com/news/weihnachtsmarkte-2026-im-landkreis-aichach-friedberg-89545835";
 const F="https://www.festivalsindeutschland.de/festival/";
@@ -346,7 +263,17 @@ const EVENTS=[
  {id:14,title:"Winterwunderland Hollenbach",date:"2026-12-12",time:"15:30",place:"Hollenbach, Rathaus",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:15,title:"Pfaffenhofener Weihnachtsmarkt",date:null,place:"Pfaffenhofen, Rathaus",region:"paf",cat:"xmas",level:"gmina",url:"https://microsites.bahn.de/regional-de/regionen/bayern/ausflugstipps/weihnachtsmaerkte-uebersicht/weihnachtsmarkt_pfaffenhofen"},
  {id:16,title:"Neujahrsspringen – Turniej Czterech Skoczni",date:"2026-12-31",end:"2027-01-01",time:"31.12 kobiety, 1.01 konkurs od 14:00",place:"Garmisch-Partenkirchen, Olympiaschanze",region:"by",cat:"skoki",level:"big",url:"https://events.europa.tips/neujahrsskispringen-garmisch-partenkirchen"},
- {id:17,title:"We Love MMA 93",date:"2027-02-13",time:"19:00",place:"Monachium",region:"muc",cat:"mma",level:"big",url:"https://www.regioactive.de/sport/we-love-mma-termine-tickets-dde28fd027a1"}
+ {id:17,title:"We Love MMA 93",date:"2027-02-13",time:"19:00",place:"Monachium",region:"muc",cat:"mma",level:"big",url:"https://www.regioactive.de/sport/we-love-mma-termine-tickets-dde28fd027a1"},
+ // --- NOWE KATEGORIE ---
+ {id:18,title:"Oktoberfest München",date:"2027-09-18",end:"2027-10-03",time:"codziennie",place:"Monachium, Theresienwiese",region:"muc",cat:"volksfest",level:"big",url:"https://www.oktoberfest.de/"},
+ {id:19,title:"Friedberger Volksfest",date:"2027-08-06",end:"2027-08-15",time:"Różne godziny",place:"Friedberg, Festplatz",region:"afb",cat:"volksfest",level:"region",url:H},
+ {id:20,title:"Gillamoos Abensberg",date:"2027-08-27",end:"2027-09-06",time:"Różne godziny",place:"Abensberg",region:"by",cat:"volksfest",level:"big",url:"https://www.gillamoos.de/"},
+ {id:21,title:"Biergarten-Eröffnung Gut Blumenthal",date:"2027-05-01",time:"11:00",place:"Blumenthal, Schloss Blumenthal",region:"afb",cat:"volksfest",level:"gmina",url:"https://www.schloss-blumenthal.de"},
+ {id:22,title:"Wandern im Wittelsbacher Land",date:"2027-04-18",time:"09:00",place:"Aichach",region:"afb",cat:"natur",level:"region",url:"https://www.wittelsbacherland.de"},
+ {id:23,title:"Paartal-Radltour",date:"2027-06-11",time:"10:00",place:"Aichach",region:"afb",cat:"natur",level:"region",url:"https://www.wittelsbacherland.de"},
+ {id:24,title:"Kajak-Tour auf der Paar",date:"2027-07-15",time:"09:30",place:"Augsburg",region:"by",cat:"natur",level:"region",url:"https://www.augsburg.de"},
+ {id:25,title:"Alpen-Camping Wochenende",date:"2027-08-20",end:"2027-08-22",time:"cały dzień",place:"Oberstdorf",region:"by",cat:"natur",level:"big",url:"https://www.oberstdorf.de"},
+ {id:26,title:"Wellness & Spa Messe München",date:"2027-02-05",end:"2027-02-07",time:"10:00 - 18:00",place:"München, Messe",region:"muc",cat:"natur",level:"big",url:"https://www.messe-muenchen.de"}
 ];
 const EF="https://www.eventfinder.de/veranstaltungen-aichach.php",OB="Aichach-Obermauerbach, Canada (Podium)";
 const MORE=[
@@ -412,28 +339,18 @@ const MORE=[
  ["2027-04-15","","Automobilwoche Technology Conference","München","muc","tech","big","https://arcxp-prod.automobilwoche.de","—"],
  ["2027-05-14","","Big Techday 27","München, Motorworld","muc","tech","big","https://www.bigtechday.com","—"],
  ["2027-06-15","2027-06-16","chassis.tech plus 2027","München","muc","tech","big","https://www.springerprofessional.de","—"],
-
- // --- BRANDNER (Aichach-Unterwittelsbach) ---
  ["2026-11-13","","Rock'n Roll mit Spick'n Span","Aichach-Unterwittelsbach, Brandner","afb","party","gmina","https://brandner-kaspar.metro.bar/?lang=pl","20:00"],
  ["2026-11-14","","Party-Night mit Just4Fun","Aichach-Unterwittelsbach, Brandner","afb","party","gmina","https://brandner-kaspar.metro.bar/?lang=pl","20:00"],
  ["2026-11-20","","Degibsano","Aichach-Unterwittelsbach, Brandner","afb","party","gmina","https://brandner-kaspar.metro.bar/?lang=pl","20:00"],
  ["2026-11-21","","Hank Davison & Friends","Aichach-Unterwittelsbach, Brandner","afb","party","gmina","https://brandner-kaspar.metro.bar/?lang=pl","20:00"],
  ["2026-11-27","","JOL ROSE Tour '26","Aichach-Unterwittelsbach, Brandner","afb","party","gmina","https://brandner-kaspar.metro.bar/?lang=pl","20:00"],
  ["2026-11-28","","Metal im Brandner Part 5","Aichach-Unterwittelsbach, Brandner","afb","party","gmina","https://brandner-kaspar.metro.bar/?lang=pl","20:00 (wejście 19:00)"],
-
- // --- BACKSIDE (Aichach) ---
  ["2026-11-28","","Ü30 & 90s / 2000s Party","Aichach, Backside Bar","afb","party","gmina","https://www.aichach.de","22:00"],
  ["2026-12-19","","Christmas Warm-Up mit DJ","Aichach, Backside Bar","afb","party","gmina","https://www.aichach.de","21:00"],
-
- // --- REDERZHAUSEN (Landhaus Sigl) ---
  ["2027-05-19","","Biergarten-Eröffnung mit Live-Band","Rederzhausen, Landhaus Sigl","afb","party","gmina","https://www.landhaus-sigl.de","18:00"],
  ["2027-07-14","","Summer Rock Night im Biergarten","Rederzhausen, Landhaus Sigl","afb","party","gmina","https://www.landhaus-sigl.de","19:00"],
-
- // --- BLUMENTHAL (Schloss Blumenthal) ---
  ["2026-12-05","2026-12-06","Historischer Weihnachtsmarkt","Blumenthal, Schloss Blumenthal","afb","xmas","gmina","https://www.schloss-blumenthal.de","14:00"],
  ["2027-06-11","2027-06-13","Elfenfestival","Blumenthal, Schloss Blumenthal","afb","jarmark","region","https://www.elfencon.de/","11:00"],
-
- // --- HIP-HOP EVENTS ---
  ["2027-06-20","","Peace Tower Jam: Hip-Hop don't stop","Aichach, Schloss Blumenthal","afb","hiphop","region","https://www.schloss-blumenthal.de","14:00"],
  ["2027-02-14","","Candlelight: Hip-Hop Klassiker","Friedberg, Wittelsbacher Schloss","afb","hiphop","region","https://feverup.com","19:00"],
  ["2026-11-25","","Hip-Hop & RnB Night","Augsburg, Savage Discotheque","by","hiphop","region","https://www.savage-augsburg.de","23:00"],
@@ -449,7 +366,7 @@ MORE.forEach((m,i)=>EVENTS.push({id:100+i,date:m[0],end:m[1]||undefined,title:m[
 EVENTS.sort((a,b)=>(a.date||"9").localeCompare(b.date||"9"));
 
 const S={region:"all",level:"all",cats:new Set(),q:"",past:false,favs:new Set(),town:null};
-const DEF=["skoki","extreme","mma","moto","rajdy","esport","gry","drony","tech","jarmark","kulinaria","rolki","sport","hiphop"];
+const DEF=["skoki","extreme","mma","moto","rajdy","esport","gry","drony","tech","jarmark","kulinaria","rolki","sport","hiphop","natur","volksfest"];
 const PREF={cats:new Set(DEF),radius:50,big:true};
 try{const p=JSON.parse(localStorage.getItem("eb-prefs")||"null");if(p){PREF.cats=new Set(p.cats);PREF.radius=p.radius||50;PREF.big=p.big!==false}}catch(e){}
 const savePrefs=()=>{try{localStorage.setItem("eb-prefs",JSON.stringify({cats:[...PREF.cats],radius:PREF.radius,big:PREF.big}))}catch(e){}};
@@ -458,7 +375,7 @@ const HOME=[48.458,11.134];
 const km=(a,b)=>{const r=x=>x*Math.PI/180,dl=r(b[0]-a[0]),dn=r(b[1]-a[1]),h=Math.sin(dl/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dn/2)**2;return 12742*Math.asin(Math.sqrt(h))};
 const townOf=e=>e.place.split(",")[0].trim();
 
-const TOWNS={"Aichach":[48.458,11.134],"Aichach-Obermauerbach":[48.46,11.08],"Aichach-Unterwittelsbach":[48.469,11.156],"Aindling":[48.476,11.062],"Friedberg":[48.356,10.988],"Schiltberg":[48.50,11.22],"Merching":[48.28,10.98],"Affing":[48.39,10.96],"Eurasburg":[48.31,11.02],"Kühbach":[48.48,11.01],"Hollenbach":[48.52,11.10],"Dachau":[48.26,11.434],"Fahrenzhausen / Vierkirchen":[48.34,11.51],"Schrobenhausen":[48.557,11.265],"Pfaffenhofen":[48.53,11.504],"Monachium":[48.135,11.582],"Fürth":[49.477,10.989],"Garmisch-Partenkirchen":[47.492,11.096],"Oberstdorf":[47.409,10.279],"Taufkirchen":[48.049,11.618],"Fuchstal":[47.985,10.85],"Dillingen a.d. Donau":[48.578,10.495],"Dingolfing":[48.635,12.495],"Ampfing":[48.258,12.404],"Neutraubling":[48.988,12.2],"Höchstadt a.d. Aisch":[49.7,10.81],"Furth im Wald":[49.309,12.845],"Wartenberg-Auerbach":[48.4,11.98],"Mühldorf a. Inn":[48.246,12.524],"Augsburg":[48.371,10.898],"Norymberga":[49.452,11.077],"Memmingen":[47.983,10.185],"Sankt Englmar":[48.97,12.8],"Ingolstadt":[48.766,11.425],"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32],"Rederzhausen":[48.35,10.98],"Blumenthal":[48.45,11.15],"Gersthofen":[48.424,10.872]};
+const TOWNS={"Aichach":[48.458,11.134],"Aichach-Obermauerbach":[48.46,11.08],"Aichach-Unterwittelsbach":[48.469,11.156],"Aindling":[48.476,11.062],"Friedberg":[48.356,10.988],"Schiltberg":[48.50,11.22],"Merching":[48.28,10.98],"Affing":[48.39,10.96],"Eurasburg":[48.31,11.02],"Kühbach":[48.48,11.01],"Hollenbach":[48.52,11.10],"Dachau":[48.26,11.434],"Fahrenzhausen / Vierkirchen":[48.34,11.51],"Schrobenhausen":[48.557,11.265],"Pfaffenhofen":[48.53,11.504],"Monachium":[48.135,11.582],"Fürth":[49.477,10.989],"Garmisch-Partenkirchen":[47.492,11.096],"Oberstdorf":[47.409,10.279],"Taufkirchen":[48.049,11.618],"Fuchstal":[47.985,10.85],"Dillingen a.d. Donau":[48.578,10.495],"Dingolfing":[48.635,12.495],"Ampfing":[48.258,12.404],"Neutraubling":[48.988,12.2],"Höchstadt a.d. Aisch":[49.7,10.81],"Furth im Wald":[49.309,12.845],"Wartenberg-Auerbach":[48.4,11.98],"Mühldorf a. Inn":[48.246,12.524],"Augsburg":[48.371,10.898],"Norymberga":[49.452,11.077],"Memmingen":[47.983,10.185],"Sankt Englmar":[48.97,12.8],"Ingolstadt":[48.766,11.425],"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32],"Rederzhausen":[48.35,10.98],"Blumenthal":[48.45,11.15],"Gersthofen":[48.424,10.872],"Abensberg":[48.816,11.849]};
 const EXTRA={"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32]};
 
 const dist=e=>{const t=TOWNS[townOf(e)]||EXTRA[townOf(e)];return t?km(HOME,t):(e.region==="afb"?0:999)};
@@ -496,9 +413,11 @@ const SC={
  hiphop:["#170a24","#2b1050",()=>AR(4,i=>Ln(`M0 ${60+i*40}H${120+i*50}l20 20H400`,"#c084fc",2,.4))+Ci(200,120,60,"#8b5cf6",.2)+bk("#c084fc",12,77,20,180,4,12)+bk("#f472b6",8,81,20,180,4,12)],
  tech:["#04141c","#0b3a46",()=>AR(8,i=>Ln(`M0 ${24+i*28}H${90+(i%3)*40}l16 16H${230+(i%2)*50}l14-14H400`,"#3ee0d0",1.2,.45))+Rc(150,80,100,80,"#06222b",10)+`<rect x="150" y="80" width="100" height="80" rx="10" fill="none" stroke="#3ee0d0" stroke-width="2.5"/>`+Rc(176,104,48,32,"#3ee0d0",4,.55)+AR(10,i=>Ci(20+i*38,(i*37)%210+10,3,"#8ff5e8",.9))+bk("#3ee0d0",8,53,30,200,6,16)],
  jarmark:["#e9a352","#2c1f3b",()=>Pg("0,240 0,170 40,170 40,140 60,140 60,170 100,170 100,120 112,120 112,100 124,100 124,120 136,120 136,170 180,170 180,150 200,150 200,170 400,170 400,240","#150d1a")+Pg("250,170 250,96 262,96 262,80 274,80 274,96 286,96 286,80 298,80 298,96 310,96 310,170","#150d1a")+Ln("M274 80V56","#150d1a",2)+Pg("274,56 300,64 274,72","#c62828")+Ci(60,200,10,"#ffb347",.9)+Ci(340,204,10,"#ffb347",.9)+bk("#ffb347",12,59,100,220,6,16)+Rc(0,214,400,26,"#1b1120")],
- kulinaria:["#2a1408","#7b3a12",()=>Rc(0,162,400,78,"#3a2312")+`<ellipse cx="120" cy="178" rx="62" ry="13" fill="#f2ede3"/>`+Ci(100,170,12,"#c8553d")+Ci(124,168,11,"#7da854")+Ci(142,172,9,"#e8b04b")+`<ellipse cx="290" cy="184" rx="58" ry="12" fill="#e9e2d4"/>`+Ci(278,176,13,"#d9822b")+Ci(304,178,10,"#8a5a2b")+Ln("M120 150q6-14 0-28M140 152q-6-14 2-26","#ffffff",3,.3)+Ln("M0 36Q200 70 400 30","#fff1c9",1.5,.7)+AR(9,i=>Ci(20+i*46,(44+Math.sin(i)*10).toFixed(1),4,"#ffd98a",.95))+bk("#ffb454",12,61,30,170,6,18)]
+ kulinaria:["#2a1408","#7b3a12",()=>Rc(0,162,400,78,"#3a2312")+`<ellipse cx="120" cy="178" rx="62" ry="13" fill="#f2ede3"/>`+Ci(100,170,12,"#c8553d")+Ci(124,168,11,"#7da854")+Ci(142,172,9,"#e8b04b")+`<ellipse cx="290" cy="184" rx="58" ry="12" fill="#e9e2d4"/>`+Ci(278,176,13,"#d9822b")+Ci(304,178,10,"#8a5a2b")+Ln("M120 150q6-14 0-28M140 152q-6-14 2-26","#ffffff",3,.3)+Ln("M0 36Q200 70 400 30","#fff1c9",1.5,.7)+AR(9,i=>Ci(20+i*46,(44+Math.sin(i)*10).toFixed(1),4,"#ffd98a",.95))+bk("#ffb454",12,61,30,170,6,18)],
+ natur:["#0d2e1f","#1d5c3f",()=>Pg("0,240 0,170 100,100 200,150 300,90 400,160 400,240","#0a1f14")+Pg("0,240 0,200 150,150 250,190 400,140 400,240","#06180e")+Ci(300,60,25,"#ffd37f",.8)+AR(6,i=>Ln(`M${50+i*60} 240L${80+i*60} 140`,"#3b7a57",2,.5))+bk("#a3e6c8",10,91,100,200,4,12)],
+ volksfest:["#2e180a","#8a4b1a",()=>Pg("0,240 0,140 80,140 80,60 320,60 320,140 400,140 400,240","#4a220a")+AR(7,i=>Rc(15+i*54,60,40,80,["#ffb454","#c8553d","#f4d35e"][i%3],10,.8))+Ln("M200 60V10","#4a220a",3)+Pg("200,10 260,26 200,42","#c62828")+Ci(80,190,12,"#fff",.8)+Ci(320,190,12,"#fff",.8)+bk("#ffd37f",15,93,120,240,6,18)+Rc(0,220,400,20,"#301608")]
 };
-const TAGS={xmas:"christmas,market",flohmarkt:"flea,market",kinder:"children,playground",ski:"ski,skis",skoki:"ski,jumping",extreme:"extreme,sports",mma:"mma,fighter",moto:"motocross",rajdy:"rally,car",esport:"esports,gaming",gry:"videogame,gaming",drony:"drone,lights",rolki:"inline,skates",party:"concert,crowd",hiphop:"hiphop,rap,concert",tech:"electronics,circuit",jarmark:"medieval,market",kulinaria:"streetfood,food",sport:"football,stadium"};
+const TAGS={xmas:"christmas,market",flohmarkt:"flea,market",kinder:"children,playground",ski:"ski,skis",skoki:"ski,jumping",extreme:"extreme,sports",mma:"mma,fighter",moto:"motocross",rajdy:"rally,car",esport:"esports,gaming",gry:"videogame,gaming",drony:"drone,lights",rolki:"inline,skates",party:"concert,crowd",hiphop:"hiphop,rap,concert",tech:"electronics,circuit",jarmark:"medieval,market",kulinaria:"streetfood,food",sport:"football,stadium",natur:"hiking,nature",volksfest:"festival,beer"};
 const PHC={};
 function photo(k){if(PHC[k])return PHC[k];const[t,b,fn]=SC[k]||SC.party;
  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t}"/><stop offset="1" stop-color="${b}"/></linearGradient><filter id="b"><feGaussianBlur stdDeviation="3.5"/></filter><filter id="n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><radialGradient id="v" cx=".5" cy=".45" r=".8"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient></defs><rect width="400" height="240" fill="url(#g)"/>${fn()}<rect width="400" height="240" fill="url(#v)"/><rect width="400" height="240" filter="url(#n)" opacity=".32" style="mix-blend-mode:soft-light"/></svg>`;
@@ -524,7 +443,7 @@ const WKC={};
 async function wk(lang,title){const k=lang+":"+title;if(k in WKC)return WKC[k];
   try{const r=await fetch(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);if(!r.ok)throw 0;const j=await r.json(),t=j.thumbnail&&j.thumbnail.source;if(!t)throw 0;return WKC[k]={t,big:t.replace(/\/\d+px-/,"/800px-")}}catch(x){return WKC[k]=null}}
 const WKE=[[/Nürnberger Christkindlesmarkt/,"de","Nürnberger_Christkindlesmarkt"],[/Augsburger Christkindlesmarkt/,"de","Augsburger_Christkindlesmarkt"],[/Tollwood/,"de","Tollwood"],[/Vierschanzentournee|Neujahrsspringen|Oberstdorf/,"de","Vierschanzentournee"],[/Allianz Arena/,"de","Allianz_Arena"],[/WWK Arena/,"de","WWK_Arena"],[/DroneArt/,"en","Drone_show"],[/electronica/,"de","Electronica_(Messe)"]];
-const WKT={xmas:[["de","Christkindlesmarkt"],["de","Weihnachtsmarkt"],["de","Glühwein"],["de","Weihnachtsbaum"]],flohmarkt:[["en","Flea_market"],["de","Flohmarkt"],["en","Garage_sale"]],kinder:[["en","Toy"],["en","Teddy_bear"],["en","Playground"]],ski:[["en","Alpine_skiing"],["en","Ski"]],skoki:[["en","Ski_jumping"],["de","Skispringen"]],extreme:[["en","Extreme_sport"],["en","Skateboarding"]],mma:[["en","Mixed_martial_arts"],["de","Mixed_Martial_Arts"]],moto:[["en","Motocross"],["en","Supercross"]],rajdy:[["en","Rallying"],["de","Rallye"]],esport:[["en","Esports"]],gry:[["en","Video_game"],["en","Gamepad"]],drony:[["en","Unmanned_aerial_vehicle"],["en","Quadcopter"]],rolki:[["en","Inline_skates"],["en","Roller_skating"]],party:[["en","Concert"],["en","Music_festival"]],hiphop:[["en","Hip_hop_music"],["en","Rapping"],["en","Disc_jockey"]],tech:[["en","Electronics"],["en","Integrated_circuit"]],jarmark:[["de","Mittelaltermarkt"],["en","Renaissance_fair"]],kulinaria:[["en","Street_food"],["en","Food_truck"]],sport:[["en","Association_football"],["de","Bundesliga"]]};
+const WKT={xmas:[["de","Christkindlesmarkt"],["de","Weihnachtsmarkt"],["de","Glühwein"],["de","Weihnachtsbaum"]],flohmarkt:[["en","Flea_market"],["de","Flohmarkt"],["en","Garage_sale"]],kinder:[["en","Toy"],["en","Teddy_bear"],["en","Playground"]],ski:[["en","Alpine_skiing"],["en","Ski"]],skoki:[["en","Ski_jumping"],["de","Skispringen"]],extreme:[["en","Extreme_sport"],["en","Skateboarding"]],mma:[["en","Mixed_martial_arts"],["de","Mixed_Martial_Arts"]],moto:[["en","Motocross"],["en","Supercross"]],rajdy:[["en","Rallying"],["de","Rallye"]],esport:[["en","Esports"]],gry:[["en","Video_game"],["en","Gamepad"]],drony:[["en","Unmanned_aerial_vehicle"],["en","Quadcopter"]],rolki:[["en","Inline_skates"],["en","Roller_skating"]],party:[["en","Concert"],["en","Music_festival"]],hiphop:[["en","Hip_hop_music"],["en","Rapping"],["en","Disc_jockey"]],tech:[["en","Electronics"],["en","Integrated_circuit"]],jarmark:[["de","Mittelaltermarkt"],["en","Renaissance_fair"]],kulinaria:[["en","Street_food"],["en","Food_truck"]],sport:[["en","Association_football"],["de","Bundesliga"]],natur:[["en","Hiking"],["en","Camping"],["en","Kayak"]],volksfest:[["en","Oktoberfest"],["en","Beer_festival"],["de","Volksfest"]]};
 function tryImg(urls,done){const next=()=>{const u=urls.shift();if(!u)return;const i=new Image();i.referrerPolicy="no-referrer";i.onload=()=>done(u);i.onerror=next;i.src=u};next()}
 async function realPhoto(im,e){
   const list=[],ov=WKE.find(x=>x[0].test(e.title+" "+e.place)),pool=WKT[e.cat]||[];
@@ -682,33 +601,125 @@ const ds=e=>{if(!e.date)return"termin ?";const f=d=>new Date(d+"T12:00:00").toLo
 
 /* ================= LOGIKA ANKIETY ================= */
 let sStep = 0, sCats = new Set();
-const surveyEl = $("survey"), sSteps = document.querySelectorAll(".survey-step"), sBar = $("surveyBar");
+const surveyEl = $("survey"), sBar = $("surveyBar");
+
+const surveyData = [
+  { title: "Jaka muzyka i rozrywka?", desc: "Wybierz gatunki, które lubisz najbardziej.", grid: [
+    { v: "hiphop", icon: "hiphop", label: "Hip-Hop / Rap" },
+    { v: "party", icon: "party", label: "Rock / Live" },
+    { v: "esport", icon: "esport", label: "E-sport / Gaming" },
+    { v: "party", icon: "party", label: "Kabaret / Stand-up" },
+    { v: "party", icon: "party", label: "Klasyczna / Opera" },
+    { v: "party", icon: "party", label: "Elektronika / Techno" }
+  ]},
+  { title: "Sport to Twoja bajka?", desc: "Bawaria słynie ze sportów zimowych i nie tylko.", grid: [
+    { v: "sport", icon: "sport", label: "Piłka nożna" },
+    { v: "mma", icon: "mma", label: "MMA / Sporty walki" },
+    { v: "ski", icon: "ski", label: "Narciarstwo" },
+    { v: "skoki", icon: "skoki", label: "Skoki narciarskie" },
+    { v: "extreme", icon: "extreme", label: "Sporty wyczynowe" },
+    { v: "sport", icon: "sport", label: "Hokej na lodzie" }
+  ]},
+  { title: "Aktywny wypoczynek", desc: "Co robisz, gdy nie ma meczu?", grid: [
+    { v: "natur", icon: "natur", label: "Wędrówki górskie" },
+    { v: "natur", icon: "natur", label: "Rower / MTB" },
+    { v: "natur", icon: "natur", label: "Kajaki / Woda" },
+    { v: "sport", icon: "sport", label: "Biegi / Maratony" },
+    { v: "rolki", icon: "rolki", label: "Rolki / Skatepark" },
+    { v: "natur", icon: "natur", label: "Camping / Biwak" }
+  ]},
+  { title: "Motoryzacja i Technologia", desc: "Czy interesują Cię maszyny i nowinki?", grid: [
+    { v: "moto", icon: "moto", label: "Motocykle" },
+    { v: "rajdy", icon: "rajdy", label: "Rajdy / Tuning" },
+    { v: "moto", icon: "moto", label: "Oldtimery" },
+    { v: "tech", icon: "tech", label: "IT / Programowanie" },
+    { v: "drony", icon: "drony", label: "Drony / FPV" },
+    { v: "esport", icon: "esport", label: "Gry komputerowe" }
+  ]},
+  { title: "Kultura i Sztuka", desc: "Zrelaksuj się przy kulturze.", grid: [
+    { v: "jarmark", icon: "jarmark", label: "Jarmarki średniowieczne" },
+    { v: "kinder", icon: "kinder", label: "Wydarzenia dla dzieci" },
+    { v: "party", icon: "party", label: "Teatr / Film" },
+    { v: "party", icon: "party", label: "Wystawy / Muzea" },
+    { v: "party", icon: "party", label: "Fotografia" },
+    { v: "party", icon: "party", label: "Czytanie / Poezja" }
+  ]},
+  { title: "Jedzenie i Targi", desc: "Co najbardziej Ci smakuje?", grid: [
+    { v: "volksfest", icon: "volksfest", label: "Festyny Piwne" },
+    { v: "kulinaria", icon: "kulinaria", label: "Street Food" },
+    { v: "kulinaria", icon: "kulinaria", label: "Kuchnia bawarska" },
+    { v: "flohmarkt", icon: "flohmarkt", label: "Flohmarkt / Targi" },
+    { v: "xmas", icon: "xmas", label: "Jarmarki Świąteczne" },
+    { v: "kulinaria", icon: "kulinaria", label: "Wino / Degustacje" }
+  ]},
+  { title: "Natura i Relaks", desc: "Bawarska przyroda i chill.", grid: [
+    { v: "natur", icon: "natur", label: "Spacery / Parki" },
+    { v: "natur", icon: "natur", label: "Wellness / Spa" },
+    { v: "natur", icon: "natur", label: "Jeziora / Plaże" },
+    { v: "extreme", icon: "extreme", label: "Paralotnie" },
+    { v: "natur", icon: "natur", label: "Ogrody botaniczne" },
+    { v: "natur", icon: "natur", label: "Zoo / Dzikie zwierzęta" }
+  ]}
+];
+
+function buildSurveyUI() {
+  $("surveySteps").innerHTML = surveyData.map((s, idx) => `
+    <div class="survey-step" data-step="${idx}">
+      <p class="mu">Krok ${idx+1} z ${surveyData.length + 1}</p>
+      <h3>${s.title}</h3>
+      <p class="mu" style="margin-bottom:8px">${s.desc}</p>
+      <div class="survey-grid">
+        ${s.grid.map(o => `
+          <label class="survey-opt" data-val="${o.v}">
+            ${ic(o.icon, 24)}
+            <span>${o.label}</span>
+          </label>
+        `).join("")}
+      </div>
+    </div>
+  `).join("") + `
+    <div class="survey-step" data-step="${surveyData.length}">
+      <p class="mu">Krok ${surveyData.length+1} z ${surveyData.length + 1}</p>
+      <h3>Zasięg i Podsumowanie</h3>
+      <p class="mu">Jak daleko jesteś gotów pojechać?</p>
+      <input type="range" class="survey-range" id="surveyRange" min="10" max="120" value="50" step="5">
+      <div style="text-align:center;font-weight:700;font-size:1.2rem" id="surveyRangeVal">50 km</div>
+      <label class="mrow" style="margin-top:20px;font-size:1rem"><input type="checkbox" id="surveyBig" checked> Pokazuj również duże wydarzenia (np. Oktoberfest)</label>
+    </div>
+  `;
+  document.querySelectorAll(".survey-opt").forEach(opt => {
+    opt.onclick = () => {
+      const val = opt.dataset.val;
+      if (sCats.has(val)) { sCats.delete(val); opt.classList.remove("sel"); }
+      else { sCats.add(val); opt.classList.add("sel"); }
+    };
+  });
+  $("surveyRange").oninput = (e) => { $("surveyRangeVal").textContent = e.target.value + " km"; };
+}
 
 function openSurvey() {
   surveyEl.classList.add("show");
   sStep = 0; 
-  sCats = new Set(PREF.cats); // Zachowaj poprzednie wybory
-  // Reset UI
+  sCats = new Set(PREF.cats);
   document.querySelectorAll(".survey-opt").forEach(el => {
     el.classList.toggle("sel", sCats.has(el.dataset.val));
   });
   $("surveyRange").value = PREF.radius;
   $("surveyRangeVal").textContent = PREF.radius + " km";
+  $("surveyBig").checked = PREF.big;
   updateSurveyUI();
 }
 
-function closeSurvey() {
-  surveyEl.classList.remove("show");
-}
+function closeSurvey() { surveyEl.classList.remove("show"); }
 
 function updateSurveyUI() {
-  sSteps.forEach((el, i) => el.classList.toggle("active", i === sStep));
-  sBar.style.width = ((sStep + 1) / sSteps.length * 100) + "%";
+  document.querySelectorAll(".survey-step").forEach((el, i) => el.classList.toggle("active", i === sStep));
+  sBar.style.width = ((sStep + 1) / (surveyData.length + 1) * 100) + "%";
   $("surveyPrev").style.visibility = sStep === 0 ? "hidden" : "visible";
   
   const nextBtn = $("surveyNext");
-  if (sStep === sSteps.length - 1) {
-    nextBtn.textContent = "Zapisz i pokaż wyniki";
+  if (sStep === surveyData.length) {
+    nextBtn.textContent = "Zapisz i pokaż";
     nextBtn.onclick = finishSurvey;
   } else {
     nextBtn.textContent = "Dalej";
@@ -718,28 +729,14 @@ function updateSurveyUI() {
 
 $("surveyPrev").onclick = () => { if (sStep > 0) { sStep--; updateSurveyUI(); } };
 $("surveyClose").onclick = closeSurvey;
-$("surveyRange").oninput = (e) => { $("surveyRangeVal").textContent = e.target.value + " km"; };
-
-// Obsługa klikania w opcje
-document.querySelectorAll(".survey-opt").forEach(opt => {
-  opt.onclick = () => {
-    const val = opt.dataset.val;
-    if (sCats.has(val)) { sCats.delete(val); opt.classList.remove("sel"); }
-    else { sCats.add(val); opt.classList.add("sel"); }
-  };
-});
 
 function finishSurvey() {
   PREF.cats = new Set(sCats);
   PREF.radius = Number($("surveyRange").value);
+  PREF.big = $("surveyBig").checked;
   savePrefs();
-  
-  // Wyczyść filtry widoku, aby ankieta była w pełni widoczna
   S.region = "all"; S.town = null; S.q = ""; $("q").value = "";
-  
-  closeSurvey();
-  refresh();
-  setView("list");
+  closeSurvey(); refresh(); setView("list");
 }
 
 $("logo").innerHTML=ic("logo",26);$("sri").innerHTML=ic("search",18);
@@ -749,9 +746,10 @@ $("logo").innerHTML=ic("logo",26);$("sri").innerHTML=ic("search",18);
  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" preserveAspectRatio="xMidYMid slice"><defs><filter id="f" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="16"/></filter></defs><g fill="#fff" filter="url(#f)">${g}</g></svg>`;
  $("sky").style.backgroundImage=`url("data:image/svg+xml;utf8,${enc(svg)}")`})();
 
-setView("list");render();
+buildSurveyUI();
+setView("list");
+render();
 
-// Jeśli użytkownik jest tu pierwszy raz, pokaż ankietę po chwili
 if(!localStorage.getItem("eb-prefs")) {
   setTimeout(openSurvey, 1000);
 }
