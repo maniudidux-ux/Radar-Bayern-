@@ -29,6 +29,16 @@ h1{margin:0;font-size:1.32rem;letter-spacing:-.015em}.sub,.mu{margin:2px 0 0;col
 .sr{display:flex;align-items:center;gap:10px;padding:0 16px;height:48px;border-radius:24px;color:var(--muted)}
 .sr input{flex:1;min-width:0;background:none;border:none;outline:none;color:var(--text);font:inherit}
 .sr input::placeholder{color:var(--muted)}
+
+/* NOWY PRZYCISK AI */
+.ai-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:12px;border-radius:16px;background:linear-gradient(135deg, #8b5cf6, #3b82f6);color:#fff;border:none;font-weight:600;font-size:.9rem;box-shadow:0 4px 12px rgba(139,92,246,.3);transition:transform .1s, opacity .2s}
+.ai-btn:active{transform:scale(.98)}
+.ai-btn.loading{opacity:.7;pointer-events:none}
+.ai-btn svg{animation:spin 2s linear infinite;display:none}
+.ai-btn.loading svg{display:block}
+.ai-btn.loading .icon-magic{display:none}
+@keyframes spin{100%{transform:rotate(360deg)}}
+
 .row{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}.row::-webkit-scrollbar{display:none}
 .chip{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:8px 14px;border-radius:14px;border:1px solid var(--line);background:var(--glass);font-size:.82rem;font-weight:600;box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
 .chip.on{background:var(--on);color:var(--ont);border-color:transparent}
@@ -164,6 +174,14 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
   <header class="hd"><span class="logo" id="logo"></span><h1>Eventy <em>Bayern</em></h1><p class="sub">Aichach · cała Bawaria</p><i class="orn"></i></header>
   <div id="listview">
     <label class="sr glass"><span id="sri"></span><input id="q" type="search" placeholder="Szukaj wydarzenia lub miejscowości"></label>
+    
+    <!-- PRZYCISK AI -->
+    <button class="ai-btn" id="aiSearchBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+      <span class="icon-magic">✨</span>
+      <span>Szukaj z AI (DeepSeek)</span>
+    </button>
+
     <div class="row" id="levels"></div>
     <div class="cnt" id="count"></div>
     <div id="list"></div>
@@ -195,6 +213,9 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
 </div>
 
 <script>
+// --- KONFIGURACJA ---
+const WORKER_URL = "TU_WKLEJ_ADRES_SWOJEGO_WORKERA"; // np. https://event-radar-ai.twojanazwa.workers.dev
+
 const ICONS={
  xmas:'<path d="M12 3l5 6h-3l4 5h-4l3 4H7l3-4H6l4-5H7z"/><path d="M12 18v3"/>',
  flohmarkt:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
@@ -246,7 +267,7 @@ const CATS={
 };
 const H="https://de.headtopics.com/news/weihnachtsmarkte-2026-im-landkreis-aichach-friedberg-89545835";
 const F="https://www.festivalsindeutschland.de/festival/";
-const EVENTS=[
+let EVENTS=[
  {id:1,title:"Kathreinmarkt Aindling",date:"2026-11-21",end:"2026-11-22",time:"sob 17–20, nd 11–20",place:"Aindling, Marktplatz",region:"afb",cat:"xmas",level:"gmina",url:H},
  {id:2,title:"Christkindlmarkt Dachau",date:"2026-11-20",end:"2026-12-23",time:"codziennie",place:"Dachau, Altstadt",region:"dah",cat:"xmas",level:"region",url:F+"dachauer-christkindlmarkt-dachau"},
  {id:3,title:"Münchner Adventsspektakel",date:"2026-11-20",end:"2026-12-23",time:"11–21",place:"Monachium, Wittelsbacherplatz",region:"muc",cat:"jarmark",level:"region",url:F+"muenchner-adventsspektakel-mittelaltermarkt"},
@@ -264,7 +285,6 @@ const EVENTS=[
  {id:15,title:"Pfaffenhofener Weihnachtsmarkt",date:null,place:"Pfaffenhofen, Rathaus",region:"paf",cat:"xmas",level:"gmina",url:"https://microsites.bahn.de/regional-de/regionen/bayern/ausflugstipps/weihnachtsmaerkte-uebersicht/weihnachtsmarkt_pfaffenhofen"},
  {id:16,title:"Neujahrsspringen – Turniej Czterech Skoczni",date:"2026-12-31",end:"2027-01-01",time:"31.12 kobiety, 1.01 konkurs od 14:00",place:"Garmisch-Partenkirchen, Olympiaschanze",region:"by",cat:"skoki",level:"big",url:"https://events.europa.tips/neujahrsskispringen-garmisch-partenkirchen"},
  {id:17,title:"We Love MMA 93",date:"2027-02-13",time:"19:00",place:"Monachium",region:"muc",cat:"mma",level:"big",url:"https://www.regioactive.de/sport/we-love-mma-termine-tickets-dde28fd027a1"},
- // --- NOWE KATEGORIE ---
  {id:18,title:"Oktoberfest München",date:"2027-09-18",end:"2027-10-03",time:"codziennie",place:"Monachium, Theresienwiese",region:"muc",cat:"volksfest",level:"big",url:"https://www.oktoberfest.de/"},
  {id:19,title:"Friedberger Volksfest",date:"2027-08-06",end:"2027-08-15",time:"Różne godziny",place:"Friedberg, Festplatz",region:"afb",cat:"volksfest",level:"region",url:H},
  {id:20,title:"Gillamoos Abensberg",date:"2027-08-27",end:"2027-09-06",time:"Różne godziny",place:"Abensberg",region:"by",cat:"volksfest",level:"big",url:"https://www.gillamoos.de/"},
@@ -488,6 +508,93 @@ function render(){
 const refresh=()=>{render();if(VIEW==="map" && GMODE==="pins"){drawLeaflet()}};
 
 let VIEW="list",DR=null,GMODE="gm",gmq="";
+
+// --- AI SEARCH ---
+$("aiSearchBtn").onclick = async () => {
+  if(WORKER_URL.includes("TU_WKLEJ")) {
+    alert("Najpierw musisz wkleić adres URL swojego Cloudflare Workera w kodzie HTML (zmienna WORKER_URL)!");
+    return;
+  }
+  
+  const btn = $("aiSearchBtn");
+  btn.classList.add("loading");
+  btn.querySelector("span:last-child").textContent = "Skanuję sieć...";
+
+  try {
+    const query = `Wydarzenia i imprezy w Aichach, Augsburg, Friedberg, Monachium (Bawaria) na rok 2026 i 2027 - koncerty, sport, festyny, kultura`;
+    
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query })
+    });
+
+    if (!res.ok) throw new Error("Błąd serwera " + res.status);
+    const data = await res.json();
+    
+    // Oczekujemy tablicy JSON z Worker'a
+    let newEvents = [];
+    if (Array.isArray(data)) newEvents = data;
+    else if (data.events && Array.isArray(data.events)) newEvents = data.events; // fallback
+    
+    if(!newEvents.length) {
+      alert("AI nie znalazło nowych wydarzeń. Spróbuj ponownie później.");
+      return;
+    }
+
+    // Przetwarzanie i dodawanie nowych wydarzeń
+    let addedCount = 0;
+    const maxId = Math.max(...EVENTS.map(e=>e.id), 0);
+
+    newEvents.forEach((ev, idx) => {
+      // Walidacja czy wydarzenie już istnieje
+      if(EVENTS.some(e => e.title.toLowerCase() === (ev.title||"").toLowerCase())) return;
+
+      // Ustalenie kategorii (jeśli AI zwróci coś dziwnego, wrzucamy "inne" lub "party")
+      let cat = "party";
+      if(ev.category && CATS[ev.category]) cat = ev.category;
+      
+      // Uzupełnianie brakujących danych
+      const newEv = {
+        id: maxId + 1 + idx,
+        title: ev.title || "Nowe wydarzenie",
+        date: ev.date || "2026-12-01", // Fallback
+        end: null,
+        time: ev.time || null,
+        place: ev.place || "Bawaria",
+        region: "by", // Domyślnie reszta Bawarii, chyba że miasto pasuje
+        cat: cat,
+        level: "region",
+        url: ev.url || "#",
+        description: ev.description || "Wydarzenie znalezione przez AI."
+      };
+
+      // Inteligentne dopasowanie regionu po nazwie miejsca
+      if(newEv.place.match(/Aichach|Friedberg|Mering/i)) newEv.region = "afb";
+      if(newEv.place.match(/München|Monachium/i)) newEv.region = "muc";
+      if(newEv.place.match(/Augsburg/i)) newEv.region = "by";
+
+      EVENTS.push(newEv);
+      addedCount++;
+    });
+
+    if(addedCount > 0) {
+      // Sortowanie i odświeżanie widoku
+      EVENTS.sort((a,b)=>(a.date||"9").localeCompare(b.date||"9"));
+      refresh();
+      alert(`✨ Sukces! AI znalazło i dodało ${addedCount} nowych wydarzeń.`);
+    } else {
+      alert("AI przeszukało sieć, ale nie znalazło nowych, unikalnych wydarzeń.");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Wystąpił błąd podczas łączenia z AI: " + err.message);
+  } finally {
+    btn.classList.remove("loading");
+    btn.querySelector("span:last-child").textContent = "Szukaj z AI (DeepSeek)";
+  }
+};
 
 // --- MAPA Z PINEZKAMI (LEAFLET) ---
 let lmap = null, clusterGroup = null;
