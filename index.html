@@ -214,7 +214,7 @@ h1 em{font-style:italic;font-weight:600;color:#fff;text-shadow:0 2px 16px rgba(8
 
 <script>
 // --- KONFIGURACJA ---
-const WORKER_URL = "https://event-radar-ai.maniudidux.workers.dev/"; // np. https://event-radar-ai.twojanazwa.workers.dev
+const WORKER_URL = "https://event-radar-ai.maniudidux.workers.dev/"; // Twój Worker
 
 const ICONS={
  xmas:'<path d="M12 3l5 6h-3l4 5h-4l3 4H7l3-4H6l4-5H7z"/><path d="M12 18v3"/>',
@@ -532,6 +532,12 @@ $("aiSearchBtn").onclick = async () => {
     if (!res.ok) throw new Error("Błąd serwera " + res.status);
     const data = await res.json();
     
+    // NOWOŚĆ: Sprawdzanie błędu z Workera
+    if (data.error) {
+      alert("Błąd AI: " + data.error);
+      return;
+    }
+
     // Oczekujemy tablicy JSON z Worker'a
     let newEvents = [];
     if (Array.isArray(data)) newEvents = data;
@@ -589,7 +595,7 @@ $("aiSearchBtn").onclick = async () => {
 
   } catch (err) {
     console.error(err);
-    alert("Wystąpił błąd podczas łączenia z AI: " + err.message);
+    alert("Wystąpił błąd: " + err.message);
   } finally {
     btn.classList.remove("loading");
     btn.querySelector("span:last-child").textContent = "Szukaj z AI (DeepSeek)";
