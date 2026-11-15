@@ -255,7 +255,8 @@ const ICONS={
  photo:'<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2"/><path d="M4 18l5-4 4 3 3-2 4 3"/>',
  magic:'<path d="M15 4V2m0 20v-2M8 9l-2-2m14 14-2-2M4 15H2m20 0h-2M8 15l-2 2m14-14-2 2M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>',
  volksfest:'<path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/>',
- natur:'<path d="M12 22s8-4 8-10c0-4-4-8-8-8s-8 4-8 8c0 6 8 10 8 10z"/><path d="M12 22V12"/>'
+ natur:'<path d="M12 22s8-4 8-10c0-4-4-8-8-8s-8 4-8 8c0 6 8 10 8 10z"/><path d="M12 22V12"/>',
+ brauchtum:'<path d="M12 2a5 5 0 0 0-5 5c0 2 1 3.5 1 5l-2 6h12l-2-6c0-1.5 1-3 1-5a5 5 0 0 0-5-5z"/><path d="M9 10h6M9 13h6M9 16h6"/>'
 };
 const ic=(n,s=20)=>`<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
 
@@ -263,7 +264,7 @@ const REGIONS=[["all","Wszystkie"],["afb","Aichach-Friedberg"],["nsh","Neuburg-S
 const RQ={all:"Aichach Bayern",afb:"Aichach Friedberg",nsh:"Neuburg Schrobenhausen",dah:"Dachau",paf:"Pfaffenhofen Ilm",ffb:"Fürstenfeldbruck",muc:"München",by:"Bayern"};
 const LEVELS=[["all","Wszystkie"],["gmina","Gminne"],["region","Regionalne"],["big","Duże"],["fav","Zapisane"]];
 const CATS={
-  xmas:["🎄","Jarmarki świąteczne",30,"Weihnachtsmarkt"], flohmarkt:["🛍️","Flohmarkt",200,"Flohmarkt"], kinder:["🧸","Kinderflohmarkt",340,"Kinderflohmarkt"], ski:["⛷️","Ski-Markt",210,"Skibörse"], skoki:["🎿","Skoki",220,"Skispringen"], extreme:["🪂","Sporty wyczynowe",190,"Red Bull"], mma:["🥊","MMA",0,"MMA"], moto:["🏍️","Motocross",20,"Motocross"], rajdy:["🏁","Rajdy",10,"Rallye"], esport:["🏆","E-sport",260,"E-Sport"], gry:["🎮","Gry",280,"Gaming"], drony:["🚁","Drony",180,"Drohnen"], sport:["⚽","Sport / mecze",120,"Sport"], rolki:["🛼","Rolki",150,"Inline"], party:["🎉","Imprezy",300,"Konzert"], hiphop:["🎤","Hip-Hop / Rap",290,"Hip-Hop Rap"], tech:["💡","Technologie",240,"Technik"], jarmark:["🏰","Jarmark średniowieczny",35,"Mittelaltermarkt"], kulinaria:["🍴","Kulinaria",25,"Street Food"], natur:["🏕️","Natura i Relaks",80,"Wandern Camping"], volksfest:["🍺","Festyny Ludowe",45,"Volksfest Biergarten"]
+  xmas:["🎄","Jarmarki świąteczne",30,"Weihnachtsmarkt"], flohmarkt:["🛍️","Flohmarkt",200,"Flohmarkt"], kinder:["🧸","Kinderflohmarkt",340,"Kinderflohmarkt"], ski:["⛷️","Ski-Markt",210,"Skibörse"], skoki:["🎿","Skoki",220,"Skispringen"], extreme:["🪂","Sporty wyczynowe",190,"Red Bull"], mma:["🥊","MMA",0,"MMA"], moto:["🏍️","Motocross",20,"Motocross"], rajdy:["🏁","Rajdy",10,"Rallye"], esport:["🏆","E-sport",260,"E-Sport"], gry:["🎮","Gry",280,"Gaming"], drony:["🚁","Drony",180,"Drohnen"], sport:["⚽","Sport / mecze",120,"Sport"], rolki:["🛼","Rolki",150,"Inline"], party:["🎉","Imprezy",300,"Konzert"], hiphop:["🎤","Hip-Hop / Rap",290,"Hip-Hop Rap"], tech:["💡","Technologie",240,"Technik"], jarmark:["🏰","Jarmark średniowieczny",35,"Mittelaltermarkt"], kulinaria:["🍴","Kulinaria",25,"Street Food"], natur:["🏕️","Natura i Relaks",80,"Wandern Camping"], volksfest:["🍺","Festyny Ludowe",45,"Volksfest Biergarten"], brauchtum:["🏮","Obrzędy / Tradycje",15,"Krampus Perchten Brauchtum"]
 };
 const H="https://de.headtopics.com/news/weihnachtsmarkte-2026-im-landkreis-aichach-friedberg-89545835";
 const F="https://www.festivalsindeutschland.de/festival/";
@@ -293,7 +294,11 @@ let EVENTS=[
  {id:23,title:"Paartal-Radltour",date:"2027-06-11",time:"10:00",place:"Aichach",region:"afb",cat:"natur",level:"region",url:"https://www.wittelsbacherland.de"},
  {id:24,title:"Kajak-Tour auf der Paar",date:"2027-07-15",time:"09:30",place:"Augsburg",region:"by",cat:"natur",level:"region",url:"https://www.augsburg.de"},
  {id:25,title:"Alpen-Camping Wochenende",date:"2027-08-20",end:"2027-08-22",time:"cały dzień",place:"Oberstdorf",region:"by",cat:"natur",level:"big",url:"https://www.oberstdorf.de"},
- {id:26,title:"Wellness & Spa Messe München",date:"2027-02-05",end:"2027-02-07",time:"10:00 - 18:00",place:"München, Messe",region:"muc",cat:"natur",level:"big",url:"https://www.messe-muenchen.de"}
+ {id:26,title:"Wellness & Spa Messe München",date:"2027-02-05",end:"2027-02-07",time:"10:00 - 18:00",place:"München, Messe",region:"muc",cat:"natur",level:"big",url:"https://www.messe-muenchen.de"},
+ {id:27,title:"Krampuslauf München",date:"2026-12-13",time:"15:00 – 17:00",place:"Monachium, Innenstadt",region:"muc",cat:"brauchtum",level:"big",url:"https://www.muenchen.de/veranstaltungen/krampuslauf"},
+ {id:28,title:"Perchtenlauf Kirchseeon",date:"2026-12-05",time:"18:00",place:"Kirchseeon",region:"by",cat:"brauchtum",level:"region",url:"https://www.kirchseeon.de"},
+ {id:29,title:"Klausentreiben Sonthofen",date:"2026-12-05",time:"17:00",place:"Sonthofen",region:"by",cat:"brauchtum",level:"region",url:"https://www.sonthofen.de"},
+ {id:30,title:"Rauhnacht Bayerisch Eisenstein",date:"2026-12-30",time:"19:00",place:"Bayerisch Eisenstein",region:"by",cat:"brauchtum",level:"big",url:"https://www.bayerisch-eisenstein.de"}
 ];
 const EF="https://www.eventfinder.de/veranstaltungen-aichach.php",OB="Aichach-Obermauerbach, Canada (Podium)";
 const MORE=[
@@ -386,7 +391,7 @@ MORE.forEach((m,i)=>EVENTS.push({id:100+i,date:m[0],end:m[1]||undefined,title:m[
 EVENTS.sort((a,b)=>(a.date||"9").localeCompare(b.date||"9"));
 
 const S={region:"all",level:"all",cats:new Set(),q:"",past:false,favs:new Set(),town:null};
-const DEF=["skoki","extreme","mma","moto","rajdy","esport","gry","drony","tech","jarmark","kulinaria","rolki","sport","hiphop","natur","volksfest"];
+const DEF=["skoki","extreme","mma","moto","rajdy","esport","gry","drony","tech","jarmark","kulinaria","rolki","sport","hiphop","natur","volksfest","brauchtum"];
 const PREF={cats:new Set(DEF),radius:50,big:true};
 try{const p=JSON.parse(localStorage.getItem("eb-prefs")||"null");if(p){PREF.cats=new Set(p.cats);PREF.radius=p.radius||50;PREF.big=p.big!==false}}catch(e){}
 const savePrefs=()=>{try{localStorage.setItem("eb-prefs",JSON.stringify({cats:[...PREF.cats],radius:PREF.radius,big:PREF.big}))}catch(e){}};
@@ -395,7 +400,7 @@ const HOME=[48.458,11.134];
 const km=(a,b)=>{const r=x=>x*Math.PI/180,dl=r(b[0]-a[0]),dn=r(b[1]-a[1]),h=Math.sin(dl/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dn/2)**2;return 12742*Math.asin(Math.sqrt(h))};
 const townOf=e=>e.place.split(",")[0].trim();
 
-const TOWNS={"Aichach":[48.458,11.134],"Aichach-Obermauerbach":[48.46,11.08],"Aichach-Unterwittelsbach":[48.469,11.156],"Aindling":[48.476,11.062],"Friedberg":[48.356,10.988],"Schiltberg":[48.50,11.22],"Merching":[48.28,10.98],"Affing":[48.39,10.96],"Eurasburg":[48.31,11.02],"Kühbach":[48.48,11.01],"Hollenbach":[48.52,11.10],"Dachau":[48.26,11.434],"Fahrenzhausen / Vierkirchen":[48.34,11.51],"Schrobenhausen":[48.557,11.265],"Pfaffenhofen":[48.53,11.504],"Monachium":[48.135,11.582],"Fürth":[49.477,10.989],"Garmisch-Partenkirchen":[47.492,11.096],"Oberstdorf":[47.409,10.279],"Taufkirchen":[48.049,11.618],"Fuchstal":[47.985,10.85],"Dillingen a.d. Donau":[48.578,10.495],"Dingolfing":[48.635,12.495],"Ampfing":[48.258,12.404],"Neutraubling":[48.988,12.2],"Höchstadt a.d. Aisch":[49.7,10.81],"Furth im Wald":[49.309,12.845],"Wartenberg-Auerbach":[48.4,11.98],"Mühldorf a. Inn":[48.246,12.524],"Augsburg":[48.371,10.898],"Norymberga":[49.452,11.077],"Memmingen":[47.983,10.185],"Sankt Englmar":[48.97,12.8],"Ingolstadt":[48.766,11.425],"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32],"Rederzhausen":[48.35,10.98],"Blumenthal":[48.45,11.15],"Gersthofen":[48.424,10.872],"Abensberg":[48.816,11.849]};
+const TOWNS={"Aichach":[48.458,11.134],"Aichach-Obermauerbach":[48.46,11.08],"Aichach-Unterwittelsbach":[48.469,11.156],"Aindling":[48.476,11.062],"Friedberg":[48.356,10.988],"Schiltberg":[48.50,11.22],"Merching":[48.28,10.98],"Affing":[48.39,10.96],"Eurasburg":[48.31,11.02],"Kühbach":[48.48,11.01],"Hollenbach":[48.52,11.10],"Dachau":[48.26,11.434],"Fahrenzhausen / Vierkirchen":[48.34,11.51],"Schrobenhausen":[48.557,11.265],"Pfaffenhofen":[48.53,11.504],"Monachium":[48.135,11.582],"Fürth":[49.477,10.989],"Garmisch-Partenkirchen":[47.492,11.096],"Oberstdorf":[47.409,10.279],"Taufkirchen":[48.049,11.618],"Fuchstal":[47.985,10.85],"Dillingen a.d. Donau":[48.578,10.495],"Dingolfing":[48.635,12.495],"Ampfing":[48.258,12.404],"Neutraubling":[48.988,12.2],"Höchstadt a.d. Aisch":[49.7,10.81],"Furth im Wald":[49.309,12.845],"Wartenberg-Auerbach":[48.4,11.98],"Mühldorf a. Inn":[48.246,12.524],"Augsburg":[48.371,10.898],"Norymberga":[49.452,11.077],"Memmingen":[47.983,10.185],"Sankt Englmar":[48.97,12.8],"Ingolstadt":[48.766,11.425],"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32],"Rederzhausen":[48.35,10.98],"Blumenthal":[48.45,11.15],"Gersthofen":[48.424,10.872],"Abensberg":[48.816,11.849],"Kirchseeon":[48.073,11.887],"Sonthofen":[47.515,10.281],"Bayerisch Eisenstein":[49.121,13.201]};
 const EXTRA={"Mering":[48.266,10.978],"Kissing":[48.29,10.96],"Pöttmes":[48.594,11.061],"Dasing":[48.42,11.0],"Neuburg a.d. Donau":[48.734,11.182],"Hohenwart":[48.62,11.18],"Altomünster":[48.384,11.26],"Markt Indersdorf":[48.358,11.379],"Karlsfeld":[48.22,11.48],"Petershausen":[48.4,11.47],"Geisenfeld":[48.685,11.612],"Wolnzach":[48.6,11.65],"Vohburg":[48.766,11.615],"Scheyern":[48.505,11.45],"Olching":[48.2,11.33],"Germering":[48.134,11.375],"Puchheim":[48.175,11.355],"Mammendorf":[48.219,11.215],"Maisach":[48.22,11.27],"Fürstenfeldbruck":[48.179,11.255],"Eichenau":[48.17,11.32]};
 
 const dist=e=>{const t=TOWNS[townOf(e)]||EXTRA[townOf(e)];return t?km(HOME,t):(e.region==="afb"?0:999)};
@@ -435,9 +440,10 @@ const SC={
  jarmark:["#e9a352","#2c1f3b",()=>Pg("0,240 0,170 40,170 40,140 60,140 60,170 100,170 100,120 112,120 112,100 124,100 124,120 136,120 136,170 180,170 180,150 200,150 200,170 400,170 400,240","#150d1a")+Pg("250,170 250,96 262,96 262,80 274,80 274,96 286,96 286,80 298,80 298,96 310,96 310,170","#150d1a")+Ln("M274 80V56","#150d1a",2)+Pg("274,56 300,64 274,72","#c62828")+Ci(60,200,10,"#ffb347",.9)+Ci(340,204,10,"#ffb347",.9)+bk("#ffb347",12,59,100,220,6,16)+Rc(0,214,400,26,"#1b1120")],
  kulinaria:["#2a1408","#7b3a12",()=>Rc(0,162,400,78,"#3a2312")+`<ellipse cx="120" cy="178" rx="62" ry="13" fill="#f2ede3"/>`+Ci(100,170,12,"#c8553d")+Ci(124,168,11,"#7da854")+Ci(142,172,9,"#e8b04b")+`<ellipse cx="290" cy="184" rx="58" ry="12" fill="#e9e2d4"/>`+Ci(278,176,13,"#d9822b")+Ci(304,178,10,"#8a5a2b")+Ln("M120 150q6-14 0-28M140 152q-6-14 2-26","#ffffff",3,.3)+Ln("M0 36Q200 70 400 30","#fff1c9",1.5,.7)+AR(9,i=>Ci(20+i*46,(44+Math.sin(i)*10).toFixed(1),4,"#ffd98a",.95))+bk("#ffb454",12,61,30,170,6,18)],
  natur:["#0d2e1f","#1d5c3f",()=>Pg("0,240 0,170 100,100 200,150 300,90 400,160 400,240","#0a1f14")+Pg("0,240 0,200 150,150 250,190 400,140 400,240","#06180e")+Ci(300,60,25,"#ffd37f",.8)+AR(6,i=>Ln(`M${50+i*60} 240L${80+i*60} 140`,"#3b7a57",2,.5))+bk("#a3e6c8",10,91,100,200,4,12)],
- volksfest:["#2e180a","#8a4b1a",()=>Pg("0,240 0,140 80,140 80,60 320,60 320,140 400,140 400,240","#4a220a")+AR(7,i=>Rc(15+i*54,60,40,80,["#ffb454","#c8553d","#f4d35e"][i%3],10,.8))+Ln("M200 60V10","#4a220a",3)+Pg("200,10 260,26 200,42","#c62828")+Ci(80,190,12,"#fff",.8)+Ci(320,190,12,"#fff",.8)+bk("#ffd37f",15,93,120,240,6,18)+Rc(0,220,400,20,"#301608")]
+ volksfest:["#2e180a","#8a4b1a",()=>Pg("0,240 0,140 80,140 80,60 320,60 320,140 400,140 400,240","#4a220a")+AR(7,i=>Rc(15+i*54,60,40,80,["#ffb454","#c8553d","#f4d35e"][i%3],10,.8))+Ln("M200 60V10","#4a220a",3)+Pg("200,10 260,26 200,42","#c62828")+Ci(80,190,12,"#fff",.8)+Ci(320,190,12,"#fff",.8)+bk("#ffd37f",15,93,120,240,6,18)+Rc(0,220,400,20,"#301608")],
+ brauchtum:["#1a0a0a","#4a0e0e",()=>Pg("0,240 0,180 50,150 100,180 150,120 200,180 250,110 300,180 350,140 400,180 400,240","#2a0505")+AR(15,i=>Ci((i*47)%390,(i*83)%180+20,4,"#ff3333",.8))+Ci(200,100,60,"#ff0000",.2)+bk("#ff0000",15,99,20,180,6,18)]
 };
-const TAGS={xmas:"christmas,market",flohmarkt:"flea,market",kinder:"children,playground",ski:"ski,skis",skoki:"ski,jumping",extreme:"extreme,sports",mma:"mma,fighter",moto:"motocross",rajdy:"rally,car",esport:"esports,gaming",gry:"videogame,gaming",drony:"drone,lights",rolki:"inline,skates",party:"concert,crowd",hiphop:"hiphop,rap,concert",tech:"electronics,circuit",jarmark:"medieval,market",kulinaria:"streetfood,food",sport:"football,stadium",natur:"hiking,nature",volksfest:"festival,beer"};
+const TAGS={xmas:"christmas,market",flohmarkt:"flea,market",kinder:"children,playground",ski:"ski,skis",skoki:"ski,jumping",extreme:"extreme,sports",mma:"mma,fighter",moto:"motocross",rajdy:"rally,car",esport:"esports,gaming",gry:"videogame,gaming",drony:"drone,lights",rolki:"inline,skates",party:"concert,crowd",hiphop:"hiphop,rap,concert",tech:"electronics,circuit",jarmark:"medieval,market",kulinaria:"streetfood,food",sport:"football,stadium",natur:"hiking,nature",volksfest:"festival,beer",brauchtum:"krampus,perchten,demon"};
 const PHC={};
 function photo(k){if(PHC[k])return PHC[k];const[t,b,fn]=SC[k]||SC.party;
  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t}"/><stop offset="1" stop-color="${b}"/></linearGradient><filter id="b"><feGaussianBlur stdDeviation="3.5"/></filter><filter id="n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><radialGradient id="v" cx=".5" cy=".45" r=".8"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient></defs><rect width="400" height="240" fill="url(#g)"/>${fn()}<rect width="400" height="240" fill="url(#v)"/><rect width="400" height="240" filter="url(#n)" opacity=".32" style="mix-blend-mode:soft-light"/></svg>`;
@@ -463,7 +469,7 @@ const WKC={};
 async function wk(lang,title){const k=lang+":"+title;if(k in WKC)return WKC[k];
   try{const r=await fetch(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);if(!r.ok)throw 0;const j=await r.json(),t=j.thumbnail&&j.thumbnail.source;if(!t)throw 0;return WKC[k]={t,big:t.replace(/\/\d+px-/,"/800px-")}}catch(x){return WKC[k]=null}}
 const WKE=[[/Nürnberger Christkindlesmarkt/,"de","Nürnberger_Christkindlesmarkt"],[/Augsburger Christkindlesmarkt/,"de","Augsburger_Christkindlesmarkt"],[/Tollwood/,"de","Tollwood"],[/Vierschanzentournee|Neujahrsspringen|Oberstdorf/,"de","Vierschanzentournee"],[/Allianz Arena/,"de","Allianz_Arena"],[/WWK Arena/,"de","WWK_Arena"],[/DroneArt/,"en","Drone_show"],[/electronica/,"de","Electronica_(Messe)"]];
-const WKT={xmas:[["de","Christkindlesmarkt"],["de","Weihnachtsmarkt"],["de","Glühwein"],["de","Weihnachtsbaum"]],flohmarkt:[["en","Flea_market"],["de","Flohmarkt"],["en","Garage_sale"]],kinder:[["en","Toy"],["en","Teddy_bear"],["en","Playground"]],ski:[["en","Alpine_skiing"],["en","Ski"]],skoki:[["en","Ski_jumping"],["de","Skispringen"]],extreme:[["en","Extreme_sport"],["en","Skateboarding"]],mma:[["en","Mixed_martial_arts"],["de","Mixed_Martial_Arts"]],moto:[["en","Motocross"],["en","Supercross"]],rajdy:[["en","Rallying"],["de","Rallye"]],esport:[["en","Esports"]],gry:[["en","Video_game"],["en","Gamepad"]],drony:[["en","Unmanned_aerial_vehicle"],["en","Quadcopter"]],rolki:[["en","Inline_skates"],["en","Roller_skating"]],party:[["en","Concert"],["en","Music_festival"]],hiphop:[["en","Hip_hop_music"],["en","Rapping"],["en","Disc_jockey"]],tech:[["en","Electronics"],["en","Integrated_circuit"]],jarmark:[["de","Mittelaltermarkt"],["en","Renaissance_fair"]],kulinaria:[["en","Street_food"],["en","Food_truck"]],sport:[["en","Association_football"],["de","Bundesliga"]],natur:[["en","Hiking"],["en","Camping"],["en","Kayak"]],volksfest:[["en","Oktoberfest"],["en","Beer_festival"],["de","Volksfest"]]};
+const WKT={xmas:[["de","Christkindlesmarkt"],["de","Weihnachtsmarkt"],["de","Glühwein"],["de","Weihnachtsbaum"]],flohmarkt:[["en","Flea_market"],["de","Flohmarkt"],["en","Garage_sale"]],kinder:[["en","Toy"],["en","Teddy_bear"],["en","Playground"]],ski:[["en","Alpine_skiing"],["en","Ski"]],skoki:[["en","Ski_jumping"],["de","Skispringen"]],extreme:[["en","Extreme_sport"],["en","Skateboarding"]],mma:[["en","Mixed_martial_arts"],["de","Mixed_Martial_Arts"]],moto:[["en","Motocross"],["en","Supercross"]],rajdy:[["en","Rallying"],["de","Rallye"]],esport:[["en","Esports"]],gry:[["en","Video_game"],["en","Gamepad"]],drony:[["en","Unmanned_aerial_vehicle"],["en","Quadcopter"]],rolki:[["en","Inline_skates"],["en","Roller_skating"]],party:[["en","Concert"],["en","Music_festival"]],hiphop:[["en","Hip_hop_music"],["en","Rapping"],["en","Disc_jockey"]],tech:[["en","Electronics"],["en","Integrated_circuit"]],jarmark:[["de","Mittelaltermarkt"],["en","Renaissance_fair"]],kulinaria:[["en","Street_food"],["en","Food_truck"]],sport:[["en","Association_football"],["de","Bundesliga"]],natur:[["en","Hiking"],["en","Camping"],["en","Kayak"]],volksfest:[["en","Oktoberfest"],["en","Beer_festival"],["de","Volksfest"]],brauchtum:[["en","Krampus"],["en","Perchten"],["en","Fasching"]]};
 function tryImg(urls,done){const next=()=>{const u=urls.shift();if(!u)return;const i=new Image();i.referrerPolicy="no-referrer";i.onload=()=>done(u);i.onerror=next;i.src=u};next()}
 async function realPhoto(im,e){
   const list=[],ov=WKE.find(x=>x[0].test(e.title+" "+e.place)),pool=WKT[e.cat]||[];
@@ -525,18 +531,15 @@ $("aiSearchBtn").onclick = async () => {
     let query = "";
 
     if (searchInputVal) {
-      query = `Wydarzenia i imprezy w Bawarii (Aichach, Augsburg, Monachium) na temat: ${searchInputVal}`;
+      query = `Wydarzenia i imprezy w Bawarii na temat: ${searchInputVal}`;
     } else {
-      // Jeśli puste, szukamy po prostu koncertów w największym mieście z promienia
-      let city = "Augsburg";
-      if (PREF.radius >= 80) city = "München";
-      query = `Konzert ${city}`;
+      query = "Konzert";
     }
     
     const res = await fetch(WORKER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query })
+      body: JSON.stringify({ query: query, radius: PREF.radius })
     });
 
     if (!res.ok) throw new Error("Błąd serwera " + res.status);
@@ -756,13 +759,13 @@ const surveyData = [
     { v: "drony", icon: "drony", label: "Drony / FPV" },
     { v: "esport", icon: "esport", label: "Gry komputerowe" }
   ]},
-  { title: "Kultura i Sztuka", desc: "Zrelaksuj się przy kulturze.", grid: [
+  { title: "Kultura, Sztuka i Obrzędy", desc: "Zrelaksuj się przy kulturze i tradycji.", grid: [
+    { v: "brauchtum", icon: "brauchtum", label: "Obrzędy / Krampusy" },
     { v: "jarmark", icon: "jarmark", label: "Jarmarki średniowieczne" },
     { v: "kinder", icon: "kinder", label: "Wydarzenia dla dzieci" },
     { v: "party", icon: "party", label: "Teatr / Film" },
     { v: "party", icon: "party", label: "Wystawy / Muzea" },
-    { v: "party", icon: "party", label: "Fotografia" },
-    { v: "party", icon: "party", label: "Czytanie / Poezja" }
+    { v: "party", icon: "party", label: "Fotografia" }
   ]},
   { title: "Jedzenie i Targi", desc: "Co najbardziej Ci smakuje?", grid: [
     { v: "volksfest", icon: "volksfest", label: "Festyny Piwne" },
