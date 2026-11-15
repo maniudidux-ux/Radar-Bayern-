@@ -527,12 +527,10 @@ $("aiSearchBtn").onclick = async () => {
     if (searchInputVal) {
       query = `Wydarzenia i imprezy w Bawarii (Aichach, Augsburg, Monachium) na temat: ${searchInputVal}`;
     } else {
-      // Automatyczne wyszukiwanie na podstawie promienia
-      let towns = "Aichach";
-      if (PREF.radius >= 25) towns += " Friedberg";
-      if (PREF.radius >= 50) towns += " Augsburg";
-      if (PREF.radius >= 80) towns += " München";
-      query = `Veranstaltungen Konzerte Feste ${towns}`;
+      // Jeśli puste, szukamy po prostu koncertów w największym mieście z promienia
+      let city = "Augsburg";
+      if (PREF.radius >= 80) city = "München";
+      query = `Konzert ${city}`;
     }
     
     const res = await fetch(WORKER_URL, {
