@@ -535,36 +535,31 @@ $("aiSearchBtn").onclick = async () => {
     if (!res.ok) throw new Error("Błąd serwera " + res.status);
     const data = await res.json();
     
-    // Sprawdzanie błędu z Workera
     if (data.error) {
       alert("Błąd AI: " + data.error);
       return;
     }
 
-    // Oczekujemy tablicy JSON z Worker'a
     let newEvents = [];
     if (Array.isArray(data)) {
       newEvents = data;
     } else if (data.events && Array.isArray(data.events)) {
       newEvents = data.events;
     } else if (data.title && data.date) {
-      newEvents = [data]; // AI zwróciło pojedynczy obiekt
+      newEvents = [data];
     }
     
     if(!newEvents.length) {
-      alert("AI nie znalazło wydarzeń. Odpowiedź serwera: " + JSON.stringify(data).substring(0, 150));
+      alert("AI przeanalizowało wyniki, ale nie znalazło w nich nowych wydarzeń. Spróbuj wpisać inne słowa kluczowe (np. 'koncert Monachium', 'targi Augsburg').");
       return;
     }
 
-    // Przetwarzanie i dodawanie nowych wydarzeń
     let addedCount = 0;
     const maxId = Math.max(...EVENTS.map(e=>e.id), 0);
 
     newEvents.forEach((ev, idx) => {
-      // Walidacja czy wydarzenie już istnieje
       if(EVENTS.some(e => e.title.toLowerCase() === (ev.title||"").toLowerCase())) return;
 
-      // Ustalenie kategorii
       let cat = "party";
       if(ev.category && CATS[ev.category]) cat = ev.category;
       
